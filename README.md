@@ -1,2 +1,2 @@
 # TAU1
-Automatic Tests,  laboratory No.1
+Automatic Tests,  laboratorium  ~pantadeusz
