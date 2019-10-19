@@ -1,38 +1,18 @@
 package cars.s16281.tau.labone;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 /**
- * Unit test for simple App.
+ * Unit test for Car Class Implementation
  */
-public class CarTest 
-    extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public CarTest( String testName )
-    {
-        super( testName );
+@RunWith(JUnit4.class)
+public class CarTest {
+
+    @Test
+    public void DbField_MustPassArgumentsWhenCreatingNewCar() {  
+        
     }
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
-
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
-    }
 }

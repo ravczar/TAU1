@@ -7,7 +7,7 @@ import junit.framework.TestSuite;
 /**
  * Unit test for simple App.
  */
-public class EngineTest 
+public class AppTest 
     extends TestCase
 {
     /**
@@ -15,7 +15,7 @@ public class EngineTest
      *
      * @param testName name of the test case
      */
-    public EngineTest( String testName )
+    public AppTest( String testName )
     {
         super( testName );
     }
@@ -25,7 +25,7 @@ public class EngineTest
      */
     public static Test suite()
     {
-        return new TestSuite( EngineTest.class );
+        return new TestSuite( DbTest.class );
     }
 
     /**
