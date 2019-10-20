@@ -263,6 +263,48 @@ public class DbTest {
     /*
     * Database CRU*D* methods ONY 
     */
+    @Test
+    public void deleteCar_metheod_ReturnsAnObjectThatIsNotNull() {
+        DbImpl database = new DbImpl();
+        
+        database.createCar("Gray", "Volkswagen", "Patheon", "Sedan",
+         true, new EngineImpl(), new GearboxImpl());
+
+        Integer exactIdOfRecentlyAddedCar = database.carList.size()-1;
+
+        assertNotNull(database.deleteCar( exactIdOfRecentlyAddedCar ));  
+    }
+
+    @Test
+    public void deleteCar_metheod_DeletesCarFromOurListOfCarsSucessfully() {
+        DbImpl database = new DbImpl();
+        
+        database.createCar("Gray", "Volkswagen", "Patheon", "Sedan",
+         true, new EngineImpl(), new GearboxImpl());
+
+        Integer exactIdOfRecentlyAddedCar = database.carList.size()-1;
+
+        assertNotNull(database.deleteCar( exactIdOfRecentlyAddedCar )); 
+        assertSame(0, database.carList.size());
+        assertTrue(database.carList.isEmpty());
+    }
+    @Test
+    public void deleteCar_metheod_CarWithGivenIndexIsNotFoundAndThusItThrowsAnExeption_ExeptionTextToBeFoundIn_ReadSpecificCarById_method() throws NoSuchElementException {
+        DbImpl database = new DbImpl();
+        
+        database.createCar("Gray", "Volkswagen", "Patheon", "Sedan",
+         true, new EngineImpl(), new GearboxImpl());
+        exception.expect(NoSuchElementException.class);
+        exception.expectMessage("No such car in DB");
+
+        Integer indexOutOfRange = 99;
+
+        assertNotNull(database.deleteCar( indexOutOfRange )); 
+        assertSame(0, database.carList.size());
+        assertTrue(database.carList.isEmpty());
+    }
+    
+
 
     
 

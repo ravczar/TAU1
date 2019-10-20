@@ -53,7 +53,6 @@ public class DbImpl
     }
 
     public CarImpl deleteCar(int Id){
-        //CarImpl _myCar = null;
         CarImpl _carFound = readSpecificRecord(Id);
         if ( _carFound != null){
             this.carList.remove(Id);
