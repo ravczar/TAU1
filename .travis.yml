@@ -1,0 +1,8 @@
+os: windows
+
+sudo: enabled
+
+language: java
+rvm:
+ - 1.8
+ - java
