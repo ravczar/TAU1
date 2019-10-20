@@ -1,10 +1,6 @@
 package cars.s16281.tau.labone;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 
 import java.util.NoSuchElementException;
 
@@ -18,11 +14,12 @@ import cars.s16281.tau.labone.services.CarImpl;
 import cars.s16281.tau.labone.services.DbImpl;
 import cars.s16281.tau.labone.services.EngineImpl;
 import cars.s16281.tau.labone.services.GearboxImpl;
+import junit.framework.TestCase;
 
 
 @RunWith(JUnit4.class)
-public class DbTest {
-
+public class DbTest extends TestCase {
+ 
     /*
     * Database Implementation ONY 
     * https://www.guru99.com/junit-assert.html very good site to get a grip on JUNIT TDD
