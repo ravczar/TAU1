@@ -1,4 +1,4 @@
 language: java
 
 script:
-- cd carApp; mvn test
+- cd carsApp; mvn test
