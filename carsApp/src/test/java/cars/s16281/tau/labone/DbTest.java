@@ -1,5 +1,4 @@
 package cars.s16281.tau.labone;
-
 import static org.junit.Assert.assertNotEquals;
 
 import java.util.NoSuchElementException;
@@ -19,12 +18,15 @@ import junit.framework.TestCase;
 
 @RunWith(JUnit4.class)
 public class DbTest extends TestCase {
- 
-    /*
-    * Database Implementation ONY 
-    * https://www.guru99.com/junit-assert.html very good site to get a grip on JUNIT TDD
-    * SimpleDateFormat @ java https://www.tutorialspoint.com/java/java_date_time.htm
-    */
+    // Generic test for Junit to prevent this error from compilation @ mvn test : warning(junit.framework.TestSuite$1): No tests found in carsApp
+    public void testPass(){
+        assertEquals("matching 2 with 2", 2,2);
+    }
+    
+     //Database Implementation ONY 
+     //https://www.guru99.com/junit-assert.html very good site to get a grip on JUNIT TDD
+     //SimpleDateFormat @ java https://www.tutorialspoint.com/java/java_date_time.htm
+
     @Test
     public void DbIsImplementedTest() {
         assertNotNull(new DbImpl());
@@ -52,10 +54,10 @@ public class DbTest extends TestCase {
     }
 
 
-
-    /*
-    * Database *C*RUD methods ONY
-    */
+    
+    
+ /////// Database *C*RUD methods ONY
+    
     @Test
     public void DbField_CreateCar_ShouldAddNewCarToOurArrayList() {
         DbImpl database = new DbImpl();
@@ -124,9 +126,9 @@ public class DbTest extends TestCase {
     }
 
 
-    /*
-    * Database C*R*UD methods ONY 
-    */
+    
+    //// Database C*R*UD methods ONY 
+    
     //ReadAllRecords
     @Test
     public void MethodGetNumberOfEntriesIsImplemented() {
@@ -201,9 +203,9 @@ public class DbTest extends TestCase {
 
         assertSame(x, y);
     }
-    /*
-    * Database CR*U*D methods ONY 
-    */
+    
+    //// Database CR*U*D methods ONY 
+    
     @Test
     public void updateSpecificCarById_metheod_ReturnsAnObjectThatIsNotNull() {
         DbImpl database = new DbImpl();
@@ -284,9 +286,9 @@ public class DbTest extends TestCase {
         assertNotEquals(oldGearbox,        carAfterAnUpdate.getGearbox());
 
     }
-    /*
-    * Database CRU*D* methods ONY 
-    */
+    
+    ///// Database CRU*D* methods ONY 
+    
     @Test
     public void deleteCar_metheod_ReturnsAnObjectThatIsNotNull() {
         DbImpl database = new DbImpl();

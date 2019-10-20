@@ -13,9 +13,9 @@ public class App
 {
     public static void main( String[] args )
     {
-        /*System.out.println( "Hello World! This is your first TAU lab with mr. Puźniakowski" );*/
+        System.out.println( "Hello World! This is your first TAU lab with mr. Puźniakowski" );
         DbImpl MYdatabase = new DbImpl();
-        /*System.out.println("NUMBER OF ENTRIES: " + MYdatabase.getNumberOfEntries());
+        System.out.println("NUMBER OF ENTRIES: " + MYdatabase.getNumberOfEntries());
         System.out.println(MYdatabase.carList.size());
 
         CarImpl nowy = new CarImpl(0 ,"Gray", "Volkswagen", "Patheon", "Sedan",
@@ -32,7 +32,7 @@ public class App
     
         System.out.println("SKASOWANO SAMOCHOD: ->>>"+ MYdatabase.deleteCar(0).getModel());
         System.out.println(MYdatabase.getNumberOfEntries() );
-        System.out.println(MYdatabase.carList.size() );*/
+        System.out.println(MYdatabase.carList.size() );
 
         // Test dodawania zdublowanego rekordu (id takie samo)
         
