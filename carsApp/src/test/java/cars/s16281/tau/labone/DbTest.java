@@ -1,6 +1,7 @@
 package cars.s16281.tau.labone;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
@@ -24,7 +25,9 @@ import cars.s16281.tau.labone.services.GearboxImpl;
 public class DbTest {
 
     /*
-    * Database Implementation ONY
+    * Database Implementation ONY 
+    * https://www.guru99.com/junit-assert.html very good site to get a grip on JUNIT TDD
+    * SimpleDateFormat @ java https://www.tutorialspoint.com/java/java_date_time.htm
     */
     @Test
     public void DbIsImplementedTest() {
@@ -313,8 +316,17 @@ public class DbTest {
         assertSame(0, database.carList.size());
         assertTrue(database.carList.isEmpty());
     }
+
     @Test
-    public void deleteCar_metheod_CarWithGivenIndexIsNotFoundAndThusItThrowsAnExeption_ExeptionTextToBeFoundIn_ReadSpecificCarById_method() throws NoSuchElementException {
+    public void deleteCar_metheod_DeleteOneCarOutOfTwoAvailableAndCheckHowManyLeft() {
+        DbImpl database = new DbImpl();
+        database.createCar("Gray", "Volkswagen", "Patheon", "Sedan", true, new EngineImpl(), new GearboxImpl());
+        database.deleteCar( 0 ); 
+        assertTrue(database.carList.isEmpty());
+    }
+
+    @Test
+    public void deleteCar_metheod_WhenCarToBeDeletedIsNotFoundExeptionToBeThrown() throws NoSuchElementException {
         DbImpl database = new DbImpl();
         
         database.createCar("Gray", "Volkswagen", "Patheon", "Sedan",
