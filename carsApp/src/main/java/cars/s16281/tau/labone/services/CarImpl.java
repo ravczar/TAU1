@@ -79,7 +79,7 @@ public class CarImpl
         this.brand = Brand;
     }
 
-    public void setModel( String Model){
+    public void setModel(String Model){
         this.model = Model;
     }
 

@@ -6,7 +6,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import java.util.NoSuchElementException;
+
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
@@ -127,14 +131,28 @@ public class DbTest {
         database.createCar("Gray", "Volkswagen", "Patheon", "Sedan",
          true, new EngineImpl(), new GearboxImpl());
 
-        Integer idOfRecentlyAddedCar = database.carList.size()-1;
+        Integer exactIdOfRecentlyAddedCar = database.carList.size()-1;
 
-        assertNotNull(database.readSpecificRecord(idOfRecentlyAddedCar));
-        
-
+        assertNotNull(database.readSpecificRecord(exactIdOfRecentlyAddedCar));   
     }
+    @Rule
+    public final ExpectedException exception = ExpectedException.none();
     @Test
-    public void readSpecificRecord_metheod_ReturnDifferentObjectsWhenGivenDifferentIDasParameter() {
+    public void readSpecificRecord_metheod_ThrowsExceptionWhenObjectIsNotOntheList() throws NoSuchElementException {
+        DbImpl database = new DbImpl();
+        
+        database.createCar("Gray", "Volkswagen", "Patheon", "Sedan",
+         true, new EngineImpl(), new GearboxImpl());
+
+        Integer idOfRecentlyAddedCarIncrementedByOne = database.carList.size();
+        exception.expect(NoSuchElementException.class);
+        exception.expectMessage("No such car in DB");
+        
+        assertNotNull( database.readSpecificRecord(idOfRecentlyAddedCarIncrementedByOne) );
+    }
+
+    @Test
+    public void readSpecificRecord_metheod_ReturnDifferentObjectsWhenGivenDifferentIDsAsParameter() {
         DbImpl database = new DbImpl();
         
         database.createCar("Gray", "Volkswagen", "Patheon", "Sedan",
@@ -159,14 +177,93 @@ public class DbTest {
 
         assertSame(x, y);
     }
+    /*
+    * Database CR*U*D methods ONY 
+    */
+    @Test
+    public void updateSpecificCarById_metheod_ReturnsAnObjectThatIsNotNull() {
+        DbImpl database = new DbImpl();
+        
+        database.createCar("Gray", "Volkswagen", "Patheon", "Sedan",
+         true, new EngineImpl(), new GearboxImpl());
 
+        Integer exactIdOfRecentlyAddedCar = database.carList.size()-1;
 
+        assertNotNull(database.updateSpecificCarById(
+            exactIdOfRecentlyAddedCar,"Blue", "Maseratti", "Quatroporte", "Coupe", false, new EngineImpl(), new GearboxImpl())
+             );  
+    }
+    
+    @Test
+    public void updateSpecificCarById_metheod_ThrowsExceptionWhenObjectIsNotOntheList() throws NoSuchElementException {
+        DbImpl database = new DbImpl();
+        
+        database.createCar("Gray", "Volkswagen", "Patheon", "Sedan",
+         true, new EngineImpl(), new GearboxImpl());
 
+        Integer idOfRecentlyAddedCarIncrementedByOne = database.carList.size();
+        exception.expect(NoSuchElementException.class);
+        exception.expectMessage("No such car in DB, record not updated.");
+        
+        assertNotNull( database.updateSpecificCarById(
+            idOfRecentlyAddedCarIncrementedByOne,"Blue", "Maseratti", "Quatroporte", "Coupe", false, new EngineImpl(), new GearboxImpl())
+            );    
+    }
+    
+    @Test
+    public void updateSpecificCarById_metheod_UpdateSuccessDoesNotChangeTheIdOfAnObject() {
+        DbImpl database = new DbImpl();
+        
+        database.createCar("Gray", "Volkswagen", "Patheon", "Sedan",
+         true, new EngineImpl(), new GearboxImpl());
+        
+        CarImpl carBeforeAnUpdate = database.readSpecificRecord(0);
+        Integer oldId = carBeforeAnUpdate.getId();
+        
+        //data now updated to new values, id remains the same
+        database.updateSpecificCarById(0 ,"Blue", "Maseratti", "Quatroporte", "Coupe", false, new EngineImpl(), new GearboxImpl());
+        CarImpl carAfterAnUpdate = database.readSpecificRecord(0);
 
+        //Id remains the same! 0 -> 0
+        assertSame(oldId,                  carAfterAnUpdate.getId());
 
+    }
+    @Test
+    public void updateSpecificCarById_metheod_RecordsBeforeUpdateAndAfterUpdateDiffer_case_update_SUCCESS() {
+        DbImpl database = new DbImpl();
+        
+        database.createCar("Gray", "Volkswagen", "Patheon", "Sedan",
+         true, new EngineImpl(), new GearboxImpl());
+        //Data set without copy of an object :-(
+        CarImpl carBeforeAnUpdate = database.readSpecificRecord(0);
+        Integer oldId = carBeforeAnUpdate.getId();
+        String oldColor = carBeforeAnUpdate.getColor();
+        String oldBrand = carBeforeAnUpdate.getBrand();
+        String oldModel = carBeforeAnUpdate.getModel();
+        String oldType = carBeforeAnUpdate.getType();
+        Boolean oldHasAlloyRims = carBeforeAnUpdate.getHasAlloyRims();
+        EngineImpl oldEngine = carBeforeAnUpdate.getEngine();
+        GearboxImpl oldGearbox = carBeforeAnUpdate.getGearbox();
+        
+        //data now updated to new values, id remains the same
+        database.updateSpecificCarById(0 ,"Blue", "Maseratti", "Quatroporte", "Coupe", false, new EngineImpl(), new GearboxImpl());
+        CarImpl carAfterAnUpdate = database.readSpecificRecord(0);
 
+        //Id remains the same! 0 -> 0
+        assertSame(oldId,                  carAfterAnUpdate.getId());
+        assertNotEquals(oldColor,               carAfterAnUpdate.getColor());
+        assertNotEquals(oldBrand,          carAfterAnUpdate.getBrand());    
+        assertNotEquals(oldModel,          carAfterAnUpdate.getModel());    
+        assertNotEquals(oldType,           carAfterAnUpdate.getType()); 
+        assertNotEquals(oldHasAlloyRims,   carAfterAnUpdate.getHasAlloyRims()); 
+        assertNotEquals(oldEngine,         carAfterAnUpdate.getEngine()); 
+        assertNotEquals(oldGearbox,        carAfterAnUpdate.getGearbox());
 
+    }
+    /*
+    * Database CRU*D* methods ONY 
+    */
 
-
+    
 
 }
