@@ -1,4 +1,4 @@
 language: java
-srcipt:
-  -cd carApp; mvn test
 
+script:
+- cd carApp; mvn test
