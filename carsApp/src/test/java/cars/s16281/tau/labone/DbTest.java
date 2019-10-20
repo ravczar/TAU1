@@ -1,7 +1,6 @@
 package cars.s16281.tau.labone;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
@@ -318,11 +317,21 @@ public class DbTest {
     }
 
     @Test
-    public void deleteCar_metheod_DeleteOneCarOutOfTwoAvailableAndCheckHowManyLeft() {
+    public void deleteCar_metheod_DeleteOneCarOutOfOneAndCheckIfDatabaseIsEmpty() {
         DbImpl database = new DbImpl();
         database.createCar("Gray", "Volkswagen", "Patheon", "Sedan", true, new EngineImpl(), new GearboxImpl());
         database.deleteCar( 0 ); 
         assertTrue(database.carList.isEmpty());
+    }
+    @Test
+    public void deleteCar_metheod_DeleteCertainCarAndCheckIfStillCanBefound() throws NoSuchElementException {
+        DbImpl database = new DbImpl();
+        database.createCar("Gray", "Volkswagen", "Patheon", "Sedan", true, new EngineImpl(), new GearboxImpl());
+        database.deleteCar( 0 ); 
+        exception.expect(NoSuchElementException.class);
+        exception.expectMessage("No such car in DB");
+        assertTrue(database.carList.isEmpty());
+        assertTrue(database.readSpecificRecord(0) == null);
     }
 
     @Test
