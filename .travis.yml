@@ -1,6 +1,4 @@
-os:linux
+os: windows
 
-language: ruby
-rvm:
- - 2.2
- - jruby
+language: java
+
