@@ -13,9 +13,9 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World! This is your first TAU lab with mr. Puźniakowski" );
+        /*System.out.println( "Hello World! This is your first TAU lab with mr. Puźniakowski" );*/
         DbImpl MYdatabase = new DbImpl();
-        System.out.println("NUMBER OF ENTRIES: " + MYdatabase.getNumberOfEntries());
+        /*System.out.println("NUMBER OF ENTRIES: " + MYdatabase.getNumberOfEntries());
         System.out.println(MYdatabase.carList.size());
 
         CarImpl nowy = new CarImpl(0 ,"Gray", "Volkswagen", "Patheon", "Sedan",
@@ -32,7 +32,29 @@ public class App
     
         System.out.println("SKASOWANO SAMOCHOD: ->>>"+ MYdatabase.deleteCar(0).getModel());
         System.out.println(MYdatabase.getNumberOfEntries() );
-        System.out.println(MYdatabase.carList.size() );
+        System.out.println(MYdatabase.carList.size() );*/
+
+        // Test dodawania zdublowanego rekordu (id takie samo)
+        
+        CarImpl nowy3 = new CarImpl(1 ,"Geen", "Volkswagen", "Patheon", "Sedan",
+         true, new EngineImpl(), new GearboxImpl() ); 
+
+        MYdatabase.createCar("Black", "Volkswagen", "Patheon", "Sedan",
+         true, new EngineImpl(), new GearboxImpl());
+
+        System.out.println("ROZMIAR LISTY: " + MYdatabase.carList.size());
+        System.out.println("NUMOFENTR: " + MYdatabase.getNumberOfEntries());
+        System.out.println("ID SAMOCHODU W KLASIE CAR: " + MYdatabase.readSpecificRecord(0).getId() + " KOLOR: " + MYdatabase.readSpecificRecord(0).getColor());
+
+        MYdatabase.setNumberOfEntries(0);
+        MYdatabase.createCar("Geen", "Volkswagen", "Patheon", "Sedan",
+         true, new EngineImpl(), new GearboxImpl());
+
+        MYdatabase.carList.add(nowy3);
+        System.out.println("ROZMIAR LISTY: " + MYdatabase.carList.size());
+        System.out.println("NUMOFENTR: " + MYdatabase.getNumberOfEntries());
+        System.out.println("ID SAMOCHODU W KLASIE CAR: " + MYdatabase.readSpecificRecord(1).getId() + " KOLOR: " + MYdatabase.readSpecificRecord(0).getColor());
+
         
 
     }

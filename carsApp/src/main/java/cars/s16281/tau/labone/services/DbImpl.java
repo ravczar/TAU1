@@ -13,9 +13,16 @@ public class DbImpl
         this.carList = new ArrayList<CarImpl>(); 
     }
 
-    public void createCar (String color, String brand, String model, String type, Boolean hasAlloyRims, EngineImpl engine, GearboxImpl gearbox ){
+    public void createCar (String color, String brand, String model, String type, Boolean hasAlloyRims, EngineImpl engine, GearboxImpl gearbox ) throws IllegalArgumentException{
+        for (CarImpl _car : this.carList){
+            if  ( _car.getId().equals(this.numberOfEntries) ){
+                    throw new IllegalArgumentException("Car with this ID already exists,cannot create");   
+                }       
+        }
         this.carList.add( new CarImpl(this.numberOfEntries, color, brand, model, type, hasAlloyRims, engine, gearbox ) );
-        this.numberOfEntries++;
+        this.numberOfEntries++;  
+                        
+        
     }
 
     public ArrayList<CarImpl> readAllRecords() {
@@ -67,6 +74,12 @@ public class DbImpl
     */
     public Integer getNumberOfEntries(){
         return this.numberOfEntries;
+    }
+    /*
+    * SETTERS
+    */
+    public void setNumberOfEntries(Integer number){
+        this.numberOfEntries = number;
     }
 
 

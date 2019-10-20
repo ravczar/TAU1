@@ -99,6 +99,31 @@ public class DbTest {
          true, new EngineImpl(), new GearboxImpl());
         assertSame(1, database.carList.get(1).getId());
     }
+    @Test
+    public void DbField_WhenAddingNewCarToListAndValueOfField_numberOfEntries_SomehowWillNotBeinCremented_ShouldGetException() throws IllegalArgumentException{
+        DbImpl database = new DbImpl();
+
+        database.createCar("Gray", "Volkswagen", "Patheon", "Sedan",
+         true, new EngineImpl(), new GearboxImpl());
+        assertSame(0, database.carList.get(0).getId());
+
+        //Number of entries is incrmented automaticaly when we add new Car and it goes as an Id for a #CarList and id for a #CarImpl Class.
+        //We simulate abbreviation, that it somehow "got stuck at previous value"
+        database.setNumberOfEntries(0);
+        
+        // Expect to get en error
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("Car with this ID already exists,cannot create");
+        
+        // Cause an error by adding new car with same id (id in Car comes from field NumberOfEntries in DBImplementation class.)
+        database.createCar("Green", "Fiat", "Ducato", "Van",
+         false, new EngineImpl(), new GearboxImpl());
+
+        // Because we have only one record, and the other one was forced stop from adding to DB, below is TRUE (DB size =1, as it contains only one car.)
+        assertEquals(1, database.carList.size());
+
+    }
+
 
     /*
     * Database C*R*UD methods ONY 
