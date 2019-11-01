@@ -3,6 +3,7 @@ package cars.s16281.tau.labone;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -12,6 +13,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.Clock;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.Random;
@@ -152,18 +154,41 @@ public class DbTestMock {
     // JESTEM TUTAJ NA ROBOCIE
 
     @Test
-    public void CheckIfCreationOfNewRecordAdd_creationDateTime_ToCarImpl() {
-        // our mockedDatabase receives 10 records.
-        //mockedDatabase = initialDatabase;
+    public void CheckIfCreationOfNewRecordAdd_creationDateTime_ThatIsNotNull() {
+
         mockedDatabase = new DbImpl();
         mockedDatabase.createCar("color", "brand", "model", "type", true, new EngineImpl(), new GearboxImpl());
-
-        LocalDateTime creationDateWeExpect = mockedDatabase.readSpecificRecord(0).getCreationDateTime();
-        System.out.println(creationDateWeExpect);
-        System.out.println("Ile rekordow w bazie: " + mockedDatabase.getNumberOfEntries());
-        assertNotNull(creationDateWeExpect);
+        
+        assertNotNull(mockedDatabase.readSpecificRecord(0).getCreationDateTime());
         
     }
+
+    @Test
+    public void CheckIfCreationOfNewRecordAdd_creationDateTime_ToCarObject() {
+        Clock testClock = Clock.systemUTC();
+        Duration offsetDuration = Duration.ofSeconds(+10);
+        Clock createElementClock = Clock.offset(testClock, offsetDuration);
+
+        LocalDateTime timeOfTestStart = LocalDateTime.now(testClock);
+        
+        System.out.println("orgiClock: " + testClock.instant());
+        System.out.println("mockClock: " + createElementClock.instant());
+
+        mockedDatabase = new DbImpl();
+        mockedDatabase.setClockForMock(createElementClock);
+        mockedDatabase.setClockForMock( Clock.offset(testClock, offsetDuration) );
+        mockedDatabase.createCar("color", "brand", "model", "type", true, new EngineImpl(), new GearboxImpl());
+        
+        LocalDateTime creationDateReadFromRecentlyCreatedObject = mockedDatabase.readSpecificRecord(0).getCreationDateTime();
+
+        System.out.println( "Data rozpoczecia testu "+ timeOfTestStart + ". Oczekiwana data dodania auta  " + creationDateReadFromRecentlyCreatedObject );
+        System.out.println("Ile rekordow w bazie: " + mockedDatabase.getNumberOfEntries());
+        assertNotEquals(timeOfTestStart, creationDateReadFromRecentlyCreatedObject);
+    }
+
+
+
+
 
   
 
