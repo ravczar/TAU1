@@ -307,7 +307,7 @@ public class DbTestMock {
         LocalDateTime readDate = cars.get(0).getAllDateTimeFields().get(1);
         LocalDateTime modifDate = cars.get(0).getAllDateTimeFields().get(2);
         
-        System.out.println("CD  "+createDate +"  RD  "+readDate+ "  MD  "+ modifDate);
+        //System.out.println("CD  "+createDate +"  RD  "+readDate+ "  MD  "+ modifDate);
         assertNotNull("Created car must have a creation date at init", createDate);
         assertNotNull("Created car must have null in lastReadDate at init", readDate);
         assertNotNull("Created car must have null in modificationDate at init", modifDate);
@@ -319,11 +319,109 @@ public class DbTestMock {
         
     }
   
-    ////////////////////////////////////////
-    // JESTEM TUTAJ NA ROBOCIE
     @Test
-    public void TestIfSwitchingOfAllDateTimeFieldsWorkWhenAddingNewRecordToDB(){
+    public void TestIfSwitchingOfAllDateTimeFieldsWillNotAllowToAdd_crateDateTime_WhenAddingNewRecordToDB(){
         
+        initialDatabase.setWhatDatesDatabaseRecord(false, false, false);
+        when(
+            mockedDatabase.createCar(
+                "color", "brand", "model", "type", true, new EngineImpl(), new GearboxImpl() 
+                )
+            )
+            .thenReturn(initialDatabase.createCar(
+                "Gray", "Volvo", "XC90", "SUV", true, new EngineImpl(), new GearboxImpl() 
+            )
+        );
+
+        ArrayList<CarImpl> cars = mockedDatabase.getCarList();
+
+        LocalDateTime createDate = cars.get(10).getAllDateTimeFields().get(0);
+
+        assertNull("createDate must equal Null when adding new database", createDate);
+        //System.out.println("CD  "+createDate +"  RD  "+readDate+ "  MD  "+ modifDate + "  Ile rekordów  " + initialDatabase.getNumberOfEntries());
+    }
+
+
+    @Test
+    public void TestIfSwitchingOfAllDateTimeFieldsWillNotAllowToAdd_modifyDateTime_WhenAddingNewRecordToDB(){
+        
+        initialDatabase.setWhatDatesDatabaseRecord(true, false, false);
+        
+        when(
+            mockedDatabase.createCar(
+                "color", "brand", "model", "type", true, new EngineImpl(), new GearboxImpl() 
+                )
+            )
+            .thenReturn(initialDatabase.createCar(
+                "Gray", "Volvo", "XC90", "SUV", true, new EngineImpl(), new GearboxImpl() 
+            )
+        );
+
+        when(
+            mockedDatabase.updateSpecificCarById(
+                10, "color", "brand", "model", "type", true, new EngineImpl(), new GearboxImpl() 
+                )
+            )
+            .thenReturn(initialDatabase.updateSpecificCarById(
+                10, "Gray", "Volvo", "XC90", "SUV", true, new EngineImpl(), new GearboxImpl() 
+            )
+        );
+
+    
+        ArrayList<CarImpl> cars = mockedDatabase.getCarList();
+
+        LocalDateTime modifDate = cars.get(10).getAllDateTimeFields().get(2);
+
+        assertNull("createDate must equal Null when adding new database", modifDate);
+        //System.out.println("CD  "+createDate +"  RD  "+readDate+ "  MD  "+ modifDate + "  Ile rekordów  " + initialDatabase.getNumberOfEntries());
+    }
+
+    @Test
+    public void TestIfSwitchingOfAllDateTimeFieldsWillNotAllowToAdd_readDateTime_WhenAddingNewRecordToDB(){
+        
+        initialDatabase.setWhatDatesDatabaseRecord(true, false, false);
+        
+        when(
+            mockedDatabase.createCar(
+                "color", "brand", "model", "type", true, new EngineImpl(), new GearboxImpl() 
+                )
+            )
+            .thenReturn(initialDatabase.createCar(
+                "Gray", "Volvo", "XC90", "SUV", true, new EngineImpl(), new GearboxImpl() 
+            )
+        );
+
+        when(mockedDatabase.readSpecificRecord(10)).thenReturn(initialDatabase.readSpecificRecord(10));
+
+    
+        ArrayList<CarImpl> cars = mockedDatabase.getCarList();
+
+        LocalDateTime createDate = cars.get(10).getAllDateTimeFields().get(0);
+        LocalDateTime readDate = cars.get(10).getAllDateTimeFields().get(1);
+        LocalDateTime modifDate = cars.get(10).getAllDateTimeFields().get(2);
+
+        assertNull("createDate must equal Null when adding new database", readDate);
+        //System.out.println("CD  "+createDate +"  RD  "+readDate+ "  MD  "+ modifDate + "  Ile rekordów  " + initialDatabase.getNumberOfEntries());
+    }
+
+    @Test
+    public void TestIfSwitchingOfAllDateTimeFieldsWillNotAllowToAdd_readDateTime_WhenReadingAllRecords(){
+        
+        initialDatabase.setWhatDatesDatabaseRecord(true, false, false);
+        
+        mockedDatabase.readAllRecords();
+
+        when(mockedDatabase.readSpecificRecord(9)).thenReturn(initialDatabase.readSpecificRecord(9));
+
+    
+        ArrayList<CarImpl> cars = mockedDatabase.getCarList();
+
+        LocalDateTime createDate = cars.get(9).getAllDateTimeFields().get(0);
+        LocalDateTime readDate = cars.get(9).getAllDateTimeFields().get(1);
+        LocalDateTime modifDate = cars.get(9).getAllDateTimeFields().get(2);
+
+        assertNull("createDate must equal Null when adding new database", readDate);
+        System.out.println("CD  "+createDate +"  RD  "+readDate+ "  MD  "+ modifDate + "  Ile rekordów  " + initialDatabase.getNumberOfEntries());
     }
 
 
