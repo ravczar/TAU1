@@ -171,15 +171,9 @@ public class DbTestMock {
     }
 
     @Test
-    public void CheckIfCreationOfNewRecordAdd_creationDateTime_ToCarObject_VOL2() {
-        Clock testClock = Clock.systemDefaultZone();
-        Duration offsetDuration = Duration.ofSeconds(+10);
-        Clock createElementClock = Clock.offset(testClock, offsetDuration);
-
-        LocalDateTime timeOfTestStart = LocalDateTime.now(testClock);
-
-        when(mockedDatabase.readSpecificRecord(9)).thenReturn(initialDatabase.readSpecificRecord(9));
-
+    public void CheckIfCreationOfNewRecordAdd_creationDateTime_ToCarObject() {
+        LocalDateTime timeOfTestStart = LocalDateTime.now();
+        initialDatabase.setClockForMock(getNewFakeClockValue(+5));
         when(
             mockedDatabase.createCar(
                 "color", "brand", "model", "type", true, new EngineImpl(), new GearboxImpl() 
@@ -189,11 +183,12 @@ public class DbTestMock {
                 "Gray", "Volvo", "XC90", "SUV", true, new EngineImpl(), new GearboxImpl() 
             )
         );
-    
-        mockedDatabase.setClockForMock(createElementClock);
-        mockedDatabase.createCar("Gay", "Volvo", "XC90", "SUV", true, new EngineImpl(), new GearboxImpl());
+
+        when(mockedDatabase.readSpecificRecord(10)).thenReturn(initialDatabase.readSpecificRecord(10));
+        mockedDatabase.createCar("Gray", "Volvo", "XC90", "SUV", true, new EngineImpl(), new GearboxImpl());
         LocalDateTime creationDateReadFromRecentlyCreatedObject = initialDatabase.readSpecificRecord(10).getCreationDateTime();
 
+        System.out.println("timestam before creation:  " + timeOfTestStart+"    cd:  "+creationDateReadFromRecentlyCreatedObject );
         assertNotEquals(timeOfTestStart, creationDateReadFromRecentlyCreatedObject);
         assertTrue(timeOfTestStart.isBefore(creationDateReadFromRecentlyCreatedObject));
     }
@@ -239,7 +234,7 @@ public class DbTestMock {
 
     @Test
     public void TestCarObjectMethod_showAllDateTimeFields_willReturnAsFollows_DateDateNull_ifThereWasNoUpdateOrReadOnObject(){
-
+        initialDatabase.setClockForMock(getNewFakeClockValue(+5));
         when(mockedDatabase.readSpecificRecord(0)).thenReturn(initialDatabase.readSpecificRecord(0));
         mockedDatabase.readSpecificRecord(0);
         ArrayList<CarImpl> cars = mockedDatabase.getCarList();
@@ -247,6 +242,8 @@ public class DbTestMock {
         LocalDateTime createDate = cars.get(0).getAllDateTimeFields().get(0);
         LocalDateTime readDate = cars.get(0).getAllDateTimeFields().get(1);
         LocalDateTime modifDate = cars.get(0).getAllDateTimeFields().get(2);
+
+        System.out.println("CD  "+createDate +"  RD  "+readDate+ "  MD  "+ modifDate);
 
         assertNotNull("Created car must have a creation date at init", createDate);
         assertNotNull("Created car must have null in lastReadDate at init", readDate);
@@ -258,8 +255,9 @@ public class DbTestMock {
     }
 
     @Test
-    public void TestCarObjectMethod_showAllDateTimeFields_willReturnAsFollows_DateNullDate_ifThereWasNoReadonObjectButWasUpdatObjectApplied(){
+    public void TestCarObjectMethod_showAllDateTimeFields_willReturnAsFollows_DateNullDate_ifThereWasNoReadActionOnObjectButWasUpdateObjectApplied(){
 
+        initialDatabase.setClockForMock(getNewFakeClockValue(+5));
         when(
             mockedDatabase.updateSpecificCarById(
                 0, "color", "brand", "model", "type", true, new EngineImpl(), new GearboxImpl() 
@@ -275,6 +273,8 @@ public class DbTestMock {
         LocalDateTime createDate = cars.get(0).getAllDateTimeFields().get(0);
         LocalDateTime readDate = cars.get(0).getAllDateTimeFields().get(1);
         LocalDateTime modifDate = cars.get(0).getAllDateTimeFields().get(2);
+
+        //System.out.println("CD  "+createDate +"  RD  "+readDate+ "  MD  "+ modifDate);
 
         assertNotNull("Created car must have a creation date at init", createDate);
         assertNull("Created car must have null in lastReadDate at init", readDate);
@@ -396,9 +396,9 @@ public class DbTestMock {
     
         ArrayList<CarImpl> cars = mockedDatabase.getCarList();
 
-        LocalDateTime createDate = cars.get(10).getAllDateTimeFields().get(0);
+        //LocalDateTime createDate = cars.get(10).getAllDateTimeFields().get(0);
         LocalDateTime readDate = cars.get(10).getAllDateTimeFields().get(1);
-        LocalDateTime modifDate = cars.get(10).getAllDateTimeFields().get(2);
+        //LocalDateTime modifDate = cars.get(10).getAllDateTimeFields().get(2);
 
         assertNull("createDate must equal Null when adding new database", readDate);
         //System.out.println("CD  "+createDate +"  RD  "+readDate+ "  MD  "+ modifDate + "  Ile rekordów  " + initialDatabase.getNumberOfEntries());
