@@ -1,5 +1,8 @@
 package cars.s16281.tau.labone.services;
 
+import java.time.Clock;
+import java.time.LocalDateTime;
+
 public class CarImpl 
 {
     private Integer id;
@@ -10,6 +13,11 @@ public class CarImpl
     private Boolean hasAlloyRims;
     private EngineImpl engine;
     private GearboxImpl gearbox;
+
+    private LocalDateTime creationDateTime;
+    private LocalDateTime modificationDateTime;
+    public LocalDateTime lastReadDateTime;
+
 
     /*public CarImpl(){}*/
 
@@ -64,6 +72,18 @@ public class CarImpl
         return this.gearbox;
     }
 
+    public LocalDateTime getCreationDateTime(){
+        return this.creationDateTime;
+    }
+
+    public LocalDateTime getModificationDateTime(){
+        return this.modificationDateTime;
+    }
+
+    public LocalDateTime getLastReadDateTime(){
+        return this.lastReadDateTime;
+    }
+
     /* 
         SETTERS 
     */
@@ -99,4 +119,24 @@ public class CarImpl
         this.gearbox = Gearbox;
     }
 
+    public void setCreationDateTime(Boolean turnedOnOrOff, Clock databaseClock){
+        if (turnedOnOrOff)
+            this.creationDateTime = LocalDateTime.now(databaseClock);
+        else
+            this.creationDateTime = null;
+    }
+
+    public void setModificationDateTime(Boolean turnedOnOrOff, Clock databaseClock){
+        if (turnedOnOrOff)
+            this.modificationDateTime = LocalDateTime.now(databaseClock);
+        else
+            this.modificationDateTime = null;
+    }
+
+    public void setLastReadDateTime(Boolean turnedOnOrOff, Clock databaseClock){
+        if (turnedOnOrOff)
+            this.lastReadDateTime = LocalDateTime.now(databaseClock);
+        else
+            this.lastReadDateTime = null;
+    }
 }

@@ -1,6 +1,10 @@
 package cars.s16281.tau.labone;
+
 import static org.junit.Assert.assertNotEquals;
 
+import java.time.Clock;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.NoSuchElementException;
 
 import org.junit.Rule;
@@ -8,6 +12,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+
 
 import cars.s16281.tau.labone.services.CarImpl;
 import cars.s16281.tau.labone.services.DbImpl;
@@ -56,7 +61,7 @@ public class DbTest extends TestCase {
 
     
     
- /////// Database *C*RUD methods ONY
+    /////// Database *C*RUD methods ONY
     
     @Test
     public void DbField_CreateCar_ShouldAddNewCarToOurArrayList() {
@@ -349,8 +354,198 @@ public class DbTest extends TestCase {
         assertTrue(database.carList.isEmpty());
     }
     
+    /*
+    *
+    *   **  LAB 2 dodaj daty <createDate, modifyDate, readDate> do bazy danych.
+    *
+    */
+
+    /// Field exist in Class CarImpl and can be read.
+    @Test
+    public void Class_CarImpl_ContainsReadableField_creationDateTime_andItIsNotNull() {
+        DbImpl database = new DbImpl();
+
+        database.setWhatDatesDatabaseRecord(true, false, false);
+
+        database.createCar("Gray", "Volkswagen", "Patheon", "Sedan",
+         true, new EngineImpl(), new GearboxImpl());
+
+        //System.out.println("Date of creation in database : " + database.readSpecificRecord(0).getCreationDateTime());
+        assertNotNull("Field creationDateTime contains null, check value it is set with at init.", database.readSpecificRecord(0).getCreationDateTime()); 
+    }
+
+    @Test
+    public void Class_CarImpl_ContainsReadableField_modificationDateTime_andItContainsNullAtCreation() {
+        DbImpl database = new DbImpl();
+               
+        database.createCar("Gray", "Volkswagen", "Patheon", "Sedan",
+         true, new EngineImpl(), new GearboxImpl());
+
+        //System.out.println("Data modyfikacji obiektu: " + database.readSpecificRecord(0).getModificationDateTime());
+        assertNull("Field creationDateTime does not exist", database.readSpecificRecord(0).getModificationDateTime()); 
+    }
+
+    @Test
+    public void Class_CarImpl_ContainsReadableField_lastReadDateTime_andItContainsNullAtCreation() {
+        DbImpl database = new DbImpl();
+               
+        database.createCar("Gray", "Volkswagen", "Patheon", "Sedan",
+         true, new EngineImpl(), new GearboxImpl());
+
+        database.readSpecificRecord(0);
+
+        //System.out.println("Data odczytania obiektu: " + database.readSpecificRecord(0).getLastReadDateTime());
+        assertNotNull("Field: lastReadDateTime does not exist", database.readSpecificRecord(0).getLastReadDateTime()); 
+    }
+
+    // Modification field is updated when we call for an update (stops beeing null - as on initial object creation).
+
+    @Test
+    public void setModificationDateTimeMethodChangeInitialNullValueOfField_modificationDateTime_To_Now() {
+        DbImpl database = new DbImpl();
+               
+        database.createCar("Gray", "Volkswagen", "Patheon", "Sedan",
+         true, new EngineImpl(), new GearboxImpl());
+
+        database.readSpecificRecord(0).setModificationDateTime(true, mockClock);
+
+        //System.out.println("Data modyfikacji: " + database.readSpecificRecord(0).getModificationDateTime() );
+        assertNotNull("Field creationDateTime does not exist", database.readSpecificRecord(0).getModificationDateTime() ); 
+    }
+
+    // LastReadDateTime field is updated when we call for an update (stops beeing null - as on initial object creation).
+
+    @Test
+    public void setLastReadDateTimeMethodChangeInitialNullValueOfField_lastReadDateTime_To_Now() {
+        DbImpl database = new DbImpl();
+                   
+        database.createCar("Gray", "Volkswagen", "Patheon", "Sedan",
+         true, new EngineImpl(), new GearboxImpl());
+    
+        database.readSpecificRecord(0).setLastReadDateTime(true, mockClock);
+    
+        //System.out.println("Data ostatniego odczytu: " + database.readSpecificRecord(0).getLastReadDateTime() );
+        assertNotNull("Field lastReadDateTime value is Null", database.readSpecificRecord(0).getLastReadDateTime() ); 
+    }
+
+    // Mock Clock
+    private int year = 2017;  // Be this a specific 
+    private int month = 2;    // date we need 
+    private int day = 3; 
+    Clock mockClock =
+      Clock.fixed(
+        LocalDateTime.of(year, month, day, 10, 20, 33).toInstant(OffsetDateTime.now().getOffset()),
+        Clock.systemDefaultZone().getZone()
+      );
 
 
+
+
+
+
+
+    /*
+    @Mock
+    private DbImpl mockedDatabase;
+
+    @Before
+    public void Setup(){
+        mockedDatabase.setClockForMock(this.mockClock);
+        SetupMockedDatabaseWitRecords(mockedDatabase, 10);
+        when(mockedDatabase.getNumberOfEntries()).thenReturn(10);
+    }
+    @Before
+    public void initMocks() {      
+        MockitoAnnotations.initMocks(this);  
+    }
+
+
+
+    @Test
+    public void DbImpl_objectMockedAndIsNotNull() {
+        assertNotNull("Error mockTest 1: database object is not created", mockedDatabase);
+    }
+
+    @Test
+    public void DbImpl_listOfCarsIsAccessibleAndHasZeroRecordsAtStart() {
+
+        assertSame("Error mockTest 2: database has some records ", 0, mockedDatabase.getNumberOfEntries() );
+        verify(mockedDatabase).getNumberOfEntries();
+        
+    }
+
+    @Test
+    public void checkIfField_numberOfEntries_incrementsWhenAddingNewCar(){
+        EngineImpl fakeEngine = new EngineImpl();
+        GearboxImpl fakeGearbox = new GearboxImpl();
+        mockedDatabase.createCar( "color", "brand", "model", "type", true, fakeEngine, fakeGearbox );
+        
+        // Co ma zwracać w takiej sytuacji po dodaniu rekordu
+        when(mockedDatabase.getNumberOfEntries()).thenReturn(1);
+
+        //Sprawdzamy, czy mamy dokladnie jeden rekord.
+        assertSame(1, mockedDatabase.getNumberOfEntries());
+
+        verify(mockedDatabase).createCar("color", "brand", "model", "type", true, fakeEngine, fakeGearbox);
+
+    }
+
+    @Test
+    public void checkIf_DbImpl_SetsProperDateAndTimeWhenWeReadGivenRecord(){
+        DbImpl database = new DbImpl();
+        
+        // Create new object
+        database.createCar("Gray", "Volkswagen", "Patheon", "Sedan",
+         true, new EngineImpl(), new GearboxImpl());
+        // Read given object to setup time of modification
+        database.readSpecificRecord(0);
+        // Modify object to get date and time
+        database.updateSpecificCarById(0, "gay", "Volvo", "xc90", "suv", false, new EngineImpl(), new GearboxImpl());
+
+        LocalDateTime utworzenie = database.readSpecificRecord(0).getCreationDateTime();
+        LocalDateTime odczytanie = database.readSpecificRecord(0).getLastReadDateTime();
+        LocalDateTime modyfikacja = database.readSpecificRecord(0).getModificationDateTime();
+
+        System.out.println("Data utworzenia : " +  utworzenie);
+        System.out.println("Data odczytu : " +  odczytanie);
+        System.out.println("Data modyfikacji : " +  modyfikacja);
+
+        assertNotEquals("Daty są takie same!",utworzenie, odczytanie);
+        assertNotEquals("Daty są takie same!",utworzenie, modyfikacja);
+        // i tak dalej kolejne porównania.
+
+    }
+
+    // ***** poważne testowanie na mocku
+    @Test
+    public void CheckingIf_CarImpl_ClassHasMethodToSetCreatDatTimeField(){
+       //when(mockedDatabase.readSpecificRecord(0).getCreationDateTime()).thenReturn(LocalDateTime.now(mockedClock)); 
+       //System.out.println("Zegar mocka:"  + LocalDateTime.now(mockClock));
+       //verify(mockedDatabase, atLeastOnce()).readSpecificRecord(anyInt()).getCreationDateTime();
+       DbImpl database = new DbImpl();
+       database.setClockForMock(this.mockClock); 
+       database.createCar("xxx", "xxx", "xxx", "xxx", anyBoolean(), new EngineImpl(), new GearboxImpl());
+       //System.out.println("Czas utworzenia rekordu: " + database.readSpecificRecord(0).getCreationDateTime());
+
+       assertEquals(LocalDateTime.now(mockClock), database.readSpecificRecord(0).getCreationDateTime());
+
+       System.out.println("Ile mamy rokordów  bazie danych: " + mockedDatabase.getNumberOfEntries());
+
+
+    }
+    @Test
+    public void CheckingIf_checkingIfFillingWithRandomRecordsWork(){
+       
+       DbImpl database = new DbImpl();
+       database.setClockForMock(this.mockClock); 
+       SetupMockedDatabaseWitRecords(database, 10);
+       //System.out.println("Czas utworzenia rekordu: " + database.readSpecificRecord(0).getCreationDateTime());
+       assertEquals(LocalDateTime.now(mockClock), database.readSpecificRecord(0).getCreationDateTime());
+
+       System.out.println("ILE TEGO W KONCU JEST? " + mockedDatabase.getNumberOfEntries() );
+
+    }*/
+    
     
 
 }
