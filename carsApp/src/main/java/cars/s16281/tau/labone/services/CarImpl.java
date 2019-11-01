@@ -2,6 +2,7 @@ package cars.s16281.tau.labone.services;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class CarImpl 
 {
@@ -82,6 +83,13 @@ public class CarImpl
 
     public LocalDateTime getLastReadDateTime(){
         return this.lastReadDateTime;
+    }
+    public ArrayList<LocalDateTime> getAllDateTimeFields(){
+        ArrayList<LocalDateTime> list = new ArrayList<LocalDateTime>();
+        list.add(this.creationDateTime);
+        list.add(this.lastReadDateTime);
+        list.add(this.modificationDateTime);
+        return list;
     }
 
     /* 

@@ -17,6 +17,7 @@ import java.time.Clock;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.Random;
 
 import org.junit.Before;
@@ -64,6 +65,15 @@ public class DbTestMock {
       );
     /* END*/
 
+    /* Mocking the clock for test purposes */
+    public Clock getNewFakeClockValue(Integer howManyMinutes){
+        Clock testClock = Clock.systemDefaultZone();
+        Duration offsetDuration = Duration.ofMinutes(howManyMinutes);
+        Clock createElementClock = Clock.offset(testClock, offsetDuration);
+        return createElementClock;
+    }
+    /* END */
+
     /* SETTING UP AN INITIAL DATABASE */
     private DbImpl initialDatabase = new DbImpl();
     
@@ -78,8 +88,6 @@ public class DbTestMock {
         SetupMockedDatabaseWitRecords(this.initialDatabase, this.numberOfRecordsInInitialDatabase, Clock.systemDefaultZone() );
         when(mockedDatabase.getNumberOfEntries()).thenReturn(initialDatabase.getNumberOfEntries());
         when(mockedDatabase.getCarList() ).thenReturn(initialDatabase.getCarList());
-        //when(mockedDatabase.updateSpecificCarById( anyInt(), anyString(), anyString(), anyString(), anyString(), anyBoolean(), eq(new EngineImpl()), eq(new GearboxImpl())))
-            //.thenReturn(initialDatabase.updateSpecificCarById( 0, "newColor", "newBrand", "newModel", "newType", true, new EngineImpl(), new GearboxImpl()));
     }
 
    
@@ -216,18 +224,108 @@ public class DbTestMock {
         assertNotSame("One should contain null and other a date. Should be Different", fieldValueBeforeUpdate, fieldValueAfterUpdate);
     }
 
-    ////////////////////////////////////////
-    // JESTEM TUTAJ NA ROBOCIE
+    @Test
+    public void TestCarObjectMethod_showAllDateTimeFields_willReturnAsFollows_DateNullNull_ifThereWasNoUpdateOrReadOnObject(){
+
+        ArrayList<CarImpl> cars = mockedDatabase.getCarList();
+
+        assertNotNull("Created car must have a creation date at init", cars.get(0).getAllDateTimeFields().get(0));
+        assertNull("Created car must have null in lastReadDate at init", cars.get(0).getAllDateTimeFields().get(1));
+        assertNull("Created car must have null in modificationDate at init", cars.get(0).getAllDateTimeFields().get(2));
+        
+        verify(mockedDatabase, times(1)).getCarList();
+        
+    }
 
     @Test
-    public void TestCarObjectMethod_showAllDateTimeFields_willReturnDateNullNull(){
-        when(mockedDatabase.readSpecificRecord(0).getAllDateTimeFields()).thenReturn(initialDatabase.readSpecificRecord(0).getAllDateTimeFields());
+    public void TestCarObjectMethod_showAllDateTimeFields_willReturnAsFollows_DateDateNull_ifThereWasNoUpdateOrReadOnObject(){
+
+        when(mockedDatabase.readSpecificRecord(0)).thenReturn(initialDatabase.readSpecificRecord(0));
+        mockedDatabase.readSpecificRecord(0);
+        ArrayList<CarImpl> cars = mockedDatabase.getCarList();
+
+        LocalDateTime createDate = cars.get(0).getAllDateTimeFields().get(0);
+        LocalDateTime readDate = cars.get(0).getAllDateTimeFields().get(1);
+        LocalDateTime modifDate = cars.get(0).getAllDateTimeFields().get(2);
+
+        assertNotNull("Created car must have a creation date at init", createDate);
+        assertNotNull("Created car must have null in lastReadDate at init", readDate);
+        assertNull("Created car must have null in modificationDate at init", modifDate);
+        assertTrue(createDate.isBefore(readDate));
+
+        verify(mockedDatabase, times(1)).getCarList();
         
-        assertNotSame(null, mockedDatabase.readSpecificRecord(0).getModificationDateTime());
-        verify(mockedDatabase, times(1)).readSpecificRecord(0);
+    }
+
+    @Test
+    public void TestCarObjectMethod_showAllDateTimeFields_willReturnAsFollows_DateNullDate_ifThereWasNoReadonObjectButWasUpdatObjectApplied(){
+
+        when(
+            mockedDatabase.updateSpecificCarById(
+                0, "color", "brand", "model", "type", true, new EngineImpl(), new GearboxImpl() 
+                )
+            )
+            .thenReturn(initialDatabase.updateSpecificCarById(
+                0, "Gray", "Volvo", "XC90", "SUV", true, new EngineImpl(), new GearboxImpl() 
+            )
+        );
+
+        ArrayList<CarImpl> cars = mockedDatabase.getCarList();
+
+        LocalDateTime createDate = cars.get(0).getAllDateTimeFields().get(0);
+        LocalDateTime readDate = cars.get(0).getAllDateTimeFields().get(1);
+        LocalDateTime modifDate = cars.get(0).getAllDateTimeFields().get(2);
+
+        assertNotNull("Created car must have a creation date at init", createDate);
+        assertNull("Created car must have null in lastReadDate at init", readDate);
+        assertNotNull("Created car must have null in modificationDate at init", modifDate);
+        assertTrue(modifDate.isAfter(createDate));
+        verify(mockedDatabase, times(1)).getCarList();
+        
+    }
+     
+    @Test
+    public void TestCarObjectMethod_showAllDateTimeFields_willReturnAsFollows_DateDateDate_ifObjectWasReadAndObjectWasUpdated(){
+       
+        initialDatabase.setClockForMock(getNewFakeClockValue(5));
+        when(mockedDatabase.readSpecificRecord(0)).thenReturn(initialDatabase.readSpecificRecord(0));
+        initialDatabase.setClockForMock(getNewFakeClockValue(10));
+        when(
+            mockedDatabase.updateSpecificCarById(
+                0, "color", "brand", "model", "type", true, new EngineImpl(), new GearboxImpl() 
+                )
+            )
+            .thenReturn(initialDatabase.updateSpecificCarById(
+                0, "Gray", "Volvo", "XC90", "SUV", true, new EngineImpl(), new GearboxImpl() 
+            )
+        );
+        
+
+        ArrayList<CarImpl> cars = mockedDatabase.getCarList();
+        
+        LocalDateTime createDate = cars.get(0).getAllDateTimeFields().get(0);
+        LocalDateTime readDate = cars.get(0).getAllDateTimeFields().get(1);
+        LocalDateTime modifDate = cars.get(0).getAllDateTimeFields().get(2);
+        
+        System.out.println("CD  "+createDate +"  RD  "+readDate+ "  MD  "+ modifDate);
+        assertNotNull("Created car must have a creation date at init", createDate);
+        assertNotNull("Created car must have null in lastReadDate at init", readDate);
+        assertNotNull("Created car must have null in modificationDate at init", modifDate);
+
+        assertTrue(readDate.isAfter(createDate));
+        assertTrue(modifDate.isAfter(createDate));
+        assertTrue(modifDate.isAfter(readDate));
+        verify(mockedDatabase, times(1)).getCarList();
         
     }
   
+    ////////////////////////////////////////
+    // JESTEM TUTAJ NA ROBOCIE
+    @Test
+    public void TestIfSwitchingOfAllDateTimeFieldsWorkWhenAddingNewRecordToDB(){
+        
+    }
+
 
 
 
