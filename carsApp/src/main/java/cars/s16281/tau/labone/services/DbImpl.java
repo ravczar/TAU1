@@ -18,7 +18,7 @@ public class DbImpl
         this.carList = new ArrayList<CarImpl>(); 
     }
 
-    public void createCar (String color, String brand, String model, String type, Boolean hasAlloyRims, EngineImpl engineImpl, GearboxImpl gearboxImpl ) throws IllegalArgumentException{
+    public Boolean createCar (String color, String brand, String model, String type, Boolean hasAlloyRims, EngineImpl engineImpl, GearboxImpl gearboxImpl ) throws IllegalArgumentException{
         for (CarImpl _car : this.carList){
             if  ( _car.getId().equals(this.numberOfEntries) ){
                     throw new IllegalArgumentException("Car with this ID already exists,cannot create");   
@@ -27,7 +27,8 @@ public class DbImpl
         this.carList.add( new CarImpl(this.numberOfEntries, color, brand, model, type, hasAlloyRims, engineImpl, gearboxImpl ) );
         // adding date of creation basing on true/false argument (turned on mode or off mode)
         this.carList.get(this.numberOfEntries).setCreationDateTime(this.createDateTime, this.currentClock);
-        this.numberOfEntries++;               
+        this.numberOfEntries++;         
+        return true;      
         
     }
 

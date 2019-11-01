@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -75,8 +76,6 @@ public class DbTestMock {
     public void initMocks() {      
         MockitoAnnotations.initMocks(this);
         SetupMockedDatabaseWitRecords(this.initialDatabase, this.numberOfRecordsInInitialDatabase, Clock.systemDefaultZone() );
-        //when(mockedDatabase.readAllRecords()).thenReturn(initialDatabase.readAllRecords());
-        //when(mockedDatabase.readSpecificRecord(0)).thenReturn(initialDatabase.readSpecificRecord(0));
         when(mockedDatabase.getNumberOfEntries()).thenReturn(initialDatabase.getNumberOfEntries());
         when(mockedDatabase.getCarList() ).thenReturn(initialDatabase.getCarList());
         //when(mockedDatabase.updateSpecificCarById( anyInt(), anyString(), anyString(), anyString(), anyString(), anyBoolean(), eq(new EngineImpl()), eq(new GearboxImpl())))
@@ -135,8 +134,10 @@ public class DbTestMock {
         when(mockedDatabase.readAllRecords()).thenReturn(initialDatabase.readAllRecords());
 
         LocalDateTime valueAfterReading = initialDatabase.getCarList().get(0).getLastReadDateTime();
+        verify(mockedDatabase, never()).readAllRecords();
+        mockedDatabase.readAllRecords();
         
-        for (CarImpl _car : initialDatabase.getCarList()){
+        for (CarImpl _car : mockedDatabase.getCarList()){
             if  ( _car.getLastReadDateTime().equals(null) ){
                     throw new IllegalArgumentException("Some car in DB does not have updated _lastReadDate field, example id: " + _car.getId());   
                 }    
@@ -145,13 +146,11 @@ public class DbTestMock {
         System.out.println("Data _lastReadDateTime PRZED odczytem wszystkich: " + valueBeforeReading);
         System.out.println("Data _lastReadDateTime PO odczycie wszystkich: " + valueAfterReading);
 
+        verify(mockedDatabase, times(1)).readAllRecords();
         assertEquals(null, valueBeforeReading);
         assertNotEquals(null, valueAfterReading);
         assertNotEquals(valueBeforeReading, valueAfterReading);   
     }
-
-    ////////////////////////////////////////
-    // JESTEM TUTAJ NA ROBOCIE
 
     @Test
     public void CheckIfCreationOfNewRecordAdd_creationDateTime_ThatIsNotNull() {
@@ -164,32 +163,70 @@ public class DbTestMock {
     }
 
     @Test
-    public void CheckIfCreationOfNewRecordAdd_creationDateTime_ToCarObject() {
-        Clock testClock = Clock.systemUTC();
+    public void CheckIfCreationOfNewRecordAdd_creationDateTime_ToCarObject_VOL2() {
+        Clock testClock = Clock.systemDefaultZone();
         Duration offsetDuration = Duration.ofSeconds(+10);
         Clock createElementClock = Clock.offset(testClock, offsetDuration);
 
         LocalDateTime timeOfTestStart = LocalDateTime.now(testClock);
-        
-        System.out.println("orgiClock: " + testClock.instant());
-        System.out.println("mockClock: " + createElementClock.instant());
 
-        mockedDatabase = new DbImpl();
+        when(mockedDatabase.readSpecificRecord(9)).thenReturn(initialDatabase.readSpecificRecord(9));
+
+        when(
+            mockedDatabase.createCar(
+                "color", "brand", "model", "type", true, new EngineImpl(), new GearboxImpl() 
+                )
+            )
+            .thenReturn(initialDatabase.createCar(
+                "Gray", "Volvo", "XC90", "SUV", true, new EngineImpl(), new GearboxImpl() 
+            )
+        );
+    
         mockedDatabase.setClockForMock(createElementClock);
-        mockedDatabase.setClockForMock( Clock.offset(testClock, offsetDuration) );
-        mockedDatabase.createCar("color", "brand", "model", "type", true, new EngineImpl(), new GearboxImpl());
-        
-        LocalDateTime creationDateReadFromRecentlyCreatedObject = mockedDatabase.readSpecificRecord(0).getCreationDateTime();
+        mockedDatabase.createCar("Gay", "Volvo", "XC90", "SUV", true, new EngineImpl(), new GearboxImpl());
+        LocalDateTime creationDateReadFromRecentlyCreatedObject = initialDatabase.readSpecificRecord(10).getCreationDateTime();
 
-        System.out.println( "Data rozpoczecia testu "+ timeOfTestStart + ". Oczekiwana data dodania auta  " + creationDateReadFromRecentlyCreatedObject );
-        System.out.println("Ile rekordow w bazie: " + mockedDatabase.getNumberOfEntries());
         assertNotEquals(timeOfTestStart, creationDateReadFromRecentlyCreatedObject);
+        assertTrue(timeOfTestStart.isBefore(creationDateReadFromRecentlyCreatedObject));
     }
 
+    @Test
+    public void TestIfField_modiytDateTime_IsUpdatedWhenMethod_updateSpecificCarById_IsRun(){
+        when(mockedDatabase.readSpecificRecord(0)).thenReturn(initialDatabase.readSpecificRecord(0));
+        LocalDateTime fieldValueBeforeUpdate = mockedDatabase.readSpecificRecord(0).getModificationDateTime();
+        System.out.println("fieldValueBeforeUpdate : "+ fieldValueBeforeUpdate);
 
+        when(
+            mockedDatabase.updateSpecificCarById(
+                0, "color", "brand", "model", "type", true, new EngineImpl(), new GearboxImpl() 
+                )
+            )
+            .thenReturn(initialDatabase.updateSpecificCarById(
+                0, "Gray", "Volvo", "XC90", "SUV", true, new EngineImpl(), new GearboxImpl() 
+            )
+        );
 
+        mockedDatabase.updateSpecificCarById(0, "color", "brand", "model", "type", true, new EngineImpl(), new GearboxImpl());
+        LocalDateTime fieldValueAfterUpdate = mockedDatabase.readSpecificRecord(0).getModificationDateTime();
+        System.out.println("fieldValueAfterUpdate : "+ fieldValueAfterUpdate);
 
+        verify(mockedDatabase, times(2)).readSpecificRecord(0);
+        assertNull("fieldValueBeforeUpdate is not null, but it should be before update applied", fieldValueBeforeUpdate);
+        assertNotNull("fieldValueAfterUpdate is null, but it should contain a date of a update already", fieldValueAfterUpdate);
+        assertNotSame("One should contain null and other a date. Should be Different", fieldValueBeforeUpdate, fieldValueAfterUpdate);
+    }
 
+    ////////////////////////////////////////
+    // JESTEM TUTAJ NA ROBOCIE
+
+    @Test
+    public void TestCarObjectMethod_showAllDateTimeFields_willReturnDateNullNull(){
+        when(mockedDatabase.readSpecificRecord(0).getAllDateTimeFields()).thenReturn(initialDatabase.readSpecificRecord(0).getAllDateTimeFields());
+        
+        assertNotSame(null, mockedDatabase.readSpecificRecord(0).getModificationDateTime());
+        verify(mockedDatabase, times(1)).readSpecificRecord(0);
+        
+    }
   
 
 
