@@ -1,5 +1,5 @@
-matrix:
-  include:
-    - language: java
-      script:
-        - (cd LAB1\carsApp ; mvn test)
+language: java
+
+script:
+- cd LAB1\carsApp; mvn test
+
