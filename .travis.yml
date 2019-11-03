@@ -3,7 +3,3 @@ matrix:
     - language: java
       script:
         - (cd LAB1\carsApp ; mvn test)
-  include:
-    - language: java
-      script:
-        - (cd LAB2\carsApp ; mvn test)
