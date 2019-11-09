@@ -3,6 +3,8 @@ package cars.s16281.tau.labone.services;
 import java.time.Clock;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DbImpl 
 {
@@ -15,7 +17,7 @@ public class DbImpl
 
     public DbImpl(){
         this.numberOfEntries = 0;
-        this.carList = new ArrayList<CarImpl>(); 
+        this.carList = new ArrayList<>();
     }
 
     public Boolean createCar (String color, String brand, String model, String type, Boolean hasAlloyRims, EngineImpl engineImpl, GearboxImpl gearboxImpl ) throws IllegalArgumentException{
@@ -50,6 +52,20 @@ public class DbImpl
             }       
         }
         throw new NoSuchElementException("No such car in DB");
+    }
+// LAB3 - search database by
+    public ArrayList<CarImpl> searchWithRegex(String regex) {
+        System.out.println("PRZEKAZANO REGEX: " + regex);
+        ArrayList<CarImpl> searchResults = new ArrayList<>();
+        Pattern pattern = Pattern.compile( regex );
+        
+        for (CarImpl _car : this.carList){
+            Matcher matcher = pattern.matcher(_car.getColor());
+            if(matcher.matches()){  /* metoda zwraca true jeśli łańcuch znaków pasuje w całości do wyrażenia regularnego ( regex ). */
+                searchResults.add(_car);
+            }
+        }
+        return searchResults;
     }
 
     public CarImpl updateSpecificCarById(Integer IdOfUpdatedObject, String newColor, String newBrand, String newModel, String newType, Boolean newHasAlloyRims, EngineImpl newEngine, GearboxImpl newGearbox ) throws NoSuchElementException {
