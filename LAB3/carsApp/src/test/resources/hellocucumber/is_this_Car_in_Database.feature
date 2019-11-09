@@ -6,15 +6,17 @@ Feature: Is this Car in Database?
     Given Database is filled with data
             | color | brand      | model  | type  | hasAlloyRims |
             | green | Volkswagen | T-Roc  | SUV   | true         |
-            | gray  | Audi       | A6     | sedan | true         |
+            | gray  | Audi       | A4'89  | sedan | true         |
+            | brown | Toyota     | GT-86  | coupe | true         |
             | brown | Toyota     | GT-86  | coupe | true         |
             | green | Toyota     | Prius+ | sedan | false        |
-    When I search repository by regex <regex>
+    When the searched Car field is set to model
+    And I search repository by regex <regex>
     Then result count is <count>
     Examples:
-      | regex     | count |
-      | ".*een"   | 2     |
-      | "gray"    | 1     |
-      | "brown"   | 1     |
-      | "else"    | 0     |
-      | "nothing" | 0     |
+      | regex           | count |
+      | ".*Roc"         | 1     |
+      | ".*'[0-9][0-9]" | 1     |
+      | ".*-86"         | 2     |
+      | ".*us\+"        | 1     |
+      | "nothing"       | 0     |

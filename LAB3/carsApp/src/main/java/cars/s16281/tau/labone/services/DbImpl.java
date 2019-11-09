@@ -1,5 +1,6 @@
 package cars.s16281.tau.labone.services;
 
+import java.lang.reflect.Method;
 import java.time.Clock;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -53,15 +54,29 @@ public class DbImpl
         }
         throw new NoSuchElementException("No such car in DB");
     }
-// LAB3 - search database by
-    public ArrayList<CarImpl> searchWithRegex(String regex) {
-        System.out.println("PRZEKAZANO REGEX: " + regex);
+
+    // LAB3 - search database by given field of class CarImpl
+    public ArrayList<CarImpl> searchWithRegex(String fieldOfClassCar, String regex) {
         ArrayList<CarImpl> searchResults = new ArrayList<>();
         Pattern pattern = Pattern.compile( regex );
-        
+        String method ="";
+
         for (CarImpl _car : this.carList){
-            Matcher matcher = pattern.matcher(_car.getColor());
-            if(matcher.matches()){  /* metoda zwraca true jeśli łańcuch znaków pasuje w całości do wyrażenia regularnego ( regex ). */
+            switch(fieldOfClassCar){
+                case "color":
+                    method= _car.getColor(); break;
+                case "brand":
+                    method+=_car.getBrand(); break;
+                case "model":
+                    method+=_car.getModel(); break;
+                case "type":
+                    method+=_car.getType(); break;
+                case "hasAlloyRims":
+                    method+=_car.getHasAlloyRims(); break;
+            }
+            String xxx = _car.getModel();
+            Matcher matcher = pattern.matcher(method);
+            if(matcher.matches()){
                 searchResults.add(_car);
             }
         }

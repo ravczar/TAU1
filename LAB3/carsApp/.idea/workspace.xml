@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5dbb99c5-bc8d-4aca-bd70-6974e193af56" name="Default Changelist" comment="First tests, search by Regex for a Car in my dataBase." />
+    <list default="true" id="5dbb99c5-bc8d-4aca-bd70-6974e193af56" name="Default Changelist" comment="First tests, search by Regex for a Car in my dataBase.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cars/s16281/tau/labone/services/DbImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cars/s16281/tau/labone/services/DbImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/hellocucumber/Stepdefs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/hellocucumber/Stepdefs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/hellocucumber/is_this_Car_in_Database.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/hellocucumber/is_this_Car_in_Database.feature" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +28,9 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RunDashboard">
@@ -48,6 +56,7 @@
       <option name="presentableId" value="Default" />
       <updated>1573329922332</updated>
       <workItem from="1573329928892" duration="4380000" />
+      <workItem from="1573334646368" duration="7509000" />
     </task>
     <task id="LOCAL-00001" summary="First tests, search by Regex for a Car in my dataBase.">
       <created>1573334190569</created>
@@ -67,7 +76,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

@@ -1,6 +1,7 @@
 package hellocucumber;
 
 import cars.s16281.tau.labone.services.CarImpl;
+import cucumber.api.java.en.And;
 import io.cucumber.datatable.DataTable;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -20,7 +21,7 @@ public class Stepdefs {
     
     private DbImpl database;
     private ArrayList<CarImpl> searchResult;
-
+    private String fieldOfClassCar;
 
     @Given("Database is filled with data")
     public void database_is_filled_with_data(DataTable dataTable) {  
@@ -40,21 +41,23 @@ public class Stepdefs {
                 new GearboxImpl()
                 ); 
         }
-        //System.out.println("Transferred in datatable:\n" + dataTable);
-        //System.out.println("zmienna database ma tyle rekordow: " + database.getNumberOfEntries());
     }
 
-    @When("I search repository by regex {string}")
+    @When("the searched Car field is set to model")
+    public void I_search_repository_by_regex(){
+        this.fieldOfClassCar = "model";
+    }
+
+
+    @And("I search repository by regex {string}")
     public void I_search_repository_by_regex(String regex) {
         searchResult = new ArrayList<>();
-        this.searchResult = database.searchWithRegex(regex);
-
+        this.searchResult = database.searchWithRegex(fieldOfClassCar,regex);
     }
 
     @Then("result count is {int}")
     public void result_count_is(Integer count) {
-        assertEquals(count.intValue(), searchResult.size());
-
+        assertEquals("Count of found values do not match the prediction..",count.intValue(), searchResult.size());
     }
 
 
