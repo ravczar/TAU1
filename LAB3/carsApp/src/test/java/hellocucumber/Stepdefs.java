@@ -128,11 +128,6 @@ public class Stepdefs {
         } catch(Exception e) {
             this.exception = e;
         }
-
-        System.out.println("Rozmiar search result: " + searchResult.size()); // zawsze tu wyniesie 1!
-        System.out.println("Poszukujemy ID: " + searchResult.get(0).getId()); // zawsze tu wyniesie 1!
-        System.out.println("Skasowaliśmy ID: "+  id);
-        System.out.println("nasz obiekt exception: " + exception );  // ma wartość null, a powinien miec w sobie jakiś exception.
         assertNotNull("Did not catch any exceptions, while it should!!" , this.exception);
 
     }
