@@ -129,6 +129,10 @@ public class DbImpl
         return this.carList;
     }
 
+    public Integer getDataBaseSize(){
+        return carList.size();
+    }
+
     /*
     * SETTERS
     */
