@@ -6,6 +6,7 @@ import io.cucumber.datatable.DataTable;
 
 import static org.junit.Assert.*;
 
+import java.time.zone.ZoneRulesException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.List;
@@ -45,10 +46,10 @@ public class Stepdefs {
         assertSame("Amount of Cars in scenario mismatch amount of cars in Your mock database",records_from_scenario, records_in_database);
     }
 
-    @When("the searched Car field is set to model")
-    public void I_search_repository_by_regex(){
-        this.fieldOfClassCar = "model";
-        assertTrue(this.fieldOfClassCar.equals("model"));
+    @When("the searched Car field is set to {string}")
+    public void the_searched_Car_field_is_set_to(String fieldOfSearch){
+        this.fieldOfClassCar = fieldOfSearch;
+        assertTrue(this.fieldOfClassCar.equals(fieldOfSearch));
     }
 
 
@@ -84,7 +85,7 @@ public class Stepdefs {
         } catch(Exception e) {
             this.exception = e;
         }
-        assertNotNull(this.exception);
+        assertNotNull("Did not catch any exceptions, while it should!",this.exception);
     }
 
     @And("Database contains only {int} elements")
@@ -102,5 +103,43 @@ public class Stepdefs {
         assertNotSame("", idCounter, database.getDataBaseSize());
     }
 
+    // Scenario 3
+    @And("I decide to delete car by field {string}")
+    public void I_decide_to_delete_car_by_field(String fieldOfSearch){
+        fieldOfClassCar = fieldOfSearch;
+        assertTrue(fieldOfClassCar.equals(fieldOfSearch));
+    }
+
+    @When("I delete record by regex {string}")
+    public void I_delete_record_by_regex(String regex) {
+        Integer sizeOfDataBaseBeforeOperation = database.getDataBaseSize();
+        searchResult = new ArrayList<>();
+        searchResult = this.database.deleteWithRegex(fieldOfClassCar,regex);
+        Integer amountOfRecordsDeleted = searchResult.size();
+        Integer sizeOfDataBaseAfterOperation = database.getDataBaseSize();
+        assertSame("Sizes do not match of database before and after deleteCar operation do not match!", sizeOfDataBaseBeforeOperation , (sizeOfDataBaseAfterOperation + amountOfRecordsDeleted) );
+    }
+
+    @Then("record with id {int} is deleted")
+    public void record_with_id_is_deleted( Integer id ) {
+
+        try {
+            this.database.readSpecificRecord(id);
+        } catch(Exception e) {
+            this.exception = e;
+        }
+
+        System.out.println("Rozmiar search result: " + searchResult.size()); // zawsze tu wyniesie 1!
+        System.out.println("Poszukujemy ID: " + searchResult.get(0).getId()); // zawsze tu wyniesie 1!
+        System.out.println("Skasowaliśmy ID: "+  id);
+        System.out.println("nasz obiekt exception: " + exception );  // ma wartość null, a powinien miec w sobie jakiś exception.
+        assertNotNull("Did not catch any exceptions, while it should!!" , this.exception);
+
+    }
+
+    @And("database should contain this many records: {int}")
+    public void database_should_contain_this_many_records( Integer number ) {
+        assertTrue("Ooops, your database has different amount of records than in the scenario 'example' table. Please check ",database.getDataBaseSize() == number);
+    }
 
 }

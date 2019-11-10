@@ -10,7 +10,7 @@ Feature: Is this Car in Database?
             | brown | Toyota     | GT-86  | coupe | true         |
             | brown | Toyota     | GT-86  | coupe | true         |
             | green | Toyota     | Prius+ | sedan | false        |
-    When the searched Car field is set to model
+    When the searched Car field is set to "model"
     And I search repository by regex <regex>
     Then result count is <count>
     Examples:

@@ -54,6 +54,17 @@ public class DbImpl
         }
         throw new NoSuchElementException("No such car in DB");
     }
+    // LAB3 - delete from database by given field of class CarImpl
+    public ArrayList<CarImpl> deleteWithRegex(String fieldOfClassCar, String regex) {
+        ArrayList<CarImpl> itemsMatchingFound = searchWithRegex(fieldOfClassCar, regex);
+        //System.out.println("Rozmiar tablicy znalezionych rekordow regex: "  + itemsMatchingFound.size());
+        for( CarImpl _car : itemsMatchingFound){
+            this.deleteCar(_car.getId());
+            //System.out.println("Skasowalem CI auto o ID: " + _car.getId());
+        }
+        return itemsMatchingFound;
+    }
+
 
     // LAB3 - search database by given field of class CarImpl
     public ArrayList<CarImpl> searchWithRegex(String fieldOfClassCar, String regex) {

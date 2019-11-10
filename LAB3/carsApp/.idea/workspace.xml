@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5dbb99c5-bc8d-4aca-bd70-6974e193af56" name="Default Changelist" comment="First tests, search by Regex for a Car in my dataBase.">
-      <change afterPath="$PROJECT_DIR$/src/test/resources/hellocucumber/delete_record_from_Database.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cars/s16281/tau/labone/services/DbImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cars/s16281/tau/labone/services/DbImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/hellocucumber/Stepdefs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/hellocucumber/Stepdefs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/hellocucumber/delete_record_from_Database.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/hellocucumber/delete_record_from_Database.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/hellocucumber/is_this_Car_in_Database.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/hellocucumber/is_this_Car_in_Database.feature" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -58,6 +59,10 @@
       <workItem from="1573329928892" duration="4380000" />
       <workItem from="1573334646368" duration="7509000" />
       <workItem from="1573378344590" duration="5702000" />
+      <workItem from="1573384326807" duration="2351000" />
+      <workItem from="1573386719318" duration="1623000" />
+      <workItem from="1573388373572" duration="7041000" />
+      <workItem from="1573397064260" duration="260000" />
     </task>
     <task id="LOCAL-00001" summary="First tests, search by Regex for a Car in my dataBase.">
       <created>1573334190569</created>
