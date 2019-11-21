@@ -1,0 +1,6 @@
+lab4\tau\carRest\service\CarManagerImpl.class
+lab4\tau\carRest\service\CarManager.class
+lab4\tau\carRest\web\CarApi.class
+lab4\tau\carRest\domain\Car.class
+lab4\tau\carRest\configuration\RestConfiguration.class
+lab4\tau\carRest\configuration\RestInitializer.class
