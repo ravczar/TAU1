@@ -38,7 +38,7 @@ public class PersonManagerTest {
 	public void verify_addCar_methodAddsProperCarToDataBase() throws SQLException {
 		Car car = new Car(MODEL_1, BRAND_1, BODY_1, DATE_1);
 		// DB to be empty when testing single record adding
-		carManager.deleteAll();
+		carManager.deleteAllCars();
 		assertEquals("Number of records in DB and added mismatch. Should be 1!",
 				1, carManager.addCar(car));
 
@@ -60,11 +60,11 @@ public class PersonManagerTest {
 	}
 
 	@Test
-	public void verify_deleteAll_methodReturnsZeroWhenDatabaseIsEmpty() throws SQLException {
+	public void verify_deleteAll_methodRemovesAllRecordsFromDatabase() throws SQLException {
 		// Making sure DB is empty at time of test.
 		Car car = new Car(MODEL_1, BRAND_1, BODY_1, DATE_1);
 		carManager.addCar(car);
-		carManager.deleteAll();
+		carManager.deleteAllCars();
 		Integer sizeOfDb = carManager.getAllCars().size();
 
 		assertSame("Should return Zero, but it does not! hint: Check if database is empty at time of test run!", 0 , sizeOfDb );
@@ -73,7 +73,7 @@ public class PersonManagerTest {
 	@Test
 	public void verify_GetAllCars_methodReturnsZeroWhenDatabaseIsEmpty() throws SQLException {
 		// Making sure DB is empty at time of test.
-		carManager.deleteAll();
+		carManager.deleteAllCars();
 		Integer shouldReturnZero = 0;
 		Integer sizeOfDatabase = carManager.getAllCars().size();
 		assertSame("Should return Zero, but it does not! hint: Check if database is empty at time of test run!", shouldReturnZero , sizeOfDatabase );
@@ -101,8 +101,7 @@ public class PersonManagerTest {
 			);
 		}
 	}
-
-
+	
 	@Test
 	public void verify_deleteCar_methodIsDeletingSingleRecord() throws SQLException {
 		Car car = new Car(MODEL_1, BRAND_1, BODY_1, DATE_1);
