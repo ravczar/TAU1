@@ -3,7 +3,7 @@ package lab4.tau.carRest.domain;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class Car {
-	private static final AtomicLong count = new AtomicLong(0);
+	//private static final AtomicLong count = new AtomicLong(0);
 	private long id;
 	private String model;
 	private String brand;
@@ -12,7 +12,7 @@ public class Car {
 	
 	public Car() { }
 	public Car(String Model, String Brand, String Body, Integer DateOfProduction ) {
-		this.id = count.incrementAndGet();
+		//this.id = count.incrementAndGet();
 		this.model = Model;
 		this.brand = Brand;
 		this.body = Body;

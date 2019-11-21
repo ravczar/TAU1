@@ -30,24 +30,90 @@ public class PersonManagerTest {
 	}
 
 	@Test
-	public void checkConnection() {
+	public void verify_EstablishedConnection() {
 		assertNotNull("Not connection with database established, check if HSQLDB working and named properly 'workdb'!",carManager.getConnection());
 	}
 
 	@Test
-	public void verifyAddingSingleCarMethod() throws SQLException {
+	public void verify_addCar_methodAddsProperCarToDataBase() throws SQLException {
 		Car car = new Car(MODEL_1, BRAND_1, BODY_1, DATE_1);
 		// DB to be empty when testing single record adding
 		carManager.deleteAll();
-		assertEquals("Number of records in DB and added mismatch. Should be 1!",1, carManager.addCar(car));
+		assertEquals("Number of records in DB and added mismatch. Should be 1!",
+				1, carManager.addCar(car));
 
 		List<Car> cars = carManager.getAllCars();
 		Car carRetrieved = cars.get(0);
 
-		assertEquals("Expected Model_name != received Model_name", MODEL_1, carRetrieved.getModel());
-		assertEquals("Expected Brand_name != received Brand_name", BRAND_1, carRetrieved.getBrand());
-		assertEquals("Expected Body_type != received Body_type", BODY_1, carRetrieved.getBody());
-		assertEquals("Expected Date_of_prod. != received Date_of_prod.", DATE_1, carRetrieved.getDateOfProduction());
+		assertEquals("Expected Model_name != received Model_name",
+				MODEL_1, carRetrieved.getModel()
+		);
+		assertEquals("Expected Brand_name != received Brand_name",
+				BRAND_1, carRetrieved.getBrand()
+		);
+		assertEquals("Expected Body_type != received Body_type",
+				BODY_1, carRetrieved.getBody()
+		);
+		assertEquals("Expected Date_of_prod. != received Date_of_prod.",
+				DATE_1, carRetrieved.getDateOfProduction()
+		);
+	}
+
+	@Test
+	public void verify_deleteAll_methodReturnsZeroWhenDatabaseIsEmpty() throws SQLException {
+		// Making sure DB is empty at time of test.
+		Car car = new Car(MODEL_1, BRAND_1, BODY_1, DATE_1);
+		carManager.addCar(car);
+		carManager.deleteAll();
+		Integer sizeOfDb = carManager.getAllCars().size();
+
+		assertSame("Should return Zero, but it does not! hint: Check if database is empty at time of test run!", 0 , sizeOfDb );
+	}
+
+	@Test
+	public void verify_GetAllCars_methodReturnsZeroWhenDatabaseIsEmpty() throws SQLException {
+		// Making sure DB is empty at time of test.
+		carManager.deleteAll();
+		Integer shouldReturnZero = 0;
+		Integer sizeOfDatabase = carManager.getAllCars().size();
+		assertSame("Should return Zero, but it does not! hint: Check if database is empty at time of test run!", shouldReturnZero , sizeOfDatabase );
+	}
+
+	@Test
+	public void verify_getCar_methodReturnsProperId() throws SQLException {
+		Car car = new Car(MODEL_1, BRAND_1, BODY_1, DATE_1);
+		long lastIndexInDataBaseBeforeAddingNewRecord = carManager.getAllCars().size() -1;
+		if (lastIndexInDataBaseBeforeAddingNewRecord == -1){
+			assertEquals("DB is not empty at time of test",carManager.getAllCars().size(), 0);
+		}
+		else if ( lastIndexInDataBaseBeforeAddingNewRecord >= 0){
+			long idOfLastRecordInDataBaseBeforeAddingRecord = carManager.getAllCars().get((int) lastIndexInDataBaseBeforeAddingNewRecord).getId();
+			System.out.println("lastIndexInDataBase : " + lastIndexInDataBaseBeforeAddingNewRecord);
+			System.out.println("idOfLastRecordInDataBase : " + idOfLastRecordInDataBaseBeforeAddingRecord);
+			carManager.addCar(car);
+			long lastIndexInDataBaseAfterAddingRecord = carManager.getAllCars().size() -1;
+			long idOfLastRecordInDataBaseAfterAddingRecord = carManager.getAllCars().get((int) lastIndexInDataBaseAfterAddingRecord).getId();
+			assertNotEquals("Id value of last record pre addition of new record should be different than id of last record after addition ",
+					idOfLastRecordInDataBaseBeforeAddingRecord, idOfLastRecordInDataBaseAfterAddingRecord
+			);
+			assertEquals("ID of last record after adding new record should be equal to ID of last record Before adding this record, but + 1 ",
+					++idOfLastRecordInDataBaseBeforeAddingRecord, idOfLastRecordInDataBaseAfterAddingRecord
+			);
+		}
+	}
+
+
+	@Test
+	public void verify_deleteCar_methodIsDeletingSingleRecord() throws SQLException {
+		Car car = new Car(MODEL_1, BRAND_1, BODY_1, DATE_1);
+		long sizeOfDatabaseBeforeAddingNewCar = carManager.getAllCars().size();
+		carManager.addCar(car);
+		carManager.deleteCar(car);
+		long sizeOfDatabaseAfterDeletingPreviouslyAddedCar = carManager.getAllCars().size();
+		assertEquals("Number of records before adding new record to DB should equal sieze of DB after removing record ",
+				sizeOfDatabaseBeforeAddingNewCar, sizeOfDatabaseAfterDeletingPreviouslyAddedCar
+		);
+
 	}
 
 

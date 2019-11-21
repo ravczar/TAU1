@@ -1,18 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ad2ec58e-139b-490a-b8e2-7e93012e4fe2" name="Default Changelist" comment="" />
+    <list default="true" id="ad2ec58e-139b-490a-b8e2-7e93012e4fe2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lab4/tau/carRest/domain/Car.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab4/tau/carRest/domain/Car.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/lab4/tau/carRest/service/PersonManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/lab4/tau/carRest/service/PersonManagerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/lab4/tau/carRest/service/PersonManagerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/lab4/tau/carRest/service/PersonManagerTest.class" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
   <component name="ProjectId" id="1Tt317xpOwbVuUre2yjA1LLb8DQ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -35,17 +46,17 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.PersonManagerTest.checkAdding">
-    <configuration name="PersonManagerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.PersonManagerTest (1)">
+    <configuration name="PersonManagerTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="restdemo" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="pl.tau.restdemo.service.*" />
+          <option name="PATTERN" value="lab4.tau.carRest.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="pl.tau.restdemo.service" />
-      <option name="MAIN_CLASS_NAME" value="pl.tau.restdemo.service.PersonManagerTest" />
+      <option name="PACKAGE_NAME" value="lab4.tau.carRest.service" />
+      <option name="MAIN_CLASS_NAME" value="lab4.tau.carRest.service.PersonManagerTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -66,7 +77,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PersonManagerTest.checkAdding" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PersonManagerTest.verifyDeletingSingleRecord" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="restdemo" />
       <extension name="coverage">
         <pattern>
@@ -76,13 +87,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="lab4.tau.carRest.service" />
       <option name="MAIN_CLASS_NAME" value="lab4.tau.carRest.service.PersonManagerTest" />
-      <option name="METHOD_NAME" value="checkAdding" />
+      <option name="METHOD_NAME" value="verifyDeletingSingleRecord" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PersonManagerTest.checkConnection" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PersonManagerTest.verify_GetAllCars_methodReturnsZeroWhenDatabaseIsEmpty" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="restdemo" />
       <extension name="coverage">
         <pattern>
@@ -92,7 +103,39 @@
       </extension>
       <option name="PACKAGE_NAME" value="lab4.tau.carRest.service" />
       <option name="MAIN_CLASS_NAME" value="lab4.tau.carRest.service.PersonManagerTest" />
-      <option name="METHOD_NAME" value="checkConnection" />
+      <option name="METHOD_NAME" value="verify_GetAllCars_methodReturnsZeroWhenDatabaseIsEmpty" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PersonManagerTest.verify_GetCar_methodReturnsProperId" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="restdemo" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="lab4.tau.carRest.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="lab4.tau.carRest.service" />
+      <option name="MAIN_CLASS_NAME" value="lab4.tau.carRest.service.PersonManagerTest" />
+      <option name="METHOD_NAME" value="verify_GetCar_methodReturnsProperId" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PersonManagerTest.verify_GetCar_methodReturnsProperIdAndRestOfFields" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="restdemo" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="lab4.tau.carRest.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="lab4.tau.carRest.service" />
+      <option name="MAIN_CLASS_NAME" value="lab4.tau.carRest.service.PersonManagerTest" />
+      <option name="METHOD_NAME" value="verify_GetCar_methodReturnsProperIdAndRestOfFields" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -100,9 +143,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.PersonManagerTest.checkAdding" />
-        <item itemvalue="JUnit.PersonManagerTest.checkConnection" />
-        <item itemvalue="JUnit.PersonManagerTest" />
+        <item itemvalue="JUnit.PersonManagerTest (1)" />
+        <item itemvalue="JUnit.PersonManagerTest.verify_GetAllCars_methodReturnsZeroWhenDatabaseIsEmpty" />
+        <item itemvalue="JUnit.PersonManagerTest.verify_GetCar_methodReturnsProperId" />
+        <item itemvalue="JUnit.PersonManagerTest.verifyDeletingSingleRecord" />
+        <item itemvalue="JUnit.PersonManagerTest.verify_GetCar_methodReturnsProperIdAndRestOfFields" />
       </list>
     </recent_temporary>
   </component>
@@ -121,10 +166,41 @@
       <workItem from="1574352946540" duration="242000" />
       <workItem from="1574353204919" duration="10374000" />
       <workItem from="1574364749853" duration="1649000" />
+      <workItem from="1574368172586" duration="5991000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/test/java/lab4/tau/carRest/service/PersonManagerTest.java</url>
+          <line>106</line>
+          <properties class="lab4.tau.carRest.service.PersonManagerTest" method="verify_deleteCar_methodIsDeletingSingleRecord">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/lab4/tau/carRest/service/PersonManagerTest.java</url>
+          <line>13</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
