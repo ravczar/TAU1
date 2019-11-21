@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import lab4.tau.carRest.domain.Car;
 
-public class PersonManagerTest {
+public class CarManagerTest {
 
 	lab4.tau.carRest.service.CarManager carManager;
 
@@ -19,6 +19,11 @@ public class PersonManagerTest {
 	private final static String BRAND_1 = "Fiat";
 	private final static String BODY_1 = "MULTIVAN";
 	private final static int DATE_1 = 2005;
+
+	private final static String MODEL_2 = "Fiesta";
+	private final static String BRAND_2 = "Ford";
+	private final static String BODY_2 = "Hatchback";
+	private final static int DATE_2 = 1999;
 
 	@Before
 	public void setup() throws SQLException {
@@ -30,7 +35,7 @@ public class PersonManagerTest {
 	}
 
 	@Test
-	public void verify_EstablishedConnection() {
+	public void verify_established_Connection() {
 		assertNotNull("Not connection with database established, check if HSQLDB working and named properly 'workdb'!",carManager.getConnection());
 	}
 
@@ -60,7 +65,7 @@ public class PersonManagerTest {
 	}
 
 	@Test
-	public void verify_deleteAll_methodRemovesAllRecordsFromDatabase() throws SQLException {
+	public void verify_deleteAllCars_methodRemovesAllRecordsFromDatabase() throws SQLException {
 		// Making sure DB is empty at time of test.
 		Car car = new Car(MODEL_1, BRAND_1, BODY_1, DATE_1);
 		carManager.addCar(car);
@@ -71,7 +76,7 @@ public class PersonManagerTest {
 	}
 
 	@Test
-	public void verify_GetAllCars_methodReturnsZeroWhenDatabaseIsEmpty() throws SQLException {
+	public void verify_getAllCars_methodReturnsZeroWhenDatabaseIsEmpty() throws SQLException {
 		// Making sure DB is empty at time of test.
 		carManager.deleteAllCars();
 		Integer shouldReturnZero = 0;
@@ -101,7 +106,7 @@ public class PersonManagerTest {
 			);
 		}
 	}
-	
+
 	@Test
 	public void verify_deleteCar_methodIsDeletingSingleRecord() throws SQLException {
 		Car car = new Car(MODEL_1, BRAND_1, BODY_1, DATE_1);
@@ -115,6 +120,61 @@ public class PersonManagerTest {
 
 	}
 
+	@Test
+	public void verify_updateCar_methodIsUpdatingAllFieldsWithProperData() throws SQLException {
+		carManager.deleteAllCars();
+		Car car = new Car(MODEL_1, BRAND_1, BODY_1, DATE_1);
+
+		Integer howManyJustAdded = carManager.addCar(car);
+		Integer currentSizeOfDb = carManager.getAllCars().size();
+		Integer lasIndexInDb = currentSizeOfDb -1;
+		long IdOfCarBeforeAnUpdate = carManager.getAllCars().get(lasIndexInDb).getId();
+		assertSame("Database received different amount of records! Wrong.", 1, howManyJustAdded);
+		assertSame("Database size is different than 1", 1, currentSizeOfDb);
+
+		car.updateMultipleFields(MODEL_2, BRAND_2, BODY_2, DATE_2);
+		carManager.updateCar(car);
+		long idOfUpdatedCar = carManager.getAllCars().get(lasIndexInDb).getId();
+		String updatedModelName = carManager.getAllCars().get(lasIndexInDb).getModel();
+		String updatedBrandName = carManager.getAllCars().get(lasIndexInDb).getBrand();
+		String updatedBodyType = carManager.getAllCars().get(lasIndexInDb).getBody();
+		int updatedDateOfProduction = carManager.getAllCars().get(lasIndexInDb).getDateOfProduction();
+
+		assertEquals("Id of car before update and after and update differ, but should Not! ", IdOfCarBeforeAnUpdate, idOfUpdatedCar);
+		assertEquals("Model name should be Fiesta, but its not", updatedModelName, MODEL_2);
+		assertEquals("Brand name should be Ford, but its not", updatedBrandName, BRAND_2);
+		assertEquals("Body type should be Hatchback, but its not", updatedBodyType, BODY_2);
+		assertEquals("DateOfProduction should be 1999 but its not", updatedDateOfProduction, DATE_2);
+
+	}
+
+	@Test
+	public void verify_updateCar_methodIsUpdatingOnlyBrandNameWithValueOfSpecific_field_BRAND2() throws SQLException {
+		carManager.deleteAllCars();
+		Car car = new Car(MODEL_1, BRAND_1, BODY_1, DATE_1);
+
+		Integer howManyJustAdded = carManager.addCar(car);
+		Integer currentSizeOfDb = carManager.getAllCars().size();
+		Integer lasIndexInDb = currentSizeOfDb -1;
+		long IdOfCarBeforeAnUpdate = carManager.getAllCars().get(lasIndexInDb).getId();
+		assertSame("Database received different amount of records! Wrong.", 1, howManyJustAdded);
+		assertSame("Database size is different than 1", 1, currentSizeOfDb);
+		// Only changing Brand Name
+		car.setBrand(BRAND_2);
+		carManager.updateCar(car);
+		long idOfUpdatedCar = carManager.getAllCars().get(lasIndexInDb).getId();
+		String updatedModelName = carManager.getAllCars().get(lasIndexInDb).getModel();
+		String updatedBrandName = carManager.getAllCars().get(lasIndexInDb).getBrand();
+		String updatedBodyType = carManager.getAllCars().get(lasIndexInDb).getBody();
+		int updatedDateOfProduction = carManager.getAllCars().get(lasIndexInDb).getDateOfProduction();
+
+		assertEquals("Id of car before update and after and update differ, but should Not! ", IdOfCarBeforeAnUpdate, idOfUpdatedCar);
+		assertEquals("Model name should be Fiesta, but its not", updatedModelName, MODEL_1);
+		assertEquals("Brand name should be Ford, but its not", updatedBrandName, BRAND_2);
+		assertEquals("Body type should be Hatchback, but its not", updatedBodyType, BODY_1);
+		assertEquals("DateOfProduction should be 1999 but its not", updatedDateOfProduction, DATE_1);
+
+	}
 
 
 }

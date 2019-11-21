@@ -19,6 +19,7 @@ public class Car {
 		this.dateOfProduction = DateOfProduction;
 	}
 
+	// Getters/Setters
 	public long getId() {
 		return id;
 	}
@@ -43,5 +44,13 @@ public class Car {
 	public void setDateOfProduction(int dateOfProduction) {
 		this.dateOfProduction = dateOfProduction;
 	}
+
+	public void updateMultipleFields(String Model, String Brand, String Body, Integer DateOfProduction){
+		this.setModel(Model);
+		this.setBrand(Brand);
+		this.setBody(Body);
+		this.setDateOfProduction(DateOfProduction);
+	}
+
 
 }

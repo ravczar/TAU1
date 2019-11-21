@@ -16,6 +16,6 @@ public interface CarManager {
 	public int updateCar(Car car) throws SQLException;
 	public Car getCar(long id) throws SQLException;
 	public String introduceSelf();
-	public int deleteAll();
+	public int deleteAllCars();
 	public List<Car> getAllCars();
 }

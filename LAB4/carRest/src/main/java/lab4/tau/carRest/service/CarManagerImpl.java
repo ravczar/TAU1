@@ -176,7 +176,7 @@ public class CarManagerImpl implements  CarManager {
     }
 
     @Override
-    public int deleteAll() {
+    public int deleteAllCars() {
         try {
             return deleteAllCarsStatement.executeUpdate();
         } catch (SQLException e) {
