@@ -32,6 +32,7 @@ public class CarManagerTest {
 
 	@After
 	public void cleanup() throws SQLException {
+		carManager.deleteAllCars();
 	}
 
 	@Test
@@ -42,25 +43,24 @@ public class CarManagerTest {
 	@Test
 	public void verify_addCar_methodAddsProperCarToDataBase() throws SQLException {
 		Car car = new Car(MODEL_1, BRAND_1, BODY_1, DATE_1);
-		// DB to be empty when testing single record adding
-		carManager.deleteAllCars();
 		assertEquals("Number of records in DB and added mismatch. Should be 1!",
-				1, carManager.addCar(car));
+				1, carManager.addCar(car)
+		);
 
 		List<Car> cars = carManager.getAllCars();
-		Car carRetrieved = cars.get(0);
+		Car carInDatabase = cars.get(0);
 
 		assertEquals("Expected Model_name != received Model_name",
-				MODEL_1, carRetrieved.getModel()
+				MODEL_1, carInDatabase.getModel()
 		);
 		assertEquals("Expected Brand_name != received Brand_name",
-				BRAND_1, carRetrieved.getBrand()
+				BRAND_1, carInDatabase.getBrand()
 		);
 		assertEquals("Expected Body_type != received Body_type",
-				BODY_1, carRetrieved.getBody()
+				BODY_1, carInDatabase.getBody()
 		);
 		assertEquals("Expected Date_of_prod. != received Date_of_prod.",
-				DATE_1, carRetrieved.getDateOfProduction()
+				DATE_1, carInDatabase.getDateOfProduction()
 		);
 	}
 

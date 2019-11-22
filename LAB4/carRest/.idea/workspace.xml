@@ -3,13 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="ad2ec58e-139b-490a-b8e2-7e93012e4fe2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lab4/tau/carRest/domain/Car.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab4/tau/carRest/domain/Car.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lab4/tau/carRest/service/CarManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab4/tau/carRest/service/CarManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lab4/tau/carRest/service/CarManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab4/tau/carRest/service/CarManagerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/lab4/tau/carRest/service/PersonManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/lab4/tau/carRest/service/CarManagerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API_Table.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/API_Table.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lab4/tau/carRest/web/CarApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab4/tau/carRest/web/CarApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/lab4/tau/carRest/service/CarManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/lab4/tau/carRest/service/CarManagerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/carRest-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/carRest-0.0.1-SNAPSHOT.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/lab4/tau/carRest/service/CarManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/lab4/tau/carRest/service/CarManager.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/lab4/tau/carRest/service/CarManagerImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/lab4/tau/carRest/service/CarManagerImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/lab4/tau/carRest/service/PersonManagerTest.class" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -49,7 +48,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.CarManagerTest.verify_updateCar_methodIsUpdatingOnlyBrandNameWithValueOfSpecific_field_BRAND2">
+  <component name="RunManager" selected="JUnit.CarManagerTest">
     <configuration name="CarManagerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="restdemo" />
       <extension name="coverage">
@@ -80,7 +79,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CarManagerTest.verify_GetAllCars_methodReturnsZeroWhenDatabaseIsEmpty" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CarManagerTest.verify_addCar_methodAddsProperCarToDataBase" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="restdemo" />
       <extension name="coverage">
         <pattern>
@@ -90,13 +89,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="lab4.tau.carRest.service" />
       <option name="MAIN_CLASS_NAME" value="lab4.tau.carRest.service.CarManagerTest" />
-      <option name="METHOD_NAME" value="verify_GetAllCars_methodReturnsZeroWhenDatabaseIsEmpty" />
+      <option name="METHOD_NAME" value="verify_addCar_methodAddsProperCarToDataBase" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CarManagerTest.verify_GetCar_methodReturnsProperId" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CarManagerTest.verify_established_Connection" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="restdemo" />
       <extension name="coverage">
         <pattern>
@@ -106,7 +105,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="lab4.tau.carRest.service" />
       <option name="MAIN_CLASS_NAME" value="lab4.tau.carRest.service.CarManagerTest" />
-      <option name="METHOD_NAME" value="verify_GetCar_methodReturnsProperId" />
+      <option name="METHOD_NAME" value="verify_established_Connection" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -146,11 +145,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CarManagerTest" />
+        <item itemvalue="JUnit.CarManagerTest.verify_addCar_methodAddsProperCarToDataBase" />
+        <item itemvalue="JUnit.CarManagerTest.verify_established_Connection" />
         <item itemvalue="JUnit.CarManagerTest.verify_updateCar_methodIsUpdatingOnlyBrandNameWithValueOfSpecific_field_BRAND2" />
-        <item itemvalue="JUnit.CarManagerTest" />
         <item itemvalue="JUnit.CarManagerTest.verify_updateCar_methodIsUpdatingCeretainFieldsWithProperData" />
-        <item itemvalue="JUnit.CarManagerTest" />
-        <item itemvalue="JUnit.CarManagerTest.verify_GetAllCars_methodReturnsZeroWhenDatabaseIsEmpty" />
       </list>
     </recent_temporary>
   </component>
@@ -171,6 +170,7 @@
       <workItem from="1574364749853" duration="1649000" />
       <workItem from="1574368172586" duration="5991000" />
       <workItem from="1574374463559" duration="2119000" />
+      <workItem from="1574376738460" duration="5276000" />
     </task>
     <servers />
   </component>
@@ -196,7 +196,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/test/java/lab4/tau/carRest/service/CarManagerTest.java</url>
           <line>105</line>
-          <properties class="lab4.tau.carRest.service.CarManagerTest" method="verify_deleteCar_methodIsDeletingSingleRecord">
+          <properties class="lab4.tau.carRest.service.CarManagerTest">
             <option name="EMULATED" value="true" />
           </properties>
           <option name="timeStamp" value="1" />

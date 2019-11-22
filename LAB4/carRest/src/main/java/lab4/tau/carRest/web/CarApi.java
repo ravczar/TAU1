@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import lab4.tau.carRest.domain.Car;
 import lab4.tau.carRest.service.CarManager;
 
+import javax.validation.constraints.Null;
+import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
@@ -49,7 +51,8 @@ public class CarApi {
     @RequestMapping(value = "/car",
         method = RequestMethod.POST,
         consumes = MediaType.APPLICATION_JSON_VALUE,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public Car addCar(@RequestBody Car p) {
         if (carManager.addCar(p) < 1) return null;
         return p;
@@ -60,5 +63,19 @@ public class CarApi {
     public Long deleteCar(@PathVariable("id") Long id) throws SQLException {
         return new Long(carManager.deleteCar(carManager.getCar(id)));
     }
+
+    // Update car
+    @RequestMapping(value = "/car/{id}",
+            method = RequestMethod.PUT,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ResponseBody
+    public Car updateCar(@PathVariable("id") Long id, @RequestBody Car c) throws SQLException {
+        c.setId(id);
+        if (carManager.updateCar(c) < 1) return null;
+        return c;
+    }
+
 
 }
