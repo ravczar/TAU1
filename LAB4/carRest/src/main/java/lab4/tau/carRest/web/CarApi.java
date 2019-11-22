@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import lab4.tau.carRest.domain.Car;
 import lab4.tau.carRest.service.CarManager;
 
-import javax.validation.constraints.Null;
-import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;

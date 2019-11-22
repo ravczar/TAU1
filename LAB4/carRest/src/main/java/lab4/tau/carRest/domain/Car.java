@@ -1,6 +1,6 @@
 package lab4.tau.carRest.domain;
 
-import java.util.concurrent.atomic.AtomicLong;
+//import java.util.concurrent.atomic.AtomicLong;
 
 public class Car {
 	//private static final AtomicLong count = new AtomicLong(0);
