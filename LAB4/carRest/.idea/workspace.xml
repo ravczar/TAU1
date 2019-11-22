@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ad2ec58e-139b-490a-b8e2-7e93012e4fe2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API_Table.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/API_Table.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../testPlan/CarApiTestPlan.jmx" beforeDir="false" afterPath="$PROJECT_DIR$/../testPlan/CarApiTestPlan.jmx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../testPlan/data.csv" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -172,6 +169,7 @@
       <workItem from="1574417667906" duration="1315000" />
       <workItem from="1574421438388" duration="3007000" />
       <workItem from="1574439228758" duration="4919000" />
+      <workItem from="1574452947913" duration="276000" />
     </task>
     <servers />
   </component>
