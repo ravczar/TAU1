@@ -11,7 +11,4 @@ matrix:
     - language: java
       script:
         - (cd LAB3/carsApp ; mvn test)
-  include:
-    - language: java
-      script:
-        - (cd LAB4/carRest ; mvn test)
+
