@@ -1,5 +1,5 @@
 
-[![Build Status](https://travis-ci.org/ravczar/TAU1.svg?branch=master)](https://travis-ci.org/kchrusciel/TAU1)
+[![Build Status](https://travis-ci.org/ravczar/TAU1.svg?branch=master)](https://travis-ci.org/ravczar/TAU1)
 
 
 # TAU lab1 - tdd CRUD DB Cars
