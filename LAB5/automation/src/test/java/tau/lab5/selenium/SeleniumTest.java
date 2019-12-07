@@ -10,12 +10,14 @@ import static org.junit.Assert.*;
 
 public class SeleniumTest {
     private static WebDriver driver;
+    String chromeLocalComputerAddress = "C:/WebDrivers/chromedriver_win32/chromedriver.exe";
+    private static String chromeWebdriverInProject = "WebDrivers/chromedriver_win32/chromedriver.exe";
 
     @BeforeClass
     public static void driverSetup(){
         System.setProperty(
             "webdriver.chrome.driver",
-            "C:/WebDrivers/chromedriver_win32/chromedriver.exe");  
+            chromeWebdriverInProject);  
         WebDriver driver = new ChromeDriver();
     }
 
