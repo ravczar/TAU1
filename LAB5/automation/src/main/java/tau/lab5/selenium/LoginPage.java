@@ -25,6 +25,9 @@ public class LoginPage {
     @FindBy(id = "SubmitCreate")
     WebElement createAccountButton;
 
+    @FindBy(id = "submitAccount")
+    WebElement submitCreateButton;
+
     @FindBy(css = "#create_account_error > ol > li")
     WebElement createAccountErrorMsg;
 
@@ -48,10 +51,10 @@ public class LoginPage {
     WebElement password;
 
     @FindBy(css = "input#firstname")
-    WebElement firstname;
+    WebElement firstNamePrim;
 
     @FindBy(css = "input#lastname")
-    WebElement lastname;
+    WebElement lastNamePrim;
 
     @FindBy(css = "input#address1")
     WebElement address;
@@ -130,6 +133,10 @@ public class LoginPage {
         return a+b+c;
     }
 
+    public void submitCreateUserForm() {
+        submitCreateButton.click();
+    }
+
 
 
     /* GETTERS */
@@ -169,6 +176,45 @@ public class LoginPage {
         return driver.getCurrentUrl();
     }
 
+    // Complex reg form
+    public WebElement getFirstName() {
+        return firstName;
+    }
+    public WebElement getlastName() {
+        return lastName;
+    }
+    public WebElement getPassword() {
+        return password;
+    }
+    public WebElement getFirstNamePrim() {
+        return firstNamePrim;
+    }
+    public WebElement getLastNamePrim() {
+        return lastNamePrim;
+    }
+    public WebElement getAddres() {
+        return address;
+    }
+    public WebElement getCity() {
+        return city;
+    }
+    public WebElement getState() {
+        return state;
+    }
+    public WebElement getPostCode() {
+        return postCode;
+    }
+    public WebElement getCountry() {
+        return country;
+    }
+    public WebElement getMobilePhone() {
+        return mobilePhone;
+    }
+    public WebElement getAlias() {
+        return alias;
+    }
+
+
     /* SETTERS */
     public void setLoginEmail(String email) {
         loginInput.sendKeys(email);
@@ -186,6 +232,43 @@ public class LoginPage {
 
     public void setCreateEmailPressEnter (Keys key){
         createEmailInput.sendKeys(key);
+    }
+    // Complex reg form setters
+    public void setFirstName(String FirstName) {
+        firstName.sendKeys(FirstName);
+    }
+    public void setlastName(String LastName) {
+        lastName.sendKeys(LastName);
+    }
+    public void setPassword(String Password) {
+        password.sendKeys(Password);
+    }
+    public void setFirstNamePrim(String FirstNamePrim) {
+        firstNamePrim.sendKeys(FirstNamePrim);
+    }
+    public void setLastNamePrim(String LastNamePrim) {
+        lastNamePrim.sendKeys(LastNamePrim);
+    }
+    public void setAddres(String Address) {
+        address.sendKeys(Address);
+    }
+    public void setCity(String City) {
+        city.sendKeys(City);
+    }
+    public void setState(CharSequence State) {
+        state.sendKeys(State);
+    }
+    public void setPostCode(String PostCode) {
+        postCode.sendKeys(PostCode);
+    }
+    public void setCountry(CharSequence Country) {
+        country.sendKeys(Country);
+    }
+    public void setMobilePhone(String PhoneNumber) {
+        mobilePhone.sendKeys(PhoneNumber);
+    }
+    public void setAlias(String Alias) {
+        alias.sendKeys(Alias);
     }
 
 

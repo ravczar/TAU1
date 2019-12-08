@@ -371,7 +371,7 @@ public class SeleniumTest {
     }
 
     /*
-    *   16) Successful registration test with random email address
+    *   16) Successful registration test with random email address, after registration redirect to user account profile
     */
     @Test
     public void successNewUserRegistrationTest() {
@@ -391,8 +391,30 @@ public class SeleniumTest {
         // check if proper input field automaticly inherit email address that is correct.
         assertEquals(uniqueEmailAddress, loginPage.getRegistrationFormEmailInputValue());
         // Fill all neccessary fields.
-        
-
+        String name = "Jan";
+        String surname = "Maria";
+        loginPage.setFirstName(name);
+        loginPage.setlastName(surname);
+        loginPage.setPassword("admin");
+        loginPage.setFirstNamePrim("Jan");
+        loginPage.setLastNamePrim("Maria");
+        loginPage.setAddres("Dlugie Ogrody");
+        loginPage.setCity("Gdańsk");
+        loginPage.setState("Alabama");
+        loginPage.setPostCode("80765");
+        loginPage.setCountry("United States");
+        loginPage.setMobilePhone("123456789");
+        loginPage.setAlias("Superb");
+        // submit form
+        loginPage.submitCreateUserForm();
+        // Wait until page loadsup
+        loginPage.waitUntilElemntWithGivenCssSelectorIsVisible(".myaccount-link-list");
+        // check if button appeared on website
+        assertEquals("Element - button Home cannot be found !","Home", loginPage.findElementAndReturnItsText("ul.footer_links > li > a > span"));
+        // Check if proper cookie created
+        String expectedUserNameInMenu = name + " " + surname;
+        String nameInMenuButton = loginPage.findElementAndReturnItsText("a.account > span");
+        assertEquals(expectedUserNameInMenu , nameInMenuButton);
     }
 
 
