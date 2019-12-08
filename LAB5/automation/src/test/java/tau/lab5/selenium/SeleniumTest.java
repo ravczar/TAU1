@@ -2,6 +2,7 @@ package tau.lab5.selenium;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import com.google.common.io.Files;
@@ -204,7 +205,7 @@ public class SeleniumTest {
     }
 
     /*
-    *   Test counting number of elemnts displayed in 'Best Seller section'
+    *   Test counting number of elemnts displayed in 'Best Seller section' with resolution 300x700
     */
 
 	@Test
@@ -216,11 +217,26 @@ public class SeleniumTest {
     }
 
     /*
-    * 4) Test supposed to Succeed when given no email and no password. Prompt: "An email address required."
+    * 4a) Test supposed to Succeed when given no email and no password. Prompt: "An email address required."
     */
     @Test
     public void loginIncorrect_NoDataEnteredIntoInputFields() {
         loginPage.open();
+        loginPage.login();
+        assertFalse(loginPage.isLoginSuccessful());
+        assertEquals("Recived different promt than expected, should read: "+ emailAndPasswordNotEnteredAtAll
+            ,emailAndPasswordNotEnteredAtAll, loginPage.readSiteLoginFailedAuthentitcationPrompt()
+            );
+    }
+    
+    /*
+    * 4b) Test supposed to Succeed when given no email and no password. Prompt: "An email address required."
+    *       Test with changed window size to 1920 x 800
+    */
+    @Test
+    public void loginIncorrect_NoDataEnteredIntoInputFieldsWindowSize1920x800() {
+        loginPage.open();
+        loginPage.setWindowSize(1920, 800);
         loginPage.login();
         assertFalse(loginPage.isLoginSuccessful());
         assertEquals("Recived different promt than expected, should read: "+ emailAndPasswordNotEnteredAtAll
@@ -405,7 +421,7 @@ public class SeleniumTest {
         String name = "Jan";
         String surname = "Maria";
         loginPage.setFirstName(name);
-        loginPage.setlastName(surname);
+        loginPage.setLastName(surname);
         loginPage.setPassword("admin");
         loginPage.setFirstNamePrim("Jan");
         loginPage.setLastNamePrim("Maria");
@@ -456,7 +472,7 @@ public class SeleniumTest {
         String name = "Jan";
         String surname = "Maria";
         loginPage.setFirstName(name);
-        loginPage.setlastName(surname);
+        loginPage.setLastName(surname);
         loginPage.setPassword("admin");
         loginPage.setFirstNamePrim("Jan");
         loginPage.setLastNamePrim("Maria");
@@ -479,13 +495,99 @@ public class SeleniumTest {
         assertEquals(expectedSiteUrl, loginPage.getCurrentSiteUrl());  
     }
 
+    /*
+    *   18) Test complex user_registration_form input_field validation
+    */
+    @Test
+    public void testObligatoryFieldsInRegistrationForm() {
+        String uniqueEmailAddress = loginPage.generateUniqueEmail();
+        String errorListSelector = "div.alert > ol >li";
+        loginPage.open();
+        loginPage.setCreateEmail(uniqueEmailAddress);
+        loginPage.pressCreateAccountButton();
+        loginPage.waitUntilElemntWithGivenCssSelectorIsPresent("#submitAccount");
+        String buttonContainText = driver.findElement(By.id("submitAccount")).getText();
+        String buttonShouldContain = "Register";
+        // checking if submit form button appears at the bottom of site (so that we see registration properform)
+        assertEquals("Button does not contain text: " + buttonShouldContain ,
+            buttonShouldContain, 
+            buttonContainText
+            );
+        
+        String filerFirstName = "firstname";
+        String filerLastName = "lastname";
+        String filterPasswd  = "passwd";
+        String filterAddress = "address1";
+        String filterCity = "city";
+        String filterPostCode = "Zip/Postal";
+        String filterState = "country";
+        String filterPhone = "phone";
 
+        /* check First Name */
+        loginPage.setFirstName("12345");
+        loginPage.submitCreateUserForm();
+        loginPage.waitUntilElemntWithGivenCssSelectorIsVisible(errorListSelector);
+        ArrayList<String> arrayOfErrors = loginPage.getRegistrationErrorMessageArray();
+        Boolean firstNameNotValid = loginPage.checkIfTypeOfErrorOnTheListOfErrors(arrayOfErrors, filerFirstName);
+        assertEquals("Firstname is valid", true , firstNameNotValid);
 
+        /* check Last Name */
+        loginPage.setLastName("12345");
+        loginPage.submitCreateUserForm();
+        loginPage.waitUntilElemntWithGivenCssSelectorIsVisible(errorListSelector);
+        arrayOfErrors = loginPage.getRegistrationErrorMessageArray();
+        Boolean lastNameNotValid = loginPage.checkIfTypeOfErrorOnTheListOfErrors(arrayOfErrors, filerLastName);
+        assertEquals("Lastname is valid", true , lastNameNotValid);
 
+        /* check Last Name */
+        loginPage.setPassword("");
+        loginPage.submitCreateUserForm();
+        loginPage.waitUntilElemntWithGivenCssSelectorIsVisible(errorListSelector);
+        arrayOfErrors = loginPage.getRegistrationErrorMessageArray();
+        Boolean passwordNotValid = loginPage.checkIfTypeOfErrorOnTheListOfErrors(arrayOfErrors, filterPasswd);
+        assertEquals("Password is valid", true , passwordNotValid);
 
+        /* check Address */
+        loginPage.setAddres("");
+        loginPage.submitCreateUserForm();
+        loginPage.waitUntilElemntWithGivenCssSelectorIsVisible(errorListSelector);
+        arrayOfErrors = loginPage.getRegistrationErrorMessageArray();
+        Boolean addressNotValid = loginPage.checkIfTypeOfErrorOnTheListOfErrors(arrayOfErrors, filterAddress);
+        assertEquals("Address is valid", true , addressNotValid);
 
+        /* check City */
+        loginPage.setCity("");
+        loginPage.submitCreateUserForm();
+        loginPage.waitUntilElemntWithGivenCssSelectorIsVisible(errorListSelector);
+        arrayOfErrors = loginPage.getRegistrationErrorMessageArray();
+        Boolean cityNotValid = loginPage.checkIfTypeOfErrorOnTheListOfErrors(arrayOfErrors, filterCity);
+        assertEquals("City is valid", true , cityNotValid);
 
+        /* check Post/ZIP */
+        loginPage.setPostCode("99999999999");
+        loginPage.submitCreateUserForm();
+        loginPage.waitUntilElemntWithGivenCssSelectorIsVisible(errorListSelector);
+        arrayOfErrors = loginPage.getRegistrationErrorMessageArray();
+        Boolean postCodeNotValid = loginPage.checkIfTypeOfErrorOnTheListOfErrors(arrayOfErrors, filterPostCode);
+        assertEquals("PostCode is valid", true , postCodeNotValid);
 
+        /* check State */
+        loginPage.setState("-");
+        loginPage.submitCreateUserForm();
+        loginPage.waitUntilElemntWithGivenCssSelectorIsVisible(errorListSelector);
+        arrayOfErrors = loginPage.getRegistrationErrorMessageArray();
+        Boolean stateNotValid = loginPage.checkIfTypeOfErrorOnTheListOfErrors(arrayOfErrors, filterState);
+        assertEquals("State is valid", true , stateNotValid);
+
+        /* check Phone */
+        loginPage.setMobilePhone("abcde");
+        loginPage.submitCreateUserForm();
+        loginPage.waitUntilElemntWithGivenCssSelectorIsVisible(errorListSelector);
+        arrayOfErrors = loginPage.getRegistrationErrorMessageArray();
+        Boolean phoneNotValid = loginPage.checkIfTypeOfErrorOnTheListOfErrors(arrayOfErrors, filterPhone);
+        assertEquals("MobilePhone is valid", true , phoneNotValid);
+
+    }
 
 
 

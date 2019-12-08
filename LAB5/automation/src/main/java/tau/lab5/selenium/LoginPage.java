@@ -1,8 +1,10 @@
 package tau.lab5.selenium;
+import java.util.ArrayList;
 import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -140,6 +142,34 @@ public class LoginPage {
         submitCreateButton.click();
     }
 
+    public ArrayList<String> getRegistrationErrorMessageArray() {
+        ArrayList<String> errorList = new ArrayList<>();
+        //driver.findElements(By.cssSelector("div.alert > ol >li"));
+        for(WebElement element : driver.findElements(By.cssSelector("div.alert > ol >li")))							
+            {	
+                errorList.add(element.getText());
+                //System.out.println(element.getText() );    
+            }			
+        return errorList;
+    }
+
+    public boolean checkIfTypeOfErrorOnTheListOfErrors (ArrayList<String> list, String filter) {
+        Boolean errorExist = false;
+        for (String error : list) {
+            if (error.contains(filter)) {
+                System.out.println("This pass the filter: " + error);
+                errorExist = true;
+            }
+        }
+        return errorExist;
+    }
+
+    
+    public void setWindowSize(Integer X, Integer Y) {
+        driver.manage().window().setSize(new Dimension(X, Y));
+    }
+
+
 
 
     /* GETTERS */
@@ -240,7 +270,7 @@ public class LoginPage {
     public void setFirstName(String FirstName) {
         firstName.sendKeys(FirstName);
     }
-    public void setlastName(String LastName) {
+    public void setLastName(String LastName) {
         lastName.sendKeys(LastName);
     }
     public void setPassword(String Password) {

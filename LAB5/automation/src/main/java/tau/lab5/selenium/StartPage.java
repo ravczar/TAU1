@@ -80,5 +80,4 @@ public class StartPage {
         return driver.getCurrentUrl();
     }
 
-
 }
