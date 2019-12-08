@@ -2,11 +2,11 @@ package tau.lab5.selenium;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import com.google.common.io.Files;
 
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -59,11 +59,16 @@ public class SeleniumTest {
     public void before() {
         startPage = new StartPage(driver);
         loginPage = new LoginPage(driver);
+    }
 
+    @After
+    public void after() {
+        driver.quit();
+        driverSetup();
     }
 
     @AfterClass
-	public static void cleanp() {
+	public static void cleanup() {
 		driver.quit();
 	}
 
@@ -84,7 +89,7 @@ public class SeleniumTest {
         final String loginButtonOnLoginPageTextValue = "Sign in";
         final String loginSiteUrl = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
         startPage.open();
-        startPage.clickLoginButton(); //driver.findElement(By.cssSelector(".login")).click();
+        startPage.clickLoginButton();
         startPage.waitUntilElemntWithGivenCssSelectorIsVisible("#SubmitLogin");
         assertEquals("Przycisk logowania na stronie logowania nie ma tekstu 'Sign in'",
         loginButtonOnLoginPageTextValue, 
@@ -231,6 +236,7 @@ public class SeleniumTest {
         String fakeEmail = "fake_email@wp.pl";
         String fakePassword = "fake_password";
         loginPage.open();
+        loginPage.waitUntilElemntWithGivenCssSelectorIsPresent("#SubmitLogin");
         loginPage.setLoginEmail(fakeEmail);
         loginPage.setLoginPassword(fakePassword);
         loginPage.login();
@@ -265,9 +271,11 @@ public class SeleniumTest {
         String password = "";
 
         loginPage.open();
+        loginPage.waitUntilElemntWithGivenCssSelectorIsPresent("#SubmitLogin");
         loginPage.setLoginEmail(email);
         loginPage.setLoginPassword(password);
         loginPage.login();
+        loginPage.waitUntilElemntWithGivenCssSelectorIsPresent(".alert-danger > p");
         assertFalse(loginPage.isLoginSuccessful());
         assertEquals("Recived different promt than expected, should read: "+ emailEnteredButPasswordFieldEmpty
             ,emailEnteredButPasswordFieldEmpty, loginPage.readSiteLoginFailedAuthentitcationPrompt()
@@ -282,6 +290,7 @@ public class SeleniumTest {
         String password = "fake_password";
 
         loginPage.open();
+        loginPage.waitUntilElemntWithGivenCssSelectorIsVisible("#SubmitLogin");
         loginPage.setLoginEmail(email);
         loginPage.setLoginPassword(password);
         loginPage.login();
@@ -318,9 +327,11 @@ public class SeleniumTest {
         String password = "";
 
         loginPage.open();
+        loginPage.waitUntilElemntWithGivenCssSelectorIsVisible("#email");
         loginPage.setLoginEmail(email);
         loginPage.setLoginPassword(password);
         loginPage.login();
+        loginPage.waitUntilElemntWithGivenCssSelectorIsVisible("div.alert-danger");
         assertFalse(loginPage.isLoginSuccessful());
         assertEquals("Recived different promt than expected, should read: "+ invalidEmailEntered
             ,invalidEmailEntered, loginPage.readSiteLoginFailedAuthentitcationPrompt()
@@ -376,8 +387,8 @@ public class SeleniumTest {
     @Test
     public void successNewUserRegistrationTest() {
         String uniqueEmailAddress = loginPage.generateUniqueEmail();
+        String expectedUrlAddress = "http://automationpractice.com/index.php?controller=my-account";
         loginPage.open();
-        loginPage.deleteAllCookies();
         loginPage.setCreateEmail(uniqueEmailAddress);
         loginPage.pressCreateAccountButton();
         loginPage.waitUntilElemntWithGivenCssSelectorIsPresent("#submitAccount");
@@ -407,7 +418,7 @@ public class SeleniumTest {
         loginPage.setAlias("Superb");
         // submit form
         loginPage.submitCreateUserForm();
-        // Wait until page loadsup
+        // Wait until page loads up
         loginPage.waitUntilElemntWithGivenCssSelectorIsVisible(".myaccount-link-list");
         // check if button appeared on website
         assertEquals("Element - button Home cannot be found !","Home", loginPage.findElementAndReturnItsText("ul.footer_links > li > a > span"));
@@ -415,6 +426,57 @@ public class SeleniumTest {
         String expectedUserNameInMenu = name + " " + surname;
         String nameInMenuButton = loginPage.findElementAndReturnItsText("a.account > span");
         assertEquals(expectedUserNameInMenu , nameInMenuButton);
+        assertEquals(expectedUrlAddress, loginPage.getCurrentSiteUrl());
+    }
+
+    /*
+    *   17) Successful registration test with random email address, after registration redirect to user account profile (cookies version)
+    */
+    @Test
+    public void successNewUserRegistrationTestEvaluateByCookies() {
+        String expectedCookieName = "PrestaShop-a30a9934ef476d11b6cc3c983616e364";
+        String expectedSiteUrl = "http://automationpractice.com/index.php?controller=my-account";
+        String uniqueEmailAddress = loginPage.generateUniqueEmail();
+        String cookieName = "PrestaShop-a30a9934ef476d11b6cc3c983616e364";
+        loginPage.open();
+        String cookieValueBeforeAccountCreation = loginPage.getTextContainedInSpecificCookieValue(cookieName);
+        loginPage.setCreateEmail(uniqueEmailAddress);
+        loginPage.pressCreateAccountButton();
+        loginPage.waitUntilElemntWithGivenCssSelectorIsPresent("#submitAccount");
+        String buttonContainText = driver.findElement(By.id("submitAccount")).getText();
+        String buttonShouldContain = "Register";
+        // checking if submit form button appears at the bottom of site
+        assertEquals("Button does not contain text: " + buttonShouldContain ,
+            buttonShouldContain, 
+            buttonContainText
+            );
+        // check if proper input field automaticly inherit email address that is correct.
+        assertEquals(uniqueEmailAddress, loginPage.getRegistrationFormEmailInputValue());
+        // Fill all neccessary fields.
+        String name = "Jan";
+        String surname = "Maria";
+        loginPage.setFirstName(name);
+        loginPage.setlastName(surname);
+        loginPage.setPassword("admin");
+        loginPage.setFirstNamePrim("Jan");
+        loginPage.setLastNamePrim("Maria");
+        loginPage.setAddres("Dlugie Ogrody");
+        loginPage.setCity("Gdańsk");
+        loginPage.setState("Alabama");
+        loginPage.setPostCode("80765");
+        loginPage.setCountry("United States");
+        loginPage.setMobilePhone("123456789");
+        loginPage.setAlias("Superb");
+        // submit form
+        loginPage.submitCreateUserForm();
+        // Wait until page loads up
+        loginPage.waitUntilElemntWithGivenCssSelectorIsVisible(".myaccount-link-list");
+        // check cookie names and values.length() - if user createt cookie.value() will be bigger than before
+        assertSame("Cookie set size is != 1 . ", 1, loginPage.getAllCookies().size());
+        String cookieValueAfterAccountCreation = loginPage.getTextContainedInSpecificCookieValue(cookieName);
+        assertEquals(expectedCookieName, loginPage.getTextContainedInSpecificCookieName(cookieName));
+        assertNotEquals(cookieValueBeforeAccountCreation.length(), cookieValueAfterAccountCreation.length());
+        assertEquals(expectedSiteUrl, loginPage.getCurrentSiteUrl());  
     }
 
 

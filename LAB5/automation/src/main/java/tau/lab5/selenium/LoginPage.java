@@ -1,5 +1,4 @@
 package tau.lab5.selenium;
-import java.util.Random;
 import java.util.Set;
 
 import org.openqa.selenium.By;
@@ -109,6 +108,10 @@ public class LoginPage {
 
     public String getTextContainedInSpecificCookieName(String cookieName){
         return driver.manage().getCookieNamed(cookieName).getName(); 
+    }
+
+    public String getTextContainedInSpecificCookieValue(String cookieName){
+        return driver.manage().getCookieNamed(cookieName).getValue();
     }
 
     public Set<Cookie> getAllCookies() {
