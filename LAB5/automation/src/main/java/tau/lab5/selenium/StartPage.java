@@ -68,9 +68,19 @@ public class StartPage {
         createInput.sendKeys(Keys.RETURN);
     }
 
-    public void waitUntilElemntWithGivenCssSelectorIsVisible(String selector) {
+    public void waitUntilElemntWithGivenCssSelectorIsPresent(String selector) {
         WebDriverWait wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(selector)));
+    }
+
+    public void waitUntilElemntWithGivenCssSelectorIsVisible(String selector) {
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        //wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(selector)));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(selector)));
+    }
+
+    public String getCurrentSiteUrl() {
+        return driver.getCurrentUrl();
     }
 
 

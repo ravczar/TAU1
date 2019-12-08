@@ -2,6 +2,7 @@ package tau.lab5.selenium;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import com.google.common.io.Files;
@@ -27,6 +28,7 @@ public class SeleniumTest {
     private LoginPage loginPage;
     private final String existingAccountEmail = "admin@admin.pl";
     private final String existingAccountPass = "admin";
+    private final String invalidEmailAddress = "Rafal Czarnecki";
     String chromeLocalComputerAddress = "C:/WebDrivers/chromedriver_win32/chromedriver.exe";
     String firefoxLocalComputerAddress = "C:/WebDrivers/geckodriver-v0.26/geckodriver.exe";
     private static String chromeWebdriverInProject = "WebDrivers/chromedriver_win32/chromedriver.exe";
@@ -72,7 +74,7 @@ public class SeleniumTest {
     */
 
     /* 
-    * Selenium tries to open new Chrome tab and locate a Button with class ".login",
+    * 11) Selenium tries to open new Chrome tab and locate a Button with class ".login",
     * than click it and wait for a while, 
     * after await, it locates a button to Sign in and check if it contains text 'Sign in'
     * if succeded take screeenshot and dump it into 'build' folder
@@ -80,8 +82,10 @@ public class SeleniumTest {
     @Test
     public void testIfRedirectionToLoginPage_fromStartPage_WorksAndLoginPageContainsButtonLogin() throws IOException {
         final String loginButtonOnLoginPageTextValue = "Sign in";
+        final String loginSiteUrl = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
         startPage.open();
         startPage.clickLoginButton(); //driver.findElement(By.cssSelector(".login")).click();
+        startPage.waitUntilElemntWithGivenCssSelectorIsVisible("#SubmitLogin");
         assertEquals("Przycisk logowania na stronie logowania nie ma tekstu 'Sign in'",
         loginButtonOnLoginPageTextValue, 
             //driver.findElement(By.cssSelector("#SubmitLogin")).getText()
@@ -90,29 +94,30 @@ public class SeleniumTest {
         if (driver instanceof TakesScreenshot) {
             final File f = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
             Files.copy(f,
-						new File("build/homePage.png"));
-		}
+						new File("build/loginPage.png"));
+        }
+        assertEquals(loginSiteUrl, startPage.getCurrentSiteUrl());
     }
     
     /*
-    *   From StartPage, try switching to login page and locate CreateAccount button. 
+    *   12) From StartPage, try switching to login page and locate CreateAccount button. 
     *   If create new user button is located click on it and question enetering registration form,
     *   by simply finding it's submit button
     */
     @Test
     public void testIfRedirectionToLoginPage_fromStartPage_WorksAndIfClickingCreateAnAccountDisplayFormWithSubmitButton() throws IOException {
-        final String someEmailAddress = "email27@wp.pl";
+        final String someEmailAddress = "fake_email@wp.pl";
         final String registerButtonOnLoginPageTextValue = "Create an account";
         startPage.open();
         startPage.clickLoginButton();
-        startPage.waitUntilElemntWithGivenCssSelectorIsVisible("#SubmitCreate");
+        startPage.waitUntilElemntWithGivenCssSelectorIsPresent("#SubmitCreate");
         assertEquals("Przycisk rejestracji na stronie logowania nie ma tekstu 'Create an account'",
             registerButtonOnLoginPageTextValue, 
             startPage.findElementAndReturnItsText("#SubmitCreate")
             );
         startPage.setCreateEmailAndPressEnter(someEmailAddress);
         startPage.clickCreateButton();
-        startPage.waitUntilElemntWithGivenCssSelectorIsVisible("#submitAccount");
+        startPage.waitUntilElemntWithGivenCssSelectorIsPresent("#submitAccount");
         String buttonContainText = driver.findElement(By.id("submitAccount")).getText();
         String buttonShouldContain = "Register";
         assertEquals("Button does not contain text: " + buttonShouldContain ,
@@ -122,6 +127,7 @@ public class SeleniumTest {
     }
 
     /*
+    * 13) Same test as test 12, but in different manner
     *  1) Starting with LoginPage, test enters new_user e-mail address int input field, than presses enter,
     *  2) test clicks 'Create an Account' button
     *  3) test awaits presence of registration form
@@ -144,22 +150,52 @@ public class SeleniumTest {
     }
 
     /*
-    *   1) Passing pre registration form an e-mail that already exists
+    *   1) Passing pre registration form an e-mail that already exists should return certain error message (failureMsg.val())
     */
     @Test
     public void testPassingAlreadyRegisteredEmailToPreRegistrationForm(){
+        String failureMsg = "An account using this email address has already been registered. Please enter a valid password or request a new one.";
+        String urlShouldBeWhenFinished = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
         loginPage.open();
         loginPage.setCreateEmail(existingAccountEmail);
         loginPage.setCreateEmailPressEnter(Keys.RETURN);
         loginPage.pressCreateAccountButton();
+        loginPage.waitUntilElemntWithGivenCssSelectorIsVisible("#create_account_error");
+        assertEquals("Given Email already exist, message mismatch!  please check test variable 'failureMsg'! ", failureMsg, loginPage.getCreateAccountErrorMessageText());
+        assertEquals("Url should remain same as it was at the start of test",urlShouldBeWhenFinished, loginPage.getCurrentSiteUrl() );
     }
 
     /*
-    *   Passing incomplete/invalid email to pre registration form
+    *  2) Passing incomplete/invalid email to pre registration form should return certain error message (failureMsg.val())
     */
     @Test
     public void testPassingInvalidEmailToPreRegistrationForm(){
-        //driver.get("http://automationpractice.com/index.php?controller=authentication&back=my-account");
+        String failureMsg = "Invalid email address.";
+        String urlShouldBeWhenFinished = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
+        loginPage.open();
+        loginPage.setCreateEmail(invalidEmailAddress);
+        loginPage.setCreateEmailPressEnter(Keys.RETURN);
+        loginPage.pressCreateAccountButton();
+        loginPage.waitUntilElemntWithGivenCssSelectorIsVisible("#create_account_error");
+        assertEquals("Given Email is invalid, message mismatch!  please check test variable 'failureMsg'! ", failureMsg, loginPage.getCreateAccountErrorMessageText());
+        assertEquals("Url should remain same as it was at the start of test",urlShouldBeWhenFinished, loginPage.getCurrentSiteUrl() );
+    }
+
+    /*
+    *   3) Passing empty email input to pre registration form should return certain error message (failureMsg.val())
+    */
+    @Test
+    public void testPassingEmptyEmailToPreRegistrationForm(){
+        String failureMsg = "Invalid email address.";
+        String empty = "";
+        String urlShouldBeWhenFinished = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
+        loginPage.open();
+        loginPage.setCreateEmail(empty);
+        loginPage.setCreateEmailPressEnter(Keys.RETURN);
+        loginPage.pressCreateAccountButton();
+        loginPage.waitUntilElemntWithGivenCssSelectorIsVisible("#create_account_error");
+        assertEquals("Given Email is invalid, message mismatch!  please check test variable 'failureMsg'! ", failureMsg, loginPage.getCreateAccountErrorMessageText());
+        assertEquals("Url should remain same as it was at the start of test",urlShouldBeWhenFinished, loginPage.getCurrentSiteUrl() );
     }
 
     /*
@@ -174,7 +210,9 @@ public class SeleniumTest {
                 startPage.getProducts().size());
     }
 
-    // Test supposed to Succeed when given no email and no password. Prompt: "An email address required."
+    /*
+    * 4) Test supposed to Succeed when given no email and no password. Prompt: "An email address required."
+    */
     @Test
     public void loginIncorrect_NoDataEnteredIntoInputFields() {
         loginPage.open();
@@ -185,14 +223,16 @@ public class SeleniumTest {
             );
     }
 
-    // Test supposed to Succed when given 1) wrong Email, 2) wrong Password. Checking if Error prompt apears
+    /*
+    *  5) Test supposed to Succed when given 1) wrong Email, 2) wrong Password. Checking if Error prompt apears
+    */
     @Test
-    public void loginIncorrect_WrongEmial_And_Or_WrongPasswordEntered() {
-        String email = "fake_email@wp.pl";
-        String password = "fake_password";
+    public void loginIncorrect_WrongEmail_And_Or_WrongPasswordEntered() {
+        String fakeEmail = "fake_email@wp.pl";
+        String fakePassword = "fake_password";
         loginPage.open();
-        loginPage.setLoginEmail(email);
-        loginPage.setLoginPassword(password);
+        loginPage.setLoginEmail(fakeEmail);
+        loginPage.setLoginPassword(fakePassword);
         loginPage.login();
         assertFalse(loginPage.isLoginSuccessful());
         assertEquals("Recived different promt than expected, should read: "+ wrongEmailOrPasswordPropmpt
@@ -200,7 +240,25 @@ public class SeleniumTest {
             );
     }
 
-    // Test supposed to Succed if giving wrong Email and left password field empty, thus we receive Prompt "Password is required."
+    /*
+    *  6) Test supposed to Succed when given 1) correct Email, 2) wrong Password. Checking if Error prompt apears
+    */
+    @Test
+    public void loginIncorrect_CorrectEmail_And_Or_WrongPasswordEntered() {
+        String fakePassword = "fake_password";
+        loginPage.open();
+        loginPage.setLoginEmail(existingAccountEmail);
+        loginPage.setLoginPassword(fakePassword);
+        loginPage.login();
+        assertFalse(loginPage.isLoginSuccessful());
+        assertEquals("Recived different promt than expected, should read: "+ wrongEmailOrPasswordPropmpt
+            ,wrongEmailOrPasswordPropmpt, loginPage.readSiteLoginFailedAuthentitcationPrompt()
+            );
+    }
+
+    /*
+    * 7) Test supposed to Succed if giving wrong Email and left password field empty, thus we receive Prompt "Password is required."
+    */ 
     @Test
     public void loginIncorrect_JustEmail_And_NoPasswordEnterd() {
         String email = "fake_email@wp.pl";
@@ -215,7 +273,9 @@ public class SeleniumTest {
             ,emailEnteredButPasswordFieldEmpty, loginPage.readSiteLoginFailedAuthentitcationPrompt()
             );
     }
-    // Test supposed to Succeed if giving NO Email and entered only password, thus we receive Prompt "An email address required."
+    /*
+    * 8) Test supposed to Succeed if giving NO Email and entered only password, thus we receive Prompt "An email address required."
+    */
     @Test
     public void loginIncorrect_EmptyEmail_And_SomePasswordEnterd() {
         String email = "";
@@ -230,6 +290,10 @@ public class SeleniumTest {
             ,passwordEnteredButEmailFieldEmpty, loginPage.readSiteLoginFailedAuthentitcationPrompt()
             );
     }
+
+    /*
+    * 9) Test supposed to Succeed if giving wrong format Email and entered fake password, thus we receive Prompt "Invalid email address."
+    */
     @Test
     public void loginIncorrect_WrongEMailFormatEntered_And_SomePasswordEnterd() {
         String email = "fake_email_no_at_and_domain";
@@ -244,6 +308,9 @@ public class SeleniumTest {
             ,invalidEmailEntered, loginPage.readSiteLoginFailedAuthentitcationPrompt()
             );
     }
+    /*
+    * 10) Test supposed to Succeed if giving wrong format Email and NO password entered, thus we receive Prompt "Invalid email address."
+    */
 
     @Test
     public void loginIncorrect_WrongEMailFormatEntered_And_NoPasswordEnterd() {
@@ -259,6 +326,75 @@ public class SeleniumTest {
             ,invalidEmailEntered, loginPage.readSiteLoginFailedAuthentitcationPrompt()
             );
     }
+
+    /*
+    *   14) Test if existing_user can successfully Sign_in, when login check if specific elemnts exist
+    */
+    @Test
+    public void testIfUserCanLogInCheckWebElements() {
+        String expectedButtonText = "Home";
+        String expectedUserNameInMenu = "admin admin";
+        String expectedSiteUrl = "http://automationpractice.com/index.php?controller=my-account";
+        loginPage.open();
+        loginPage.setLoginEmail(existingAccountEmail);
+        loginPage.setLoginPassword(existingAccountPass);
+        loginPage.login();
+        loginPage.waitUntilElemntWithGivenCssSelectorIsVisible(".myaccount-link-list");
+        String textInElementThatAppeared = loginPage.findElementAndReturnItsText("ul.footer_links > li > a > span");
+        String nameInMenuButton = loginPage.findElementAndReturnItsText("a.account > span");
+        assertEquals(expectedButtonText, textInElementThatAppeared);
+        assertEquals(expectedUserNameInMenu , nameInMenuButton);
+        assertEquals(expectedSiteUrl, loginPage.getCurrentSiteUrl());
+    }
+
+    /*
+    *   15) Test if existing_user can successfully Sign_in, when logged in check if cookie for user created!
+    *   Helpful site: https://www.guru99.com/handling-cookies-selenium-webdriver.html
+    */
+    @Test
+    public void testIfUserCanLogInCheckCookie() {
+        // user admin@admin.com 
+        String expectedCookieName = "PrestaShop-a30a9934ef476d11b6cc3c983616e364";
+        String expectedSiteUrl = "http://automationpractice.com/index.php?controller=my-account";
+        loginPage.open();
+        loginPage.deleteAllCookies();
+        assertSame("Cookie set size is != 0. ", 0, loginPage.getAllCookies().size());
+        loginPage.setLoginEmail(existingAccountEmail);
+        loginPage.setLoginPassword(existingAccountPass);
+        loginPage.login();
+        loginPage.waitUntilElemntWithGivenCssSelectorIsVisible(".myaccount-link-list");
+        // Page will contain only one cookie, weather user logged in or not, but name of cookie differs
+        assertSame("Cookie set size is != 1 . ", 1, loginPage.getAllCookies().size());
+        // Cookie name after login should be spcific to user name
+        assertEquals(expectedCookieName, loginPage.getTextContainedInSpecificCookieName("PrestaShop-a30a9934ef476d11b6cc3c983616e364"));
+        assertEquals(expectedSiteUrl, loginPage.getCurrentSiteUrl());
+    }
+
+    /*
+    *   16) Successful registration test with random email address
+    */
+    @Test
+    public void successNewUserRegistrationTest() {
+        String uniqueEmailAddress = loginPage.generateUniqueEmail();
+        loginPage.open();
+        loginPage.deleteAllCookies();
+        loginPage.setCreateEmail(uniqueEmailAddress);
+        loginPage.pressCreateAccountButton();
+        loginPage.waitUntilElemntWithGivenCssSelectorIsPresent("#submitAccount");
+        String buttonContainText = driver.findElement(By.id("submitAccount")).getText();
+        String buttonShouldContain = "Register";
+        // checking if submit form button appears at the bottom of site
+        assertEquals("Button does not contain text: " + buttonShouldContain ,
+            buttonShouldContain, 
+            buttonContainText
+            );
+        // check if proper input field automaticly inherit email address that is correct.
+        assertEquals(uniqueEmailAddress, loginPage.getRegistrationFormEmailInputValue());
+        // Fill all neccessary fields.
+        
+
+    }
+
 
 
 
