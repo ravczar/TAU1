@@ -129,13 +129,16 @@ public class LoginPage {
     }
 
     public String generateUniqueEmail () {
-        String a = "karmazynowyMsciciel";
+        Integer y = (int)(Math.random() * ((1000 - 0) + 1)) + 0;
+        String a = "misiek.koterski";
         String b = "";
-        String c = "@wp.pl";
+        String c = "";
+        String d = "@wp.pl";
         Integer x = (int)(Math.random() * ((1000 - 0) + 1)) + 0;
         b = x.toString();
+        c = y.toString();
 
-        return a+b+c;
+        return a+b+c+d;
     }
 
     public void submitCreateUserForm() {
@@ -157,7 +160,6 @@ public class LoginPage {
         Boolean errorExist = false;
         for (String error : list) {
             if (error.contains(filter)) {
-                System.out.println("This pass the filter: " + error);
                 errorExist = true;
             }
         }
@@ -209,40 +211,50 @@ public class LoginPage {
         return driver.getCurrentUrl();
     }
 
-    // Complex reg form
     public WebElement getFirstName() {
         return firstName;
     }
+
     public WebElement getlastName() {
         return lastName;
     }
+
     public WebElement getPassword() {
         return password;
     }
+
     public WebElement getFirstNamePrim() {
         return firstNamePrim;
     }
+
     public WebElement getLastNamePrim() {
         return lastNamePrim;
     }
+
     public WebElement getAddres() {
         return address;
     }
+
     public WebElement getCity() {
         return city;
     }
+
     public WebElement getState() {
         return state;
     }
+
     public WebElement getPostCode() {
         return postCode;
     }
+
     public WebElement getCountry() {
         return country;
     }
+
     public WebElement getMobilePhone() {
         return mobilePhone;
     }
+
     public WebElement getAlias() {
         return alias;
     }
@@ -266,40 +278,51 @@ public class LoginPage {
     public void setCreateEmailPressEnter (Keys key){
         createEmailInput.sendKeys(key);
     }
-    // Complex reg form setters
+    
     public void setFirstName(String FirstName) {
         firstName.sendKeys(FirstName);
     }
+
     public void setLastName(String LastName) {
         lastName.sendKeys(LastName);
     }
+
     public void setPassword(String Password) {
         password.sendKeys(Password);
     }
+
     public void setFirstNamePrim(String FirstNamePrim) {
         firstNamePrim.sendKeys(FirstNamePrim);
     }
+
     public void setLastNamePrim(String LastNamePrim) {
         lastNamePrim.sendKeys(LastNamePrim);
     }
+
     public void setAddres(String Address) {
         address.sendKeys(Address);
     }
+    
     public void setCity(String City) {
         city.sendKeys(City);
     }
+
     public void setState(CharSequence State) {
         state.sendKeys(State);
     }
+
     public void setPostCode(String PostCode) {
         postCode.sendKeys(PostCode);
     }
+
     public void setCountry(CharSequence Country) {
         country.sendKeys(Country);
     }
+
     public void setMobilePhone(String PhoneNumber) {
         mobilePhone.sendKeys(PhoneNumber);
     }
+    
     public void setAlias(String Alias) {
         alias.sendKeys(Alias);
     }

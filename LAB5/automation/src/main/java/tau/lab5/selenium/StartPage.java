@@ -41,8 +41,6 @@ public class StartPage {
     }
 
     public List<WebElement> getProducts() {
-        // UWAGA: Warto zweryfikować, czy faktycznie elementy są wyświetlane
-        // Można to zrobić na przykład za pomocą .isDisplayed(); 
         return driver.findElement(By.cssSelector("#blockbestsellers")).findElements(By.tagName("li"));
     }
 
@@ -72,7 +70,6 @@ public class StartPage {
 
     public void waitUntilElemntWithGivenCssSelectorIsVisible(String selector) {
         WebDriverWait wait = new WebDriverWait(driver, 5);
-        //wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(selector)));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(selector)));
     }
 

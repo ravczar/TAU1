@@ -1,4 +1,9 @@
 package tau.lab5.selenium;
+// https://selenium.dev/documentation/en/webdriver/waits/
+// https://testelka.pl/implicit-oraz-explicit-wait/
+// https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+// testpro.pl/selenium-ide-testy-automatyczne-dla-poczatkujacych-tutorial/
+
 
 import java.io.File;
 import java.io.IOException;
@@ -43,7 +48,7 @@ public class SeleniumTest {
     private final String invalidEmailEntered = "Invalid email address.";
 
     /*
-     * Show where
+     * Show where is your driver located and open new instance of ChromeDriver
      */
     @BeforeClass
     public static void driverSetup() {
@@ -228,7 +233,7 @@ public class SeleniumTest {
             ,emailAndPasswordNotEnteredAtAll, loginPage.readSiteLoginFailedAuthentitcationPrompt()
             );
     }
-    
+
     /*
     * 4b) Test supposed to Succeed when given no email and no password. Prompt: "An email address required."
     *       Test with changed window size to 1920 x 800
@@ -455,7 +460,7 @@ public class SeleniumTest {
         String uniqueEmailAddress = loginPage.generateUniqueEmail();
         String cookieName = "PrestaShop-a30a9934ef476d11b6cc3c983616e364";
         loginPage.open();
-        String cookieValueBeforeAccountCreation = loginPage.getTextContainedInSpecificCookieValue(cookieName);
+        Integer cookieValueBeforeAccountCreation = loginPage.getTextContainedInSpecificCookieValue(cookieName).length();
         loginPage.setCreateEmail(uniqueEmailAddress);
         loginPage.pressCreateAccountButton();
         loginPage.waitUntilElemntWithGivenCssSelectorIsPresent("#submitAccount");
@@ -489,9 +494,9 @@ public class SeleniumTest {
         loginPage.waitUntilElemntWithGivenCssSelectorIsVisible(".myaccount-link-list");
         // check cookie names and values.length() - if user createt cookie.value() will be bigger than before
         assertSame("Cookie set size is != 1 . ", 1, loginPage.getAllCookies().size());
-        String cookieValueAfterAccountCreation = loginPage.getTextContainedInSpecificCookieValue(cookieName);
+        Integer cookieValueAfterAccountCreation = loginPage.getTextContainedInSpecificCookieValue(cookieName).length();
         assertEquals(expectedCookieName, loginPage.getTextContainedInSpecificCookieName(cookieName));
-        assertNotEquals(cookieValueBeforeAccountCreation.length(), cookieValueAfterAccountCreation.length());
+        assertNotEquals(cookieValueBeforeAccountCreation, cookieValueAfterAccountCreation);
         assertEquals(expectedSiteUrl, loginPage.getCurrentSiteUrl());  
     }
 
