@@ -130,7 +130,7 @@ public class LoginPage {
 
     public String generateUniqueEmail () {
         Integer y = (int)(Math.random() * ((1000 - 0) + 1)) + 0;
-        String a = "misiek.koterski";
+        String a = "manitou.koterski";
         String b = "";
         String c = "";
         String d = "@wp.pl";

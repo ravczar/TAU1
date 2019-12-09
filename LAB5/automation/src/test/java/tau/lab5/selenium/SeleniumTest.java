@@ -3,6 +3,7 @@ package tau.lab5.selenium;
 // https://testelka.pl/implicit-oraz-explicit-wait/
 // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
 // testpro.pl/selenium-ide-testy-automatyczne-dla-poczatkujacych-tutorial/
+// http://szuflandia.pjwstk.edu.pl/~pantadeusz/zajecia/tau/2019_2020_zaoczne/data/TAU_wyklad_czesc_06_PJATK.pdf
 
 
 import java.io.File;
@@ -29,14 +30,15 @@ import static org.junit.Assert.*;
 
 public class SeleniumTest {
     private static WebDriver driver;
-    WebElement element;
+    private WebElement element;
     private StartPage startPage;
     private LoginPage loginPage;
     private final String existingAccountEmail = "admin@admin.pl";
     private final String existingAccountPass = "admin";
     private final String invalidEmailAddress = "Rafal Czarnecki";
-    String chromeLocalComputerAddress = "C:/WebDrivers/chromedriver_win32/chromedriver.exe";
-    String firefoxLocalComputerAddress = "C:/WebDrivers/geckodriver-v0.26/geckodriver.exe";
+    private final String cookieName = "PrestaShop-a30a9934ef476d11b6cc3c983616e364";
+    private final String chromeLocalComputerAddress = "C:/WebDrivers/chromedriver_win32/chromedriver.exe";
+    private final String firefoxLocalComputerAddress = "C:/WebDrivers/geckodriver-v0.26/geckodriver.exe";
     private static String chromeWebdriverInProject = "WebDrivers/chromedriver_win32/chromedriver.exe";
     //private static String firefoxWebdriverInProject = "WebDrivers/geckodriver-v0.26/geckodriver.exe";
 
@@ -168,6 +170,7 @@ public class SeleniumTest {
         String failureMsg = "An account using this email address has already been registered. Please enter a valid password or request a new one.";
         String urlShouldBeWhenFinished = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
         loginPage.open();
+        loginPage.waitUntilElemntWithGivenCssSelectorIsPresent("#email_create");
         loginPage.setCreateEmail(existingAccountEmail);
         loginPage.setCreateEmailPressEnter(Keys.RETURN);
         loginPage.pressCreateAccountButton();
@@ -184,6 +187,7 @@ public class SeleniumTest {
         String failureMsg = "Invalid email address.";
         String urlShouldBeWhenFinished = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
         loginPage.open();
+        loginPage.waitUntilElemntWithGivenCssSelectorIsVisible("#email_create");
         loginPage.setCreateEmail(invalidEmailAddress);
         loginPage.setCreateEmailPressEnter(Keys.RETURN);
         loginPage.pressCreateAccountButton();
@@ -201,6 +205,7 @@ public class SeleniumTest {
         String empty = "";
         String urlShouldBeWhenFinished = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
         loginPage.open();
+        loginPage.waitUntilElemntWithGivenCssSelectorIsVisible("#email_create");
         loginPage.setCreateEmail(empty);
         loginPage.setCreateEmailPressEnter(Keys.RETURN);
         loginPage.pressCreateAccountButton();
@@ -385,20 +390,22 @@ public class SeleniumTest {
     */
     @Test
     public void testIfUserCanLogInCheckCookie() {
-        // user admin@admin.com 
-        String expectedCookieName = "PrestaShop-a30a9934ef476d11b6cc3c983616e364";
+        // user: admin@admin.com 
         String expectedSiteUrl = "http://automationpractice.com/index.php?controller=my-account";
-        loginPage.open();
         loginPage.deleteAllCookies();
         assertSame("Cookie set size is != 0. ", 0, loginPage.getAllCookies().size());
+        loginPage.open();
+        Integer cookieValueBeforeAccountCreation = loginPage.getTextContainedInSpecificCookieValue(cookieName).length();
         loginPage.setLoginEmail(existingAccountEmail);
         loginPage.setLoginPassword(existingAccountPass);
         loginPage.login();
         loginPage.waitUntilElemntWithGivenCssSelectorIsVisible(".myaccount-link-list");
         // Page will contain only one cookie, weather user logged in or not, but name of cookie differs
         assertSame("Cookie set size is != 1 . ", 1, loginPage.getAllCookies().size());
-        // Cookie name after login should be spcific to user name
-        assertEquals(expectedCookieName, loginPage.getTextContainedInSpecificCookieName("PrestaShop-a30a9934ef476d11b6cc3c983616e364"));
+        // Cookie value after login should be longer than before login
+        Integer cookieValueAfterAccountCreation = loginPage.getTextContainedInSpecificCookieValue(cookieName).length();
+        assertEquals(cookieName, loginPage.getTextContainedInSpecificCookieName(cookieName));
+        assertNotEquals(cookieValueBeforeAccountCreation , cookieValueAfterAccountCreation);
         assertEquals(expectedSiteUrl, loginPage.getCurrentSiteUrl());
     }
 
@@ -458,7 +465,6 @@ public class SeleniumTest {
         String expectedCookieName = "PrestaShop-a30a9934ef476d11b6cc3c983616e364";
         String expectedSiteUrl = "http://automationpractice.com/index.php?controller=my-account";
         String uniqueEmailAddress = loginPage.generateUniqueEmail();
-        String cookieName = "PrestaShop-a30a9934ef476d11b6cc3c983616e364";
         loginPage.open();
         Integer cookieValueBeforeAccountCreation = loginPage.getTextContainedInSpecificCookieValue(cookieName).length();
         loginPage.setCreateEmail(uniqueEmailAddress);
@@ -507,7 +513,10 @@ public class SeleniumTest {
     public void testObligatoryFieldsInRegistrationForm() {
         String uniqueEmailAddress = loginPage.generateUniqueEmail();
         String errorListSelector = "div.alert > ol >li";
+        loginPage.deleteAllCookies();
+        assertSame("Cookie set size is != 0. ", 0, loginPage.getAllCookies().size());
         loginPage.open();
+        Integer cookieValueLengthBeforeTests = loginPage.getTextContainedInSpecificCookieValue(cookieName).length();
         loginPage.setCreateEmail(uniqueEmailAddress);
         loginPage.pressCreateAccountButton();
         loginPage.waitUntilElemntWithGivenCssSelectorIsPresent("#submitAccount");
@@ -592,6 +601,9 @@ public class SeleniumTest {
         Boolean phoneNotValid = loginPage.checkIfTypeOfErrorOnTheListOfErrors(arrayOfErrors, filterPhone);
         assertEquals("MobilePhone is valid", true , phoneNotValid);
 
+        // Testing that user is not logged in - cookie before test should be same as cookie after tests
+        Integer cookieValueLengthAfterTests = loginPage.getTextContainedInSpecificCookieValue(cookieName).length();
+        assertEquals(cookieValueLengthBeforeTests, cookieValueLengthAfterTests);
     }
 
 
