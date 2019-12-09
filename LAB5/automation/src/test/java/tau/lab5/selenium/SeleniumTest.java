@@ -30,15 +30,15 @@ import static org.junit.Assert.*;
 
 public class SeleniumTest {
     private static WebDriver driver;
-    private WebElement element;
+    //private WebElement element;
     private StartPage startPage;
     private LoginPage loginPage;
     private final String existingAccountEmail = "admin@admin.pl";
     private final String existingAccountPass = "admin";
     private final String invalidEmailAddress = "Rafal Czarnecki";
     private final String cookieName = "PrestaShop-a30a9934ef476d11b6cc3c983616e364";
-    private final String chromeLocalComputerAddress = "C:/WebDrivers/chromedriver_win32/chromedriver.exe";
-    private final String firefoxLocalComputerAddress = "C:/WebDrivers/geckodriver-v0.26/geckodriver.exe";
+    //private final String chromeLocalComputerAddress = "C:/WebDrivers/chromedriver_win32/chromedriver.exe";
+    //private final String firefoxLocalComputerAddress = "C:/WebDrivers/geckodriver-v0.26/geckodriver.exe";
     private static String chromeWebdriverInProject = "WebDrivers/chromedriver_win32/chromedriver.exe";
     //private static String firefoxWebdriverInProject = "WebDrivers/geckodriver-v0.26/geckodriver.exe";
 
