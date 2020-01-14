@@ -143,6 +143,21 @@ TEST_CASE("Basic database object operations", "[DataBase][constructors]") { // [
     REQUIRE_THROWS(db.deleteCarById(0));
   }
 
+  SECTION("deleteCarById(id) returns 'Throw 404' when object not found in DB") {
+    Car car("126p", "Fiat", 648.00); 
+    DataBase db;
+    db.addCar(car);
+    CHECK_THROWS( db.deleteCarById(999) );
+  }
+    
+  SECTION("deleteCarById(id) erases Car from db and returns Car_copy when object found&erased from DB") {
+    Car car("126p", "Fiat", 648.00); 
+    DataBase db;
+    db.addCar(car);
+    REQUIRE( db.deleteCarById(0).getId() == 0 );
+  }
+  
+
   SECTION("Yet another section to be checked") {}
 }
 

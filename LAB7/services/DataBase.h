@@ -44,6 +44,15 @@ class DataBase{
         }
 
         Car deleteCarById( unsigned int id ){
+            Car carToBeDeleted;
+            std::list<Car>::iterator it = carList.begin();
+            for(it; it != carList.end(); ++it){
+                if(it->getId() == id){
+                    carToBeDeleted = *it;
+                    carList.erase(it);
+                    return carToBeDeleted;
+                }
+            }
             throw 404;
         }
 
