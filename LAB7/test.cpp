@@ -1,18 +1,22 @@
 #define CATCH_CONFIG_MAIN
 #include "lib/catch.hpp"
+#include "services/Iterator.h"
+#include "services/Car.h"
+#include "services/DataBase.h"
 
 // https://www.sololearn.com/Play/CPlusPlus
 // https://github.com/catchorg/Catch2/blob/master/docs/tutorial.md#top
+TEST_CASE("Iterator operations", "[Iterator][constructors]") { // [Iterator][constructor of Car] present
 
-// SILNIA
-unsigned int Factorial( unsigned int number ) {
-    return number <= 1 ? number : Factorial(number-1)*number; 
+  SECTION("The iterator object can be created") {
+    REQUIRE_NOTHROW([]() { Iterator iterator; });
+  }
+  SECTION("Iterator iterates <0,1,2,3..>") {
+    Iterator iterator;
+    for(int i = 0; i <= 9; i++){
+        REQUIRE( iterator.getAndIncrementValue() == i);
+    }  
+  }
 }
 
-TEST_CASE("Factorials are computed", "[factorial]" ){
-    REQUIRE( Factorial(1)==1 );
-    REQUIRE( Factorial(2)==2 );
-    REQUIRE( Factorial(3)==6 );
-    REQUIRE( Factorial(4)==24 ); 
-    REQUIRE_FALSE( Factorial(0)==1 );
-}
+
