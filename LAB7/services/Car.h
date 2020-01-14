@@ -13,6 +13,11 @@ class Car{
     
     public:
       Car(){}
+      Car( string MODEL, string BRAND, double ENGINECAPACITY){
+        setModel(MODEL);
+        setBrand(BRAND);
+        setEngineCapacity(ENGINECAPACITY);
+      }
       Car(unsigned int ID, string MODEL, string BRAND, double ENGINECAPACITY){
         setId(ID);
         setModel(MODEL);

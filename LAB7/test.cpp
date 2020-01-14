@@ -20,7 +20,6 @@ TEST_CASE("Iterator operations", "[Iterator][constructors]") { // [Iterator][con
         REQUIRE( iterator.getAndIncrementValue() == i);
     }  
     REQUIRE (iterator.getInteger() == 10);
-    delete &iterator;
   }
 }
 
@@ -35,13 +34,16 @@ TEST_CASE("Basic entity operations", "[Car][constructors]") { // [Car][construct
     REQUIRE_NOTHROW([]() { Car car(1,"500", "Fiat", 1300.00); });
   }
 
+  SECTION("The database object can be created with 3 arguments (ommiting ID field).") {
+    REQUIRE_NOTHROW([]() { Car car("500", "Fiat", 1300.00); });
+  }
+
   SECTION("Have access to private Car fields through getters.") {
     Car car(13,"500", "Fiat", 1300.00);
     REQUIRE(car.getId() == 13);
     REQUIRE(car.getModel() == "500");
     REQUIRE(car.getBrand() == "Fiat");
     REQUIRE(car.getEngineCapacity() == 1300.00);
-    delete &car;
   }
   
   SECTION("Have access to private Car fields through setters.") {
@@ -54,8 +56,47 @@ TEST_CASE("Basic entity operations", "[Car][constructors]") { // [Car][construct
     REQUIRE(car.getBrand() == "FSO");
     car.setEngineCapacity(1200.00);
     REQUIRE(car.getEngineCapacity() == 1200.00);
-    delete &car;
   }
+}
+
+/* DATABASE TEST CASE */
+TEST_CASE("Basic database object operations", "[DataBase][constructors]") { // [db_class][constructor of db_class] present
+
+  SECTION("The database object can be created") {
+    REQUIRE_NOTHROW([]() { DataBase db; });
+  }
+
+  SECTION("You can add an object to Database (Car)") {
+    Car car("126p", "Fiat", 648.00);
+    DataBase db;
+    REQUIRE_NOTHROW( db.addCarToList(car) );
+    REQUIRE(db.getListSize() == 1);
+  }
+
+  SECTION("Adding Car to DB increments DB 'id'. (0->1)") {
+    Car car("126p", "Fiat", 648.00);
+    DataBase db;
+    db.addCarToList(car);
+    REQUIRE(db.getId() == 1);
+  }
+
+  SECTION("Adding Car to DB increments DB 'id'. (0->1)") {
+    Car car("126p", "Fiat", 648.00);
+    DataBase db;
+    db.addCarToList(car);
+    REQUIRE(db.getId() == 1);
+  }
+
+  SECTION("GetAll cars method works.") {
+    Car car1("126p", "Fiat", 648.00);
+    Car car2("Berlingo", "Citroen", 1998.40);
+    DataBase db;
+    db.addCarToList(car1);
+    db.addCarToList(car2);
+    REQUIRE( db.getAllCars().size() == 2 );
+  }
+
+  SECTION("Another section to be checked") {}
 }
 
 
