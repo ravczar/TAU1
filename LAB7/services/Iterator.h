@@ -5,14 +5,13 @@ using namespace std;
 class Iterator{
     private:
         unsigned int integer = 0;
-        unsigned int *integerPtr = &integer;
 
     public:
         Iterator(){}
         
         unsigned int getAndIncrementValue(){
             unsigned int previous = integer;
-            return ++*integerPtr;
+            return integer++;
         }
 
     // Getter and setter
