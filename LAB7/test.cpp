@@ -109,7 +109,7 @@ TEST_CASE("Basic database object operations", "[DataBase][constructors]") { // [
     REQUIRE_NOTHROW(db.getListSize());
   }
 
- SECTION("getListSize method works and return number of cars.") {
+  SECTION("getListSize method works and return number of cars.") {
     Car car1("126p", "Fiat", 648.00);
     Car car2("Berlingo", "Citroen", 1998.40);
     DataBase db;
@@ -119,7 +119,19 @@ TEST_CASE("Basic database object operations", "[DataBase][constructors]") { // [
     REQUIRE( db.getListSize() == 2 );
   }
 
-  SECTION("Another section to be checked") {}
+  SECTION ("getCarById(id) method is present") {
+    DataBase db;
+    REQUIRE_NOTHROW(db.getCarById(0));
+  }
+
+  SECTION("getCarById(id) method works well") {
+    Car car("126p", "Fiat", 648.00); 
+    DataBase db;
+    db.addCar(car);
+    REQUIRE( db.getCarById(0).getId() == 0 );
+  }
+
+  SECTION("Yet another section to be checked") {}
 }
 
 
