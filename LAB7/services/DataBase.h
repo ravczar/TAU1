@@ -33,6 +33,19 @@ class DataBase{
         int getListSize(){
             return carList.size();
         }
+        Car getCarById( unsigned int id ){ // https://www.w3schools.com/cpp/cpp_exceptions.asp 
+            std::list<Car>::iterator it = carList.begin();
+            for(it; it != carList.end(); ++it){
+                if(it->getId() == id){
+                    return *it;
+                }
+            }
+            throw 404;
+        }
+
+        Car deleteCarById( unsigned int id ){
+            throw 404;
+        }
 
     // Getters and setters
     public:

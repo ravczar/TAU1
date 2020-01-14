@@ -119,16 +119,28 @@ TEST_CASE("Basic database object operations", "[DataBase][constructors]") { // [
     REQUIRE( db.getListSize() == 2 );
   }
 
-  SECTION ("getCarById(id) method is present") {
+  SECTION ("getCarById(id) method is present and throws 404") {
     DataBase db;
-    REQUIRE_NOTHROW(db.getCarById(0));
+    REQUIRE_THROWS(db.getCarById(0));
   }
 
-  SECTION("getCarById(id) method works well") {
+  SECTION("getCarById(id) returns found object when object actually found in DB") {
     Car car("126p", "Fiat", 648.00); 
     DataBase db;
     db.addCar(car);
     REQUIRE( db.getCarById(0).getId() == 0 );
+  }
+
+  SECTION("getCarById(id) returns 'Throw 404' when object not found in DB") {
+    Car car("126p", "Fiat", 648.00); 
+    DataBase db;
+    db.addCar(car);
+    CHECK_THROWS( db.getCarById(999) );
+  }
+
+  SECTION ("deleteCarById(id) method is present and throws 404") {
+    DataBase db;
+    REQUIRE_THROWS(db.deleteCarById(0));
   }
 
   SECTION("Yet another section to be checked") {}
