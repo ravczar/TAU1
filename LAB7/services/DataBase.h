@@ -25,7 +25,7 @@ class DataBase{
         list<Car> getAllCars(){
             return carList;
         }
-        void addCarToList( Car car ){
+        void addCar( Car car ){
             car.setId(iterator.getAndIncrementValue());
             setId(iterator.getInteger());
             carList.push_back(car);

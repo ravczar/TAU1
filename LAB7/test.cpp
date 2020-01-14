@@ -14,6 +14,10 @@ TEST_CASE("Iterator operations", "[Iterator][constructors]") { // [Iterator][con
   SECTION("The iterator object can be created") {
     REQUIRE_NOTHROW([]() { Iterator iterator; });
   }
+  SECTION ("getAndIncrementValue() method is present") {
+    Iterator iterator;
+    REQUIRE_NOTHROW(iterator.getAndIncrementValue());
+  }
   SECTION("Iterator iterates <0,1,2,3..>") {
     Iterator iterator;
     for(int i=0; i<=9; i++){
@@ -66,34 +70,53 @@ TEST_CASE("Basic database object operations", "[DataBase][constructors]") { // [
     REQUIRE_NOTHROW([]() { DataBase db; });
   }
 
+  SECTION ("AddCar() method is present") {
+    DataBase db;
+    Car car("V60", "Volvo", 2400.60);
+    REQUIRE_NOTHROW( db.addCar(car) );
+  }
+
   SECTION("You can add an object to Database (Car)") {
     Car car("126p", "Fiat", 648.00);
     DataBase db;
-    REQUIRE_NOTHROW( db.addCarToList(car) );
+    REQUIRE_NOTHROW( db.addCar(car) );
     REQUIRE(db.getListSize() == 1);
   }
 
   SECTION("Adding Car to DB increments DB 'id'. (0->1)") {
     Car car("126p", "Fiat", 648.00);
     DataBase db;
-    db.addCarToList(car);
+    db.addCar(car);
     REQUIRE(db.getId() == 1);
   }
 
-  SECTION("Adding Car to DB increments DB 'id'. (0->1)") {
-    Car car("126p", "Fiat", 648.00);
+  SECTION ("GetAll cars method is present") {
     DataBase db;
-    db.addCarToList(car);
-    REQUIRE(db.getId() == 1);
+    REQUIRE_NOTHROW(db.getAllCars());
   }
 
   SECTION("GetAll cars method works.") {
     Car car1("126p", "Fiat", 648.00);
     Car car2("Berlingo", "Citroen", 1998.40);
     DataBase db;
-    db.addCarToList(car1);
-    db.addCarToList(car2);
+    db.addCar(car1);
+    db.addCar(car2);
     REQUIRE( db.getAllCars().size() == 2 );
+  }
+
+  SECTION ("GetListSize db_list method is present") {
+    DataBase db;
+    REQUIRE_NOTHROW(db.getListSize());
+  }
+
+ SECTION("getListSize method works and return number of cars.") {
+    Car car1("126p", "Fiat", 648.00);
+    Car car2("Berlingo", "Citroen", 1998.40);
+    DataBase db;
+    db.addCar(car1);
+    db.addCar(car2);
+    REQUIRE( db.getAllCars().size() == db.getListSize() );
+    REQUIRE( db.getListSize() == 2 );
   }
 
   SECTION("Another section to be checked") {}
