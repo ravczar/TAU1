@@ -43,7 +43,19 @@ TEST_CASE("Basic entity operations", "[Car][constructors]") { // [Car][construct
     REQUIRE(car.getEngineCapacity() == 1300.00);
     delete &car;
   }
-
-  SECTION("Another section to be checked") {}
+  
+  SECTION("Have access to private Car fields through setters.") {
+    Car car;
+    car.setId(9);
+    REQUIRE(car.getId() == 9);
+    car.setModel("Polonez");
+    REQUIRE(car.getModel() == "Polonez");
+    car.setBrand("FSO");
+    REQUIRE(car.getBrand() == "FSO");
+    car.setEngineCapacity(1200.00);
+    REQUIRE(car.getEngineCapacity() == 1200.00);
+    delete &car;
+  }
 }
+
 
