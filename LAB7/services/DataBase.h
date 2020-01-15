@@ -40,8 +40,9 @@ class DataBase{
                     return *it;
                 }
             }
-            throw 404;
+            throw "Car Not Found";
         }
+
 
         Car deleteCarById( unsigned int id ){
             Car carToBeDeleted;
@@ -53,7 +54,7 @@ class DataBase{
                     return carToBeDeleted;
                 }
             }
-            throw 404;
+            throw "Car Not Found";
         }
 
     // Getters and setters
