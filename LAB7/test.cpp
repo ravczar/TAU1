@@ -1,5 +1,4 @@
 #define CATCH_CONFIG_MAIN
-#include <iostream>
 #include "lib/catch.hpp"
 #include "services/Iterator.h"
 #include "services/Car.h"
@@ -158,7 +157,114 @@ TEST_CASE("Basic database object operations", "[DataBase][constructors]") { // [
     db.addCar(car);
     REQUIRE( db.deleteCarById(0).getId() == 0 );
   }
-  
+
+  SECTION ("getCarByParam(id,model,brand,engineCapacity) method is present and Throw: 'Car Not Found'.") {
+    DataBase db;
+    CHECK_THROWS(db.getCarsByParam(3));
+    CHECK_THROWS_WITH(db.getCarsByParam(3), "Car Not Found");
+  }
+
+  SECTION ("getCarByParam(id,model,brand,engineCapacity) Throw: 'Give at last one param' when giving 0 params.") {
+    DataBase db;
+    CHECK_THROWS_WITH(db.getCarsByParam(), "Give at last one param");
+  }
+
+  SECTION ("getCarByParam(id,model,brand,engineCapacity) returns a List of cars when find SUCCEED.") {
+    DataBase db;
+    Car car1("500", "Fiat", 648.00);
+    Car car2("500", "Fiat", 1998.40);
+    db.addCar(car1);
+    db.addCar(car2);
+    REQUIRE( db.getCarsByParam(0,"500", "Fiat", 648.00).size() == 1); // zwróci tylko jeden z id == 0
+  }
+
+  SECTION ("getCarByParam(model,brand,engineCapacity) returns a List of cars when find SUCCEED.") {
+    DataBase db;
+    Car car1("500", "Fiat", 648.00);
+    Car car2("500", "Fiat", 648.00);
+    Car car3("Doblo", "Fiat", 648.00);
+    db.addCar(car1);
+    db.addCar(car2);
+    db.addCar(car3);
+    REQUIRE( db.getCarsByParam(-1,"500", "Fiat", 648.00).size() == 2);
+  }
+
+  SECTION ("getCarByParam(brand,engineCapacity) returns a List of cars when find SUCCEED.") {
+    DataBase db;
+    Car car1("500", "Fiat", 648.00);
+    Car car2("500Abarth", "Fiat", 648.00);
+    Car car3("Garbus", "VW", 1200.00);
+    db.addCar(car1);
+    db.addCar(car2);
+    db.addCar(car3);
+    REQUIRE( db.getCarsByParam(-1,"none", "Fiat", 648.00).size() == 2);
+  }
+
+  SECTION ("getCarByParam(engineCapacity) returns a List of cars when find SUCCEED.") {
+    DataBase db;
+    Car car1("500", "Fiat", 648.00);
+    Car car2("Mini", "Cooper", 648.00);
+    Car car3("Garbus", "VW", 1200.00);
+    db.addCar(car1);
+    db.addCar(car2);
+    db.addCar(car3);
+    REQUIRE( db.getCarsByParam(-1,"none", "none", 648.00).size() == 2);
+  }
+
+  SECTION ("getCarByParam(engineCapacity) returns a List of cars when find SUCCEED.") {
+    DataBase db;
+    Car car1("500", "Fiat", 648.00);
+    Car car2("Ducato", "Fiat", 1300.00);
+    Car car3("Garbus", "VW", 1200.00);
+    db.addCar(car1);
+    db.addCar(car2);
+    db.addCar(car3);
+    REQUIRE( db.getCarsByParam(-1,"none", "Fiat", -1).size() == 2);
+  }
+
+  SECTION ("getCarByParam(engineCapacity) returns a List of cars when find SUCCEED.") {
+    DataBase db;
+    Car car1("500", "Fiat", 648.00);
+    Car car2("500", "Chinska podróbka Fiata", 750.00);
+    Car car3("Garbus", "VW", 1200.00);
+    db.addCar(car1);
+    db.addCar(car2);
+    db.addCar(car3);
+    REQUIRE( db.getCarsByParam(-1,"500", "none", -1).size() == 2);
+  }
+
+  SECTION ("getCarByParam(engineCapacity) returns a List of cars when find SUCCEED.") {
+    DataBase db;
+    Car car1("500", "Fiat", 648.00);
+    Car car2("500", "Chinska podróbka Fiata", 750.00);
+    Car car3("Garbus", "VW", 1200.00);
+    db.addCar(car1);
+    db.addCar(car2);
+    db.addCar(car3);
+    REQUIRE( db.getCarsByParam(0,"none", "none", -1).size() == 1);
+  }
+
+  SECTION ("getCarByParam(engineCapacity) returns a List of cars when find SUCCEED.") {
+    DataBase db;
+    Car car1("500", "Fiat", 648.00);
+    Car car2("500", "Fiat", 750.00);
+    Car car3("Garbus", "VW", 1200.00);
+    db.addCar(car1);
+    db.addCar(car2);
+    db.addCar(car3);
+    REQUIRE( db.getCarsByParam(-1,"500", "Fiat", -1).size() == 2);
+  }
+
+  SECTION ("getCarByParam(engineCapacity) returns a List of cars when find SUCCEED.") {
+    DataBase db;
+    Car car1("500", "Fiat", 648.00);
+    Car car2("500", "Abarth", 648.00);
+    Car car3("Garbus", "VW", 1200.00);
+    db.addCar(car1);
+    db.addCar(car2);
+    db.addCar(car3);
+    REQUIRE( db.getCarsByParam(-1,"500", "none", 648.00).size() == 2);
+  }
 
   SECTION("Yet another section to be checked") {}
 }

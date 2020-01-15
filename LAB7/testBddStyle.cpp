@@ -1,5 +1,4 @@
 #define CATCH_CONFIG_MAIN
-#include <iostream>
 #include "lib/catch.hpp"
 #include "services/Iterator.h"
 #include "services/Car.h"
@@ -62,6 +61,31 @@ SCENARIO( "Items can be added, deleted, found by id", "[DataBase]" ) {
             THEN("I get a Throw in return"){
                 CHECK_THROWS( db.getCarById(idToFailTest) );
                 CHECK_THROWS_WITH(db.getCarById(idToFailTest), "Car Not Found");
+            }
+        }
+        
+        WHEN( "I try to find item giving no params to function and i FAIL" ) {
+            THEN("I get a Throw in return"){
+                CHECK_THROWS( db.getCarsByParam() );
+                CHECK_THROWS_WITH(db.getCarsByParam(), "Give at last one param");
+            }
+        }
+
+        WHEN( "I try to find item by model and I FAIL to find it by brand_name (not exist in db)" ) {
+            THEN("I get a Throw in return"){
+                CHECK_THROWS( db.getCarsByParam(-1,"none","Bentley",-1) );
+                CHECK_THROWS_WITH(db.getCarsByParam(-1,"none","Bentley",-1), "Car Not Found");
+            }
+        }
+
+        WHEN( "I try to find item by model_name and brand_name and I SUCCEED to find 2 matching cars" ) {
+            Car car4("Note", "Nissan", 1400.00);
+            Car car5("Note", "Nissan", 1200.00);
+            db.addCar(car4);
+            db.addCar(car5);
+            THEN("I get a list.size() == 2"){
+                CHECK( db.getCarsByParam(-1,"Note","Nissan",-1).size() == 2 );
+                CHECK_NOTHROW( db.getCarsByParam(-1,"Note","Nissan",-1) );
             }
         }
 

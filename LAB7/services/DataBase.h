@@ -3,7 +3,6 @@
 #include "Car.h"
 #include "Iterator.h"
 #include <string>
-#include <iostream>
 #include <list>
 using namespace std;
 
@@ -19,9 +18,6 @@ class DataBase{
 
     // Methods
     public:
-        void showDetails(){
-            cout<<"LOL"<<endl;
-        }
         list<Car> getAllCars(){
             return carList;
         }
@@ -41,6 +37,68 @@ class DataBase{
                 }
             }
             throw "Car Not Found";
+        }
+
+        list <Car> getCarsByParam(unsigned int id=-1, string model="none", string brand="none", double capacity=-1 ) {
+            list<Car> cars_found;
+
+            if( id == -1 && model =="none" && brand =="none" && capacity == -1)
+                throw "Give at last one param";
+            else{
+                std::list<Car>::iterator it = carList.begin();
+                for(it; it != carList.end(); ++it){
+                    if( id != -1 && model != "none" && brand!= "none" && capacity != -1){
+                        if(it->getId() == id && it->getModel() == model && it->getBrand() == brand && it->getEngineCapacity() == capacity){
+                            cars_found.push_back(*it);
+                        }
+                    }
+                    if( id == -1 && model != "none" && brand!= "none" && capacity != -1){
+                        if(it->getModel() == model && it->getBrand() == brand && it->getEngineCapacity() == capacity){
+                            cars_found.push_back(*it);
+                        }
+                    }
+                    if( id == -1 && model == "none" && brand!= "none" && capacity != -1){
+                        if(it->getBrand() == brand && it->getEngineCapacity() == capacity){
+                            cars_found.push_back(*it);
+                        }
+                    }
+                    if( id == -1 && model == "none" && brand == "none" && capacity != -1){
+                        if(it->getEngineCapacity() == capacity){
+                            cars_found.push_back(*it);
+                        }
+                    }
+                    if( id == -1 && model == "none" && brand != "none" && capacity == -1){
+                        if(it->getBrand() == brand){
+                            cars_found.push_back(*it);
+                        }
+                    }
+                    if( id == -1 && model != "none" && brand == "none" && capacity == -1){
+                        if(it->getModel() == model){
+                            cars_found.push_back(*it);
+                        }
+                    }
+                    if( id != -1 && model == "none" && brand == "none" && capacity == -1){
+                        if(it->getId() == id){
+                            cars_found.push_back(*it);
+                        }
+                    }
+                    if( id == -1 && model != "none" && brand != "none" && capacity == -1){
+                        if(it->getModel() == model && it->getBrand() == brand ){
+                            cars_found.push_back(*it);
+                        }
+                    }
+                    if( id == -1 && model != "none" && brand == "none" && capacity != -1){
+                        if(it->getModel() == model && it->getEngineCapacity() == capacity ){
+                            cars_found.push_back(*it);
+                        }
+                    }         
+                }
+                if (cars_found.size() != 0 )
+                    return cars_found;
+                else
+                    throw "Car Not Found";
+            }
+
         }
 
 
