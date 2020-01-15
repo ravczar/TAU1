@@ -131,23 +131,25 @@ TEST_CASE("Basic database object operations", "[DataBase][constructors]") { // [
     REQUIRE( db.getCarById(0).getId() == 0 );
   }
 
-  SECTION("getCarById(id) returns 'Throw 404' when object not found in DB") {
+  SECTION("getCarById(id) returns Throw: 'Car Not Found' when object not found in DB") {
     Car car("126p", "Fiat", 648.00); 
     DataBase db;
     db.addCar(car);
     CHECK_THROWS( db.getCarById(999) );
+    CHECK_THROWS_WITH(db.getCarById(999), "Car Not Found");
   }
 
-  SECTION ("deleteCarById(id) method is present and throws 404") {
+  SECTION ("deleteCarById(id) method is present and Throw: 'Car Not Found'.") {
     DataBase db;
     REQUIRE_THROWS(db.deleteCarById(0));
   }
 
-  SECTION("deleteCarById(id) returns 'Throw 404' when object not found in DB") {
+  SECTION("deleteCarById(id) returns Throw: 'Car Not Found' when object not found in DB") {
     Car car("126p", "Fiat", 648.00); 
     DataBase db;
     db.addCar(car);
     CHECK_THROWS( db.deleteCarById(999) );
+    CHECK_THROWS_WITH(db.deleteCarById(999), "Car Not Found");
   }
     
   SECTION("deleteCarById(id) erases Car from db and returns Car_copy when object found&erased from DB") {

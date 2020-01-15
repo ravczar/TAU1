@@ -28,6 +28,14 @@ SCENARIO( "Items can be added, deleted, found by id", "[DataBase]" ) {
             }
         }
 
+        WHEN( "I Try to delete a record and i fail" ){
+            Car car4("Berlingo", "Citroen", 1800.00);
+            THEN("I get a throw in return"){
+                CHECK_THROWS(db.deleteCarById(99));
+                CHECK_THROWS_WITH(db.deleteCarById(99), "Car Not Found");
+            }
+        }
+
         WHEN( "I try to delete a record and I succeed" ) {
             // DB now is again 3 items as in 'GIVEN'
             THEN("I get a copy of it in return "){
@@ -53,6 +61,7 @@ SCENARIO( "Items can be added, deleted, found by id", "[DataBase]" ) {
             unsigned int idToFailTest = 4;
             THEN("I get a Throw in return"){
                 CHECK_THROWS( db.getCarById(idToFailTest) );
+                CHECK_THROWS_WITH(db.getCarById(idToFailTest), "Car Not Found");
             }
         }
 
