@@ -1,22 +1,18 @@
-Zadanie (wersja 1)
-
-Napisz testy dla swojej aplikacji internetowej.
-
-Prawie na pewno masz w swoim archiwum jakąś aplikację internetową, którą stworzyłeś/stworzyłaś w trakcie studiów lub własnej nauki. Może to jest element pracy inżynierskiej. Zadanie polega na wstępnym otestowaniu tej strony.
+Zadanie polega na wstępnym otestowaniu tej strony.
 TYM RAZEM Z ROBOTEM/ POPRZEDNIO Z CZYSTYM SELENIUM:
 Napisz testy jednostkowe które będą sprawdzały elementy i akcje na stronie:
 
-    nawigacja między stronami (zobacz getCurrentUrl)
-    test mechanizmu walidacji pól formularza
-    test zaznaczenia pola wyboru
+    nawigacja między stronami (zobacz getCurrentUrl)                OK
+    test mechanizmu walidacji pól formularza                        OK
+    test zaznaczenia pola wyboru                                    NOT OK -będzie w rejestracji
 
 Wykorzystaj elementy Selenium takie jak (co najmniej)
 
-    wyszukiwanie po selektorze css
-    wyszukiwanie po id
-    zapisanie zrzutu ekranu stanu pod koniec wybranego testu
-    zaznaczenie pola wyboru
-    sprawdzenie tekstu elementu DOM
+    wyszukiwanie po selektorze css                                  OK
+    wyszukiwanie po id                                              OK
+    zapisanie zrzutu ekranu stanu pod koniec wybranego testu        OK
+    zaznaczenie pola wyboru                                         NOT_OK bedzie przy rejestracji
+    sprawdzenie tekstu elementu DOM                                 OK
 
 Zadanie (wersja 2)
 
@@ -24,10 +20,10 @@ Przygotuj kilka testów dla strony służącej do nauki Selenium http://automati
 
 Wykonaj następujące testy (specjalnie nie doprecyzowuję jak je zrobić, mam nadzieję że każdy będzie miał to rozwiązane trochę inaczej):
 
-    test walidacji pól formularza rejestracji.
-    test udanej rejestracji
-    test nieudanej rejestracji
-    co najmniej jeden z powyższych testów dla różnych rozdzielczości (niech zadziała responsywność)
+    1) test walidacji pól formularza rejestracji.                                                             NOT_OK
+    2) test udanej rejestracji                                                                                OK
+    3) test nieudanej rejestracji                                                                             OK
+    4) co najmniej jeden z powyższych testów dla różnych rozdzielczości (niech zadziała responsywność)        NOT_OK
 
 UWAGA: Strona ta przechowuje informację o tym, czy jest się zalogowanym, czy nie, za pomocą cookie. Poszukaj informacji o tym jak sobie z tym poradzić (podpowiem że Selenium udostępnia możliwość wyczyszczenia ciasteczek, ale można problem rozwiązać na kilka sposobów).
 

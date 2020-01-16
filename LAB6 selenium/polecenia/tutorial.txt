@@ -14,6 +14,6 @@ http://automationpractice.com/
 Instalacja:
 Posiadanie Pythona 2.7 w góre oraz:
 pip install robotframework
-pip install robotframework-selenium
+pip install robotframework-seleniumlibrary
 Utworzenie pierwszego projektu 'test.robot' w Pycharmie i zainstalowanie dwóch wtyczek które będzie podpowiadał. Restart Pycharma.
-Gotowe do testów
+Gotowe do testów.
