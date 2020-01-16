@@ -2,6 +2,7 @@
 Library  SeleniumLibrary
 Library  SeleniumScreenshots
 Library  DateTime
+Library  OperatingSystem
 
 *** Variables ***
 ${START URL}    http://automationpractice.com/
@@ -23,6 +24,14 @@ ${USER FULL NAME}   Maniek Mankowski
 ${USER ALREADY EXIST MSG}   An account using this email address has already been registered. Please enter a valid password or request a new one.
 ${INVALID EMAIL}    Invalid email address.
 ${REG H3}   YOUR PERSONAL INFORMATION
+${COOKIE NAME}  PrestaShop-a30a9934ef476d11b6cc3c983616e364
+${COOKIE1}
+${COOKIE2}
+${COOKIE1 VALUE}
+${COOKIE2 VALUE}
+${DOCUMENTATION 1}    https://robotframework.org/robotframework/2.1.2/libraries/BuiltIn.html
+${DOCUMENTATION 2}      https://robotframework.org/SeleniumLibrary/SeleniumLibrary.html
+
 *** Test Cases ***
 TEST1: you can go from MainPage to SignIn page
     Open main page
@@ -111,7 +120,87 @@ TEST10: valid Register test - generated mail
     Wait until Registered User Accout details appears
     Assert UserAccount url correct
     Close Browser
+TEST11: validation of Registraion form - generated mail
+    Open SingIn page
+    Wait until SignIn page loads
+    Fill in generated email field
+    Confirm Register form
+    Wait until Registration Form appears
+    Assert that user at Registration url
+    Case 1) Mark gender
+    Confirm Full Registration
+    Wait until Registration Form failures appear
+    Assert we have 8 errors
+    Case 2) input customer_firstname 123
+    Confirm Full Registration
+    Wait until Registration Form failures appear
+    Assert we have 8 errors
+    Assert we have customer_firstname invalid error
+    Case 3) input customer_lastname 12345
+    Confirm Full Registration
+    Wait until Registration Form failures appear
+    Assert we have 8 errors
+    Assert we have customer_lastname invalid error
+    Case 4) input short passwd 1
+    Confirm Full Registration
+    Wait until Registration Form failures appear
+    Assert we have 8 errors
+    Assert we have passwd invalid error
+    Case 5) input city 123#*
+    Confirm Full Registration
+    Wait until Registration Form failures appear
+    Assert we have 8 errors
+    Assert we have city invalid error
+    Case 6) input postcode 80-765
+    Confirm Full Registration
+    Wait until Registration Form failures appear
+    Assert we have 8 errors
+    Assert we have postcode invalid error
+    Case 7) input state as null
+    Confirm Full Registration
+    Wait until Registration Form failures appear
+    Assert we have 8 errors
+    Assert we have state invalid error
+    Case 8) input phone_mobile as abcdefg12
+    Confirm Full Registration
+    Wait until Registration Form failures appear
+    Assert we have 8 errors
+    Assert we have phone_mobile invalid error
+    Close Browser
+TEST12: you can go from MainPage to SignIn page (Change screen resolution)
+    Open main page
+    Set Window Size     1920     760
+    Wait until main page loads
+    Get certain text from website
+    Go to SignIn page
+    Wait until SignIn page loads
+    Assert SignIn url correct
+    Close Browser
+TEST13: valid SingIn test - cookie version
+    Open SingIn page
+    Wait until SignIn page loads
+    Get prelogin cookie value
+    Fill true inputs: email and password
+    Confirm SignIn form
+    Wait until Registered User Accout details appears
+    Assert UserAccount url correct
+    Get postlogin cookie value
+    Compare cookie values from pre and post login
+    Read UserName from navigation
+    Take screenshot
+    Close Browser
+    
 *** Keywords ***
+Get prelogin cookie value
+    ${COOKIE1}=     Get Cookie     ${COOKIE NAME}
+    ${COOKIE1 VALUE}     Set Variable    ${COOKIE1.value}
+    Set Global Variable     ${COOKIE1 VALUE}
+Get postlogin cookie value
+    ${COOKIE2}=     Get Cookie     ${COOKIE NAME}
+    ${COOKIE2 VALUE}     Set Variable    ${COOKIE2.value}
+    Set Global Variable     ${COOKIE2 VALUE}
+Compare cookie values from pre and post login
+    Should not be equal  ${COOKIE1 VALUE}  ${COOKIE2 VALUE}
 Open main page
     Open browser    ${START URL}    ${BROWSER}
 Open SingIn page
@@ -139,6 +228,9 @@ Wait until Registration Form appears
     Wait Until Element Is Visible   css=form#account-creation_form
     ${REG MSG}  Get text    css=div.account_creation h3.page-subheading
     should be equal as strings  ${REG MSG}  ${REG H3}
+Wait until Registration Form failures appear
+    Wait Until Element Is Visible   css=div.alert
+
 Go to SignIn page
     Click link  css=a.login
 Assert SignIn url correct
@@ -154,6 +246,30 @@ Assert UserAccount url correct
 Assert that user at Registration url
     ${CURR URL}=   Get Location
     Should Be True  '${CURR URL}'=='${REGISTRATION URL}' or '${CURR URL}'=='${REGISTRATION URL PRIM}'
+Assert we have 8 errors
+    ${ERROR HEADER}  Get text    css=div.alert p
+    should be equal as strings  ${ERROR HEADER}   There are 8 errors
+Assert we have customer_firstname invalid error
+    ${FIELD ERROR}  Get text    css=div.alert ol li:nth-child(3)
+    should be equal as strings  ${FIELD ERROR}   firstname is invalid.
+Assert we have customer_lastname invalid error
+    ${FIELD ERROR}  Get text    css=div.alert ol li:nth-child(2)
+    should be equal as strings  ${FIELD ERROR}   lastname is invalid.
+Assert we have passwd invalid error
+    ${FIELD ERROR}  Get text    css=div.alert ol li:nth-child(4)
+    should be equal as strings  ${FIELD ERROR}   passwd is invalid.
+Assert we have city invalid error
+    ${FIELD ERROR}  Get text    css=div.alert ol li:nth-child(6)
+    should be equal as strings  ${FIELD ERROR}   city is invalid.
+Assert we have postcode invalid error
+    ${FIELD ERROR}  Get text    css=div.alert ol li:nth-child(7)
+    should be equal as strings  ${FIELD ERROR}   The Zip/Postal code you've entered is invalid. It must follow this format: 00000
+Assert we have state invalid error
+    ${FIELD ERROR}  Get text    css=div.alert ol li:nth-child(8)
+    should be equal as strings  ${FIELD ERROR}   This country requires you to choose a State.
+Assert we have phone_mobile invalid error
+    ${FIELD ERROR}  Get text    css=div.alert ol li:nth-child(6)
+    should be equal as strings  ${FIELD ERROR}   phone_mobile is invalid.
 Go to ContactUs page
     Click link  css=div#contact-link a
 Fill fake inputs: email and password
@@ -220,5 +336,21 @@ Fill in neccesary registration fields correctly
     Input Text  id=postcode  80765
     Input Text  id=phone_mobile  123456789
     Select From List By Index  id=id_state  1
-
-
+Case 1) Mark gender
+    Click Element  css=input#id_gender1
+Case 2) input customer_firstname 123
+    Input Text  id=customer_firstname  123
+Case 3) input customer_lastname 12345
+    Input Text  id=customer_lastname  12345
+Case 4) input short passwd 1
+    Input Text  id=passwd  1
+Case 5) input city 123#*
+    Input Text  id=city  123#*
+Case 6) input postcode 80-765
+    Input Text  id=postcode  80-765
+Case 7) input state as null
+    Click Element   css=select#id_state
+    wait until element is visible   css=select#days option
+    Click Element   css=select#id_state option[value='']
+Case 8) input phone_mobile as abcdefg12
+    Input Text  id=phone_mobile  abcdefg12

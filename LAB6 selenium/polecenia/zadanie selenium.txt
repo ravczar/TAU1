@@ -20,10 +20,10 @@ Przygotuj kilka testów dla strony służącej do nauki Selenium http://automati
 
 Wykonaj następujące testy (specjalnie nie doprecyzowuję jak je zrobić, mam nadzieję że każdy będzie miał to rozwiązane trochę inaczej):
 
-    1) test walidacji pól formularza rejestracji.                                                             NOT_OK
+    1) test walidacji pól formularza rejestracji.                                                             OK
     2) test udanej rejestracji                                                                                OK
     3) test nieudanej rejestracji                                                                             OK
-    4) co najmniej jeden z powyższych testów dla różnych rozdzielczości (niech zadziała responsywność)        NOT_OK
+    4) co najmniej jeden z powyższych testów dla różnych rozdzielczości (niech zadziała responsywność)        OK
 
 UWAGA: Strona ta przechowuje informację o tym, czy jest się zalogowanym, czy nie, za pomocą cookie. Poszukaj informacji o tym jak sobie z tym poradzić (podpowiem że Selenium udostępnia możliwość wyczyszczenia ciasteczek, ale można problem rozwiązać na kilka sposobów).
 
