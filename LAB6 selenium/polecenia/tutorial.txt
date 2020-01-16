@@ -6,7 +6,7 @@ robot -v BROWSER:Firefox test.robot
 
 Modyfikacja sciezki do raportów na podfolder:
 robot -d firefox_results -v BROWSER:Firefox test.robot
-robot -d chrome_results test.robot
+robot -d test_results automation_test_one.robot
 
 Strona do testowania:
 http://automationpractice.com/

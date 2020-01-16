@@ -4,14 +4,14 @@ Napisz testy jednostkowe które będą sprawdzały elementy i akcje na stronie:
 
     nawigacja między stronami (zobacz getCurrentUrl)                OK
     test mechanizmu walidacji pól formularza                        OK
-    test zaznaczenia pola wyboru                                    NOT OK -będzie w rejestracji
+    test zaznaczenia pola wyboru                                    OK
 
 Wykorzystaj elementy Selenium takie jak (co najmniej)
 
     wyszukiwanie po selektorze css                                  OK
     wyszukiwanie po id                                              OK
     zapisanie zrzutu ekranu stanu pod koniec wybranego testu        OK
-    zaznaczenie pola wyboru                                         NOT_OK bedzie przy rejestracji
+    zaznaczenie pola wyboru                                         OK
     sprawdzenie tekstu elementu DOM                                 OK
 
 Zadanie (wersja 2)

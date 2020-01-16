@@ -6,9 +6,10 @@ Library  DateTime
 *** Variables ***
 ${START URL}    http://automationpractice.com/
 ${LOGIN URL}    http://automationpractice.com/index.php?controller=authentication&back=my-account
-${CONTACT URL}  http://automationpractice.com/index.php?controller=contact
+${CONTACT URL}      http://automationpractice.com/index.php?controller=contact
 ${MY ACCOUNT URL}   http://automationpractice.com/index.php?controller=my-account
-${REGISTRATION URL}  http://automationpractice.com/index.php?controller=authentication&back=my-account#account-creation
+${REGISTRATION URL}     http://automationpractice.com/index.php?controller=authentication&back=my-account#account-creation
+${REGISTRATION URL PRIM}    http://automationpractice.com/index.php?controller=authentication&back=my-account
 ${BROWSER}  Firefox
 ${MAIN TITLE}   My Store
 ${LOGIN TITLE}   Login - My Store
@@ -104,9 +105,11 @@ TEST10: valid Register test - generated mail
     Fill in generated email field
     Confirm Register form
     Wait until Registration Form appears
+    Assert that user at Registration url
     Fill in neccesary registration fields correctly
     Confirm Full Registration
-    Page Should Contain  Welcome to your account
+    Wait until Registered User Accout details appears
+    Assert UserAccount url correct
     Close Browser
 *** Keywords ***
 Open main page
@@ -147,9 +150,10 @@ Assert ContactUs url correct
 Assert UserAccount url correct
     ${CURRENT URL}=   Get Location
     should be equal as strings  ${CURRENT URL}  ${MY ACCOUNT URL}
+    Page Should Contain  Welcome to your account
 Assert that user at Registration url
     ${CURR URL}=   Get Location
-    should be equal as strings  ${CURR URL}  ${REGISTRATION URL}
+    Should Be True  '${CURR URL}'=='${REGISTRATION URL}' or '${CURR URL}'=='${REGISTRATION URL PRIM}'
 Go to ContactUs page
     Click link  css=div#contact-link a
 Fill fake inputs: email and password
@@ -200,6 +204,12 @@ Read UserName from navigation
 Take screenshot
     Capture Page Screenshot    custom-screenshot.png
 Fill in neccesary registration fields correctly
+    Click Element  css=input#id_gender1
+    Click Element   css=select#days
+    wait until element is visible   css=select#days option
+    Click Element   css=select#days option[value='29']
+    Click Element   css=select#months option[value='9']
+    Click Element   css=select#years option[value='1989']
     Input Text  id=customer_firstname  Test
     Input Text  id=customer_lastname  Test
     Input Text  id=passwd  password
@@ -207,7 +217,7 @@ Fill in neccesary registration fields correctly
     Input Text  id=lastname  Test
     Input Text  id=address1  Test
     Input Text  id=city  Test
-    Input Text  id=postcode  12345
+    Input Text  id=postcode  80765
     Input Text  id=phone_mobile  123456789
     Select From List By Index  id=id_state  1
 
