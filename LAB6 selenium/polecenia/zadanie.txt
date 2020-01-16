@@ -1,0 +1,21 @@
+O RobotFramework
+
+RobotFramework to framework testowy przeznaczony do testów akceptacyjnych.
+Framework posiada wiele wbudowanych bibliotek, a także można korzystać z zewnętrznych.
+Dzięki duetowi Robot + Appium możesz przeprowadzić testy na urządzeniach mobilnych.
+Często wykorzystywany do testownia aplikacji webowych. Robot pomoże Ci także wykonać testy REST API, baz danych.
+Zadanie 1
+
+Stwórz testy do poprzedniego ćwiczenia. Tym razem użyj RobotFramework.
+Zadanie 2
+
+    Z wykorzystaniem dowolnej technologii zaimplemtuj program, który przyjmuje 3 lub 4 parametry.
+    Następnie wyświetla w konsoli informację, jeżeli z tych parameterów określających długości boków da złożyć się
+    figurę geometryczną.
+    Program wyświetla jej nazwę. Program rozpoznaje następujące figury: trójką równoboczny,
+    trójkąt równoramienny, trójkąt różnoramienny, czworobok, kwadrat, prostokąt.
+    Jeżeli z boku nie da złożyć się figury, program wyświetla: nierozpoznano.
+    Wyślij program do osoby z ławki. Dostarcz instrukcje uruchomienia aplikacji.
+    Program otrzymany od osoby siedzącej w tej samej ławce - przetestuj za pomocą RobotFramework
+
+© Puźniakowski 2018/2019/2020

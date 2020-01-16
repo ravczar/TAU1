@@ -1,0 +1,19 @@
+How to install and use your first robot test:
+https://sii.pl/blog/robot-framework-wprowadzenie-do-automatyzacji-testow-aplikacji-webowej/
+
+Zmiana przeglądarki uruchamiania (zmienna Browser z chrome na ff):
+robot -v BROWSER:Firefox test.robot
+
+Modyfikacja sciezki do raportów na podfolder:
+robot -d firefox_results -v BROWSER:Firefox test.robot
+robot -d chrome_results test.robot
+
+Strona do testowania:
+http://automationpractice.com/
+
+Instalacja:
+Posiadanie Pythona 2.7 w góre oraz:
+pip install robotframework
+pip install robotframework-selenium
+Utworzenie pierwszego projektu 'test.robot' w Pycharmie i zainstalowanie dwóch wtyczek które będzie podpowiadał. Restart Pycharma.
+Gotowe do testów

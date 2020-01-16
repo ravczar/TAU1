@@ -1,0 +1,34 @@
+Zadanie (wersja 1)
+
+Napisz testy dla swojej aplikacji internetowej.
+
+Prawie na pewno masz w swoim archiwum jakąś aplikację internetową, którą stworzyłeś/stworzyłaś w trakcie studiów lub własnej nauki. Może to jest element pracy inżynierskiej. Zadanie polega na wstępnym otestowaniu tej strony.
+TYM RAZEM Z ROBOTEM/ POPRZEDNIO Z CZYSTYM SELENIUM:
+Napisz testy jednostkowe które będą sprawdzały elementy i akcje na stronie:
+
+    nawigacja między stronami (zobacz getCurrentUrl)
+    test mechanizmu walidacji pól formularza
+    test zaznaczenia pola wyboru
+
+Wykorzystaj elementy Selenium takie jak (co najmniej)
+
+    wyszukiwanie po selektorze css
+    wyszukiwanie po id
+    zapisanie zrzutu ekranu stanu pod koniec wybranego testu
+    zaznaczenie pola wyboru
+    sprawdzenie tekstu elementu DOM
+
+Zadanie (wersja 2)
+
+Przygotuj kilka testów dla strony służącej do nauki Selenium http://automationpractice.com.
+
+Wykonaj następujące testy (specjalnie nie doprecyzowuję jak je zrobić, mam nadzieję że każdy będzie miał to rozwiązane trochę inaczej):
+
+    test walidacji pól formularza rejestracji.
+    test udanej rejestracji
+    test nieudanej rejestracji
+    co najmniej jeden z powyższych testów dla różnych rozdzielczości (niech zadziała responsywność)
+
+UWAGA: Strona ta przechowuje informację o tym, czy jest się zalogowanym, czy nie, za pomocą cookie. Poszukaj informacji o tym jak sobie z tym poradzić (podpowiem że Selenium udostępnia możliwość wyczyszczenia ciasteczek, ale można problem rozwiązać na kilka sposobów).
+
+UWAGA2: Strona jest responsywna - warto upewnić się że działamy na odpowiedniej rozdzielczości.
