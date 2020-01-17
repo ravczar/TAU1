@@ -1,2 +1,2 @@
-Podano boki:  [1.0, 1.0, 3.0, 3.0]
-Mo¿liwa figura:  prostok¹t
+Podano boki:  [10.0, 3.0, 1.0, 1.0]
+Mo¿liwa figura:  nierozpoznano

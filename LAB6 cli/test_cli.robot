@@ -80,7 +80,23 @@ TEST16) CZWOROBOK PROSTOKĄT a,a,b,b
     ${result} = 	Run Process 	python  ${PROGRAM DIRECTORY}  --first   1.0     --second  1.0       --third  3.0    --fourth    3.0    stdout=${STDOUT DIR} 	stderr=${STDERR DIR}    output_encoding=SYSTEM
     Log Many 	stdout: ${result.stdout} 	stderr: ${result.stderr}
     Should Contain       ${result.stdout}   prostokąt
-
+TEST17) CZWOROBOK NIEMOŻLIWY (pierwsze trzy boki są krótsze niż czwarty bok)
+    ${result} = 	Run Process 	python  ${PROGRAM DIRECTORY}  --first   1.0     --second  2.0       --third  3.0    --fourth  10.0     stdout=${STDOUT DIR} 	stderr=${STDERR DIR}    output_encoding=SYSTEM
+    Log Many 	stdout: ${result.stdout} 	stderr: ${result.stderr}
+    Should Contain       ${result.stdout}   nierozpoznano
+TEST18) CZWOROBOK NIEMOŻLIWY (podano długości boków 0.0)
+    ${result} = 	Run Process 	python  ${PROGRAM DIRECTORY}  --first   0.0     --second  0.0       --third  0.0    --fourth  0.0      stdout=${STDOUT DIR} 	stderr=${STDERR DIR}    output_encoding=SYSTEM
+    Log Many 	stdout: ${result.stdout} 	stderr: ${result.stderr}
+    Should Contain       ${result.stdout}   nierozpoznano
+TEST19) CZWOROBOK NIEMOŻLIWY (podano któryś bok 0.0)
+    ${result} = 	Run Process 	python  ${PROGRAM DIRECTORY}  --first   1.0     --second  3.0       --third  2.0    --fourth  0.0       stdout=${STDOUT DIR} 	stderr=${STDERR DIR}    output_encoding=SYSTEM
+    Log Many 	stdout: ${result.stdout} 	stderr: ${result.stderr}
+    Should Contain       ${result.stdout}   nierozpoznano
+TEST20) CZWOROBOK NIEMOŻLIWY (pierwsze trzy boki są dłuższe niż czwarty bok)
+    ${result} = 	Run Process 	python  ${PROGRAM DIRECTORY}  --first   10.0     --second  3.0       --third  1.0    --fourth  1.0     stdout=${STDOUT DIR} 	stderr=${STDERR DIR}    output_encoding=SYSTEM
+    Log Many 	stdout: ${result.stdout} 	stderr: ${result.stderr}
+    Should Contain       ${result.stdout}   nierozpoznano
+    
 *** Keywords ***
 
 Figures
