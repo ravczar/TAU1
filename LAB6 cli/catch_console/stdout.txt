@@ -1,0 +1,2 @@
+Podano boki:  [1.5, 2.0, 3.0, None]
+Mo¿liwa figura:  trójk¹t ró¿noramienny
