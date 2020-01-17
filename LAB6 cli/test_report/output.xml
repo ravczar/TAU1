@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 3.1.2 (Python 3.7.5 on win32)" generated="20200117 12:11:02.465" rpa="false">
+<robot generator="Robot 3.1.2 (Python 3.7.5 on win32)" generated="20200117 12:27:50.744" rpa="false">
 <suite id="s1" name="Test Cli" source="C:\Users\ravcz\Desktop\TAU_REPO\TAU1\LAB6 cli\test_cli.robot">
 <test id="s1-t1" name="TEST1) WYSWIETLANIE HELP BOX">
+<kw name="Czy wyświetli się help box na żądanie">
 <kw name="Run Process" library="Process">
 <doc>Runs a process and waits for it to complete.</doc>
 <arguments>
@@ -15,12 +16,12 @@
 <assign>
 <var>${result}</var>
 </assign>
-<msg timestamp="20200117 12:11:02.495" level="INFO">Starting process:
+<msg timestamp="20200117 12:27:50.771" level="INFO">Starting process:
 python lab6/Main.py --help</msg>
-<msg timestamp="20200117 12:11:02.498" level="INFO">Waiting for process to complete.</msg>
-<msg timestamp="20200117 12:11:02.568" level="INFO">Process completed.</msg>
-<msg timestamp="20200117 12:11:02.568" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
-<status status="PASS" starttime="20200117 12:11:02.494" endtime="20200117 12:11:02.568"></status>
+<msg timestamp="20200117 12:27:50.774" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20200117 12:27:50.839" level="INFO">Process completed.</msg>
+<msg timestamp="20200117 12:27:50.839" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
+<status status="PASS" starttime="20200117 12:27:50.771" endtime="20200117 12:27:50.839"></status>
 </kw>
 <kw name="Log Many" library="BuiltIn">
 <doc>Logs the given messages as separate entries using the INFO level.</doc>
@@ -28,7 +29,7 @@ python lab6/Main.py --help</msg>
 <arg>stdout: ${result.stdout}</arg>
 <arg>stderr: ${result.stderr}</arg>
 </arguments>
-<msg timestamp="20200117 12:11:02.569" level="INFO">stdout: usage: Main.py [-h] --first {range =&gt;
+<msg timestamp="20200117 12:27:50.840" level="INFO">stdout: usage: Main.py [-h] --first {range =&gt;
                [0.00 : +infinity]} --second {range =&gt; [0.00 : +infinity]} --third {range =&gt; [0.00 : +infinity]} [--fourth {range =&gt; [0.00 : +infinity]}]
 
 Find out if you can build triangle or something else!
@@ -43,8 +44,8 @@ optional arguments:
                         Pass here proper side length 'value &gt;= 0'
   --fourth {range =&gt; [0.00 : +infinity]}
                         Pass here proper side length 'value &gt;= 0'</msg>
-<msg timestamp="20200117 12:11:02.570" level="INFO">stderr: </msg>
-<status status="PASS" starttime="20200117 12:11:02.569" endtime="20200117 12:11:02.570"></status>
+<msg timestamp="20200117 12:27:50.841" level="INFO">stderr: </msg>
+<status status="PASS" starttime="20200117 12:27:50.839" endtime="20200117 12:27:50.841"></status>
 </kw>
 <kw name="Should Contain" library="BuiltIn">
 <doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
@@ -52,11 +53,14 @@ optional arguments:
 <arg>${result.stdout}</arg>
 <arg>show this help message and exit</arg>
 </arguments>
-<status status="PASS" starttime="20200117 12:11:02.570" endtime="20200117 12:11:02.570"></status>
+<status status="PASS" starttime="20200117 12:27:50.841" endtime="20200117 12:27:50.841"></status>
 </kw>
-<status status="PASS" starttime="20200117 12:11:02.494" endtime="20200117 12:11:02.571" critical="yes"></status>
+<status status="PASS" starttime="20200117 12:27:50.770" endtime="20200117 12:27:50.841"></status>
+</kw>
+<status status="PASS" starttime="20200117 12:27:50.770" endtime="20200117 12:27:50.841" critical="yes"></status>
 </test>
 <test id="s1-t2" name="TEST2) BŁĄD Z POWODU NIE PODANIA PARAMETRÓW (3 obowiązkowe)">
+<kw name="Czy wyświetli błąd z powodu braku któregoś z parametrów">
 <kw name="Run Process" library="Process">
 <doc>Runs a process and waits for it to complete.</doc>
 <arguments>
@@ -69,12 +73,12 @@ optional arguments:
 <assign>
 <var>${result}</var>
 </assign>
-<msg timestamp="20200117 12:11:02.574" level="INFO">Starting process:
+<msg timestamp="20200117 12:27:50.844" level="INFO">Starting process:
 python lab6/Main.py</msg>
-<msg timestamp="20200117 12:11:02.576" level="INFO">Waiting for process to complete.</msg>
-<msg timestamp="20200117 12:11:02.637" level="INFO">Process completed.</msg>
-<msg timestamp="20200117 12:11:02.637" level="INFO">${result} = &lt;result object with rc 2&gt;</msg>
-<status status="PASS" starttime="20200117 12:11:02.574" endtime="20200117 12:11:02.637"></status>
+<msg timestamp="20200117 12:27:50.846" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20200117 12:27:50.910" level="INFO">Process completed.</msg>
+<msg timestamp="20200117 12:27:50.910" level="INFO">${result} = &lt;result object with rc 2&gt;</msg>
+<status status="PASS" starttime="20200117 12:27:50.843" endtime="20200117 12:27:50.910"></status>
 </kw>
 <kw name="Log Many" library="BuiltIn">
 <doc>Logs the given messages as separate entries using the INFO level.</doc>
@@ -82,11 +86,11 @@ python lab6/Main.py</msg>
 <arg>stdout: ${result.stdout}</arg>
 <arg>stderr: ${result.stderr}</arg>
 </arguments>
-<msg timestamp="20200117 12:11:02.638" level="INFO">stdout: </msg>
-<msg timestamp="20200117 12:11:02.639" level="INFO">stderr: usage: Main.py [-h] --first {range =&gt;
+<msg timestamp="20200117 12:27:50.910" level="INFO">stdout: </msg>
+<msg timestamp="20200117 12:27:50.911" level="INFO">stderr: usage: Main.py [-h] --first {range =&gt;
                [0.00 : +infinity]} --second {range =&gt; [0.00 : +infinity]} --third {range =&gt; [0.00 : +infinity]} [--fourth {range =&gt; [0.00 : +infinity]}]
 Main.py: error: the following arguments are required: --first, --second, --third</msg>
-<status status="PASS" starttime="20200117 12:11:02.638" endtime="20200117 12:11:02.639"></status>
+<status status="PASS" starttime="20200117 12:27:50.910" endtime="20200117 12:27:50.911"></status>
 </kw>
 <kw name="Should Contain" library="BuiltIn">
 <doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
@@ -94,11 +98,14 @@ Main.py: error: the following arguments are required: --first, --second, --third
 <arg>${result.stderr}</arg>
 <arg>the following arguments are required: --first, --second, --third</arg>
 </arguments>
-<status status="PASS" starttime="20200117 12:11:02.639" endtime="20200117 12:11:02.639"></status>
+<status status="PASS" starttime="20200117 12:27:50.911" endtime="20200117 12:27:50.911"></status>
 </kw>
-<status status="PASS" starttime="20200117 12:11:02.573" endtime="20200117 12:11:02.639" critical="yes"></status>
+<status status="PASS" starttime="20200117 12:27:50.843" endtime="20200117 12:27:50.911"></status>
+</kw>
+<status status="PASS" starttime="20200117 12:27:50.842" endtime="20200117 12:27:50.912" critical="yes"></status>
 </test>
 <test id="s1-t3" name="TEST3) BŁĄD Z POWODU NIE PODANIA ZŁEGO TYPU PARAMETRÓW (3 obowiązkowe)">
+<kw name="Czy wyświetli błąd z powodu będnego typu parametru">
 <kw name="Run Process" library="Process">
 <doc>Runs a process and waits for it to complete.</doc>
 <arguments>
@@ -119,12 +126,12 @@ Main.py: error: the following arguments are required: --first, --second, --third
 <assign>
 <var>${result}</var>
 </assign>
-<msg timestamp="20200117 12:11:02.643" level="INFO">Starting process:
+<msg timestamp="20200117 12:27:50.915" level="INFO">Starting process:
 python lab6/Main.py --first a --second b --third c --fourth d</msg>
-<msg timestamp="20200117 12:11:02.645" level="INFO">Waiting for process to complete.</msg>
-<msg timestamp="20200117 12:11:02.708" level="INFO">Process completed.</msg>
-<msg timestamp="20200117 12:11:02.708" level="INFO">${result} = &lt;result object with rc 2&gt;</msg>
-<status status="PASS" starttime="20200117 12:11:02.642" endtime="20200117 12:11:02.708"></status>
+<msg timestamp="20200117 12:27:50.917" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20200117 12:27:50.982" level="INFO">Process completed.</msg>
+<msg timestamp="20200117 12:27:50.982" level="INFO">${result} = &lt;result object with rc 2&gt;</msg>
+<status status="PASS" starttime="20200117 12:27:50.914" endtime="20200117 12:27:50.982"></status>
 </kw>
 <kw name="Log Many" library="BuiltIn">
 <doc>Logs the given messages as separate entries using the INFO level.</doc>
@@ -132,11 +139,11 @@ python lab6/Main.py --first a --second b --third c --fourth d</msg>
 <arg>stdout: ${result.stdout}</arg>
 <arg>stderr: ${result.stderr}</arg>
 </arguments>
-<msg timestamp="20200117 12:11:02.709" level="INFO">stdout: </msg>
-<msg timestamp="20200117 12:11:02.709" level="INFO">stderr: usage: Main.py [-h] --first {range =&gt;
+<msg timestamp="20200117 12:27:50.983" level="INFO">stdout: </msg>
+<msg timestamp="20200117 12:27:50.984" level="INFO">stderr: usage: Main.py [-h] --first {range =&gt;
                [0.00 : +infinity]} --second {range =&gt; [0.00 : +infinity]} --third {range =&gt; [0.00 : +infinity]} [--fourth {range =&gt; [0.00 : +infinity]}]
 Main.py: error: argument --first: invalid float value: 'a'</msg>
-<status status="PASS" starttime="20200117 12:11:02.708" endtime="20200117 12:11:02.709"></status>
+<status status="PASS" starttime="20200117 12:27:50.982" endtime="20200117 12:27:50.984"></status>
 </kw>
 <kw name="Should Contain" library="BuiltIn">
 <doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
@@ -144,11 +151,14 @@ Main.py: error: argument --first: invalid float value: 'a'</msg>
 <arg>${result.stderr}</arg>
 <arg>invalid float value</arg>
 </arguments>
-<status status="PASS" starttime="20200117 12:11:02.710" endtime="20200117 12:11:02.710"></status>
+<status status="PASS" starttime="20200117 12:27:50.984" endtime="20200117 12:27:50.984"></status>
 </kw>
-<status status="PASS" starttime="20200117 12:11:02.641" endtime="20200117 12:11:02.710" critical="yes"></status>
+<status status="PASS" starttime="20200117 12:27:50.914" endtime="20200117 12:27:50.984"></status>
+</kw>
+<status status="PASS" starttime="20200117 12:27:50.913" endtime="20200117 12:27:50.984" critical="yes"></status>
 </test>
 <test id="s1-t4" name="TEST4) TRÓJKĄT RÓWNOBOCZNY">
+<kw name="Sprawdzenie trójkąta równobocznego">
 <kw name="Run Process" library="Process">
 <doc>Runs a process and waits for it to complete.</doc>
 <arguments>
@@ -167,12 +177,12 @@ Main.py: error: argument --first: invalid float value: 'a'</msg>
 <assign>
 <var>${result}</var>
 </assign>
-<msg timestamp="20200117 12:11:02.713" level="INFO">Starting process:
+<msg timestamp="20200117 12:27:50.986" level="INFO">Starting process:
 python lab6/Main.py --first 3.0 --second 3.0 --third 3.0</msg>
-<msg timestamp="20200117 12:11:02.715" level="INFO">Waiting for process to complete.</msg>
-<msg timestamp="20200117 12:11:02.777" level="INFO">Process completed.</msg>
-<msg timestamp="20200117 12:11:02.778" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
-<status status="PASS" starttime="20200117 12:11:02.712" endtime="20200117 12:11:02.778"></status>
+<msg timestamp="20200117 12:27:50.988" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20200117 12:27:51.048" level="INFO">Process completed.</msg>
+<msg timestamp="20200117 12:27:51.048" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
+<status status="PASS" starttime="20200117 12:27:50.986" endtime="20200117 12:27:51.048"></status>
 </kw>
 <kw name="Log Many" library="BuiltIn">
 <doc>Logs the given messages as separate entries using the INFO level.</doc>
@@ -180,10 +190,10 @@ python lab6/Main.py --first 3.0 --second 3.0 --third 3.0</msg>
 <arg>stdout: ${result.stdout}</arg>
 <arg>stderr: ${result.stderr}</arg>
 </arguments>
-<msg timestamp="20200117 12:11:02.779" level="INFO">stdout: Podano boki:  [3.0, 3.0, 3.0, None]
+<msg timestamp="20200117 12:27:51.049" level="INFO">stdout: Podano boki:  [3.0, 3.0, 3.0, None]
 Możliwa figura:  trójkąt równoboczny</msg>
-<msg timestamp="20200117 12:11:02.779" level="INFO">stderr: </msg>
-<status status="PASS" starttime="20200117 12:11:02.778" endtime="20200117 12:11:02.779"></status>
+<msg timestamp="20200117 12:27:51.049" level="INFO">stderr: </msg>
+<status status="PASS" starttime="20200117 12:27:51.049" endtime="20200117 12:27:51.050"></status>
 </kw>
 <kw name="Should Contain" library="BuiltIn">
 <doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
@@ -191,11 +201,14 @@ Możliwa figura:  trójkąt równoboczny</msg>
 <arg>${result.stdout}</arg>
 <arg>trójkąt równoboczny</arg>
 </arguments>
-<status status="PASS" starttime="20200117 12:11:02.780" endtime="20200117 12:11:02.780"></status>
+<status status="PASS" starttime="20200117 12:27:51.050" endtime="20200117 12:27:51.050"></status>
 </kw>
-<status status="PASS" starttime="20200117 12:11:02.711" endtime="20200117 12:11:02.780" critical="yes"></status>
+<status status="PASS" starttime="20200117 12:27:50.985" endtime="20200117 12:27:51.050"></status>
+</kw>
+<status status="PASS" starttime="20200117 12:27:50.985" endtime="20200117 12:27:51.050" critical="yes"></status>
 </test>
 <test id="s1-t5" name="TEST5) TRÓJKĄT RÓWNORAMIENNY">
+<kw name="Sprawdzenie trójkąta równoramiennego">
 <kw name="Run Process" library="Process">
 <doc>Runs a process and waits for it to complete.</doc>
 <arguments>
@@ -214,12 +227,12 @@ Możliwa figura:  trójkąt równoboczny</msg>
 <assign>
 <var>${result}</var>
 </assign>
-<msg timestamp="20200117 12:11:02.782" level="INFO">Starting process:
+<msg timestamp="20200117 12:27:51.052" level="INFO">Starting process:
 python lab6/Main.py --first 3.0 --second 3.0 --third 2.0</msg>
-<msg timestamp="20200117 12:11:02.784" level="INFO">Waiting for process to complete.</msg>
-<msg timestamp="20200117 12:11:02.846" level="INFO">Process completed.</msg>
-<msg timestamp="20200117 12:11:02.847" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
-<status status="PASS" starttime="20200117 12:11:02.781" endtime="20200117 12:11:02.847"></status>
+<msg timestamp="20200117 12:27:51.055" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20200117 12:27:51.115" level="INFO">Process completed.</msg>
+<msg timestamp="20200117 12:27:51.115" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
+<status status="PASS" starttime="20200117 12:27:51.051" endtime="20200117 12:27:51.115"></status>
 </kw>
 <kw name="Log Many" library="BuiltIn">
 <doc>Logs the given messages as separate entries using the INFO level.</doc>
@@ -227,10 +240,10 @@ python lab6/Main.py --first 3.0 --second 3.0 --third 2.0</msg>
 <arg>stdout: ${result.stdout}</arg>
 <arg>stderr: ${result.stderr}</arg>
 </arguments>
-<msg timestamp="20200117 12:11:02.848" level="INFO">stdout: Podano boki:  [3.0, 3.0, 2.0, None]
+<msg timestamp="20200117 12:27:51.116" level="INFO">stdout: Podano boki:  [3.0, 3.0, 2.0, None]
 Możliwa figura:  trójkąt równoramieny</msg>
-<msg timestamp="20200117 12:11:02.848" level="INFO">stderr: </msg>
-<status status="PASS" starttime="20200117 12:11:02.847" endtime="20200117 12:11:02.848"></status>
+<msg timestamp="20200117 12:27:51.116" level="INFO">stderr: </msg>
+<status status="PASS" starttime="20200117 12:27:51.115" endtime="20200117 12:27:51.116"></status>
 </kw>
 <kw name="Should Contain" library="BuiltIn">
 <doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
@@ -238,11 +251,14 @@ Możliwa figura:  trójkąt równoramieny</msg>
 <arg>${result.stdout}</arg>
 <arg>trójkąt równoramieny</arg>
 </arguments>
-<status status="PASS" starttime="20200117 12:11:02.848" endtime="20200117 12:11:02.848"></status>
+<status status="PASS" starttime="20200117 12:27:51.116" endtime="20200117 12:27:51.117"></status>
 </kw>
-<status status="PASS" starttime="20200117 12:11:02.781" endtime="20200117 12:11:02.849" critical="yes"></status>
+<status status="PASS" starttime="20200117 12:27:51.051" endtime="20200117 12:27:51.117"></status>
+</kw>
+<status status="PASS" starttime="20200117 12:27:51.051" endtime="20200117 12:27:51.117" critical="yes"></status>
 </test>
 <test id="s1-t6" name="TEST6) TRÓJKĄT RÓŻNOBOCZNY">
+<kw name="Sprawdzenie trójkąta różnobocznego">
 <kw name="Run Process" library="Process">
 <doc>Runs a process and waits for it to complete.</doc>
 <arguments>
@@ -261,12 +277,12 @@ Możliwa figura:  trójkąt równoramieny</msg>
 <assign>
 <var>${result}</var>
 </assign>
-<msg timestamp="20200117 12:11:02.851" level="INFO">Starting process:
+<msg timestamp="20200117 12:27:51.119" level="INFO">Starting process:
 python lab6/Main.py --first 1.5 --second 2.0 --third 3.0</msg>
-<msg timestamp="20200117 12:11:02.853" level="INFO">Waiting for process to complete.</msg>
-<msg timestamp="20200117 12:11:02.915" level="INFO">Process completed.</msg>
-<msg timestamp="20200117 12:11:02.916" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
-<status status="PASS" starttime="20200117 12:11:02.850" endtime="20200117 12:11:02.916"></status>
+<msg timestamp="20200117 12:27:51.121" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20200117 12:27:51.184" level="INFO">Process completed.</msg>
+<msg timestamp="20200117 12:27:51.184" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
+<status status="PASS" starttime="20200117 12:27:51.119" endtime="20200117 12:27:51.184"></status>
 </kw>
 <kw name="Log Many" library="BuiltIn">
 <doc>Logs the given messages as separate entries using the INFO level.</doc>
@@ -274,10 +290,10 @@ python lab6/Main.py --first 1.5 --second 2.0 --third 3.0</msg>
 <arg>stdout: ${result.stdout}</arg>
 <arg>stderr: ${result.stderr}</arg>
 </arguments>
-<msg timestamp="20200117 12:11:02.917" level="INFO">stdout: Podano boki:  [1.5, 2.0, 3.0, None]
+<msg timestamp="20200117 12:27:51.185" level="INFO">stdout: Podano boki:  [1.5, 2.0, 3.0, None]
 Możliwa figura:  trójkąt różnoramienny</msg>
-<msg timestamp="20200117 12:11:02.917" level="INFO">stderr: </msg>
-<status status="PASS" starttime="20200117 12:11:02.916" endtime="20200117 12:11:02.917"></status>
+<msg timestamp="20200117 12:27:51.185" level="INFO">stderr: </msg>
+<status status="PASS" starttime="20200117 12:27:51.184" endtime="20200117 12:27:51.185"></status>
 </kw>
 <kw name="Should Contain" library="BuiltIn">
 <doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
@@ -285,11 +301,14 @@ Możliwa figura:  trójkąt różnoramienny</msg>
 <arg>${result.stdout}</arg>
 <arg>trójkąt różnoramienny</arg>
 </arguments>
-<status status="PASS" starttime="20200117 12:11:02.917" endtime="20200117 12:11:02.918"></status>
+<status status="PASS" starttime="20200117 12:27:51.185" endtime="20200117 12:27:51.185"></status>
 </kw>
-<status status="PASS" starttime="20200117 12:11:02.849" endtime="20200117 12:11:02.918" critical="yes"></status>
+<status status="PASS" starttime="20200117 12:27:51.118" endtime="20200117 12:27:51.186"></status>
+</kw>
+<status status="PASS" starttime="20200117 12:27:51.118" endtime="20200117 12:27:51.186" critical="yes"></status>
 </test>
-<test id="s1-t7" name="TEST7) TRÓJKĄT NIEMOŻLIWY (pierwsze dwa boki są krótsze niż trzeci bok)">
+<test id="s1-t7" name="TEST7) TRÓJKĄT NIEMOŻLIWY">
+<kw name="Pierwsze dwa boki są krótsze od trzeciego boku">
 <kw name="Run Process" library="Process">
 <doc>Runs a process and waits for it to complete.</doc>
 <arguments>
@@ -308,12 +327,12 @@ Możliwa figura:  trójkąt różnoramienny</msg>
 <assign>
 <var>${result}</var>
 </assign>
-<msg timestamp="20200117 12:11:02.921" level="INFO">Starting process:
+<msg timestamp="20200117 12:27:51.188" level="INFO">Starting process:
 python lab6/Main.py --first 1.0 --second 2.0 --third 3.0</msg>
-<msg timestamp="20200117 12:11:02.923" level="INFO">Waiting for process to complete.</msg>
-<msg timestamp="20200117 12:11:02.984" level="INFO">Process completed.</msg>
-<msg timestamp="20200117 12:11:02.985" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
-<status status="PASS" starttime="20200117 12:11:02.920" endtime="20200117 12:11:02.985"></status>
+<msg timestamp="20200117 12:27:51.190" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20200117 12:27:51.250" level="INFO">Process completed.</msg>
+<msg timestamp="20200117 12:27:51.251" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
+<status status="PASS" starttime="20200117 12:27:51.188" endtime="20200117 12:27:51.251"></status>
 </kw>
 <kw name="Log Many" library="BuiltIn">
 <doc>Logs the given messages as separate entries using the INFO level.</doc>
@@ -321,10 +340,10 @@ python lab6/Main.py --first 1.0 --second 2.0 --third 3.0</msg>
 <arg>stdout: ${result.stdout}</arg>
 <arg>stderr: ${result.stderr}</arg>
 </arguments>
-<msg timestamp="20200117 12:11:02.985" level="INFO">stdout: Podano boki:  [1.0, 2.0, 3.0, None]
+<msg timestamp="20200117 12:27:51.251" level="INFO">stdout: Podano boki:  [1.0, 2.0, 3.0, None]
 Możliwa figura:  nierozpoznano</msg>
-<msg timestamp="20200117 12:11:02.985" level="INFO">stderr: </msg>
-<status status="PASS" starttime="20200117 12:11:02.985" endtime="20200117 12:11:02.987"></status>
+<msg timestamp="20200117 12:27:51.252" level="INFO">stderr: </msg>
+<status status="PASS" starttime="20200117 12:27:51.251" endtime="20200117 12:27:51.252"></status>
 </kw>
 <kw name="Should Contain" library="BuiltIn">
 <doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
@@ -332,11 +351,14 @@ Możliwa figura:  nierozpoznano</msg>
 <arg>${result.stdout}</arg>
 <arg>nierozpoznano</arg>
 </arguments>
-<status status="PASS" starttime="20200117 12:11:02.987" endtime="20200117 12:11:02.987"></status>
+<status status="PASS" starttime="20200117 12:27:51.252" endtime="20200117 12:27:51.252"></status>
 </kw>
-<status status="PASS" starttime="20200117 12:11:02.920" endtime="20200117 12:11:02.987" critical="yes"></status>
+<status status="PASS" starttime="20200117 12:27:51.187" endtime="20200117 12:27:51.252"></status>
+</kw>
+<status status="PASS" starttime="20200117 12:27:51.187" endtime="20200117 12:27:51.253" critical="yes"></status>
 </test>
 <test id="s1-t8" name="TEST8) TRÓJKĄT NIEMOŻLIWY (podano długości boków 0.0)">
+<kw name="Podano wszystkie boki równe zero">
 <kw name="Run Process" library="Process">
 <doc>Runs a process and waits for it to complete.</doc>
 <arguments>
@@ -355,12 +377,12 @@ Możliwa figura:  nierozpoznano</msg>
 <assign>
 <var>${result}</var>
 </assign>
-<msg timestamp="20200117 12:11:02.990" level="INFO">Starting process:
+<msg timestamp="20200117 12:27:51.255" level="INFO">Starting process:
 python lab6/Main.py --first 0.0 --second 0.0 --third 0.0</msg>
-<msg timestamp="20200117 12:11:02.992" level="INFO">Waiting for process to complete.</msg>
-<msg timestamp="20200117 12:11:03.056" level="INFO">Process completed.</msg>
-<msg timestamp="20200117 12:11:03.056" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
-<status status="PASS" starttime="20200117 12:11:02.989" endtime="20200117 12:11:03.056"></status>
+<msg timestamp="20200117 12:27:51.257" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20200117 12:27:51.319" level="INFO">Process completed.</msg>
+<msg timestamp="20200117 12:27:51.319" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
+<status status="PASS" starttime="20200117 12:27:51.254" endtime="20200117 12:27:51.319"></status>
 </kw>
 <kw name="Log Many" library="BuiltIn">
 <doc>Logs the given messages as separate entries using the INFO level.</doc>
@@ -368,10 +390,10 @@ python lab6/Main.py --first 0.0 --second 0.0 --third 0.0</msg>
 <arg>stdout: ${result.stdout}</arg>
 <arg>stderr: ${result.stderr}</arg>
 </arguments>
-<msg timestamp="20200117 12:11:03.057" level="INFO">stdout: Podano boki:  [0.0, 0.0, 0.0, None]
+<msg timestamp="20200117 12:27:51.320" level="INFO">stdout: Podano boki:  [0.0, 0.0, 0.0, None]
 Możliwa figura:  nierozpoznano</msg>
-<msg timestamp="20200117 12:11:03.057" level="INFO">stderr: </msg>
-<status status="PASS" starttime="20200117 12:11:03.056" endtime="20200117 12:11:03.057"></status>
+<msg timestamp="20200117 12:27:51.320" level="INFO">stderr: </msg>
+<status status="PASS" starttime="20200117 12:27:51.320" endtime="20200117 12:27:51.321"></status>
 </kw>
 <kw name="Should Contain" library="BuiltIn">
 <doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
@@ -379,11 +401,14 @@ Możliwa figura:  nierozpoznano</msg>
 <arg>${result.stdout}</arg>
 <arg>nierozpoznano</arg>
 </arguments>
-<status status="PASS" starttime="20200117 12:11:03.058" endtime="20200117 12:11:03.058"></status>
+<status status="PASS" starttime="20200117 12:27:51.321" endtime="20200117 12:27:51.321"></status>
 </kw>
-<status status="PASS" starttime="20200117 12:11:02.988" endtime="20200117 12:11:03.058" critical="yes"></status>
+<status status="PASS" starttime="20200117 12:27:51.254" endtime="20200117 12:27:51.321"></status>
+</kw>
+<status status="PASS" starttime="20200117 12:27:51.253" endtime="20200117 12:27:51.321" critical="yes"></status>
 </test>
 <test id="s1-t9" name="TEST9) TRÓJKĄT NIEMOŻLIWY (podano któryś bok 0.0)">
+<kw name="Podano któryś bok równy zero">
 <kw name="Run Process" library="Process">
 <doc>Runs a process and waits for it to complete.</doc>
 <arguments>
@@ -402,12 +427,12 @@ Możliwa figura:  nierozpoznano</msg>
 <assign>
 <var>${result}</var>
 </assign>
-<msg timestamp="20200117 12:11:03.061" level="INFO">Starting process:
+<msg timestamp="20200117 12:27:51.324" level="INFO">Starting process:
 python lab6/Main.py --first 0.0 --second 3.0 --third 2.0</msg>
-<msg timestamp="20200117 12:11:03.063" level="INFO">Waiting for process to complete.</msg>
-<msg timestamp="20200117 12:11:03.127" level="INFO">Process completed.</msg>
-<msg timestamp="20200117 12:11:03.127" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
-<status status="PASS" starttime="20200117 12:11:03.060" endtime="20200117 12:11:03.127"></status>
+<msg timestamp="20200117 12:27:51.326" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20200117 12:27:51.386" level="INFO">Process completed.</msg>
+<msg timestamp="20200117 12:27:51.386" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
+<status status="PASS" starttime="20200117 12:27:51.322" endtime="20200117 12:27:51.386"></status>
 </kw>
 <kw name="Log Many" library="BuiltIn">
 <doc>Logs the given messages as separate entries using the INFO level.</doc>
@@ -415,10 +440,10 @@ python lab6/Main.py --first 0.0 --second 3.0 --third 2.0</msg>
 <arg>stdout: ${result.stdout}</arg>
 <arg>stderr: ${result.stderr}</arg>
 </arguments>
-<msg timestamp="20200117 12:11:03.128" level="INFO">stdout: Podano boki:  [0.0, 3.0, 2.0, None]
+<msg timestamp="20200117 12:27:51.387" level="INFO">stdout: Podano boki:  [0.0, 3.0, 2.0, None]
 Możliwa figura:  nierozpoznano</msg>
-<msg timestamp="20200117 12:11:03.128" level="INFO">stderr: </msg>
-<status status="PASS" starttime="20200117 12:11:03.127" endtime="20200117 12:11:03.128"></status>
+<msg timestamp="20200117 12:27:51.387" level="INFO">stderr: </msg>
+<status status="PASS" starttime="20200117 12:27:51.386" endtime="20200117 12:27:51.387"></status>
 </kw>
 <kw name="Should Contain" library="BuiltIn">
 <doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
@@ -426,11 +451,14 @@ Możliwa figura:  nierozpoznano</msg>
 <arg>${result.stdout}</arg>
 <arg>nierozpoznano</arg>
 </arguments>
-<status status="PASS" starttime="20200117 12:11:03.128" endtime="20200117 12:11:03.129"></status>
+<status status="PASS" starttime="20200117 12:27:51.387" endtime="20200117 12:27:51.388"></status>
 </kw>
-<status status="PASS" starttime="20200117 12:11:03.059" endtime="20200117 12:11:03.129" critical="yes"></status>
+<status status="PASS" starttime="20200117 12:27:51.322" endtime="20200117 12:27:51.388"></status>
+</kw>
+<status status="PASS" starttime="20200117 12:27:51.322" endtime="20200117 12:27:51.388" critical="yes"></status>
 </test>
 <test id="s1-t10" name="TEST10) CZWOROBOK KWADRAT">
+<kw name="Sprawdzenie czy rozpoznał kwadrat">
 <kw name="Run Process" library="Process">
 <doc>Runs a process and waits for it to complete.</doc>
 <arguments>
@@ -451,12 +479,12 @@ Możliwa figura:  nierozpoznano</msg>
 <assign>
 <var>${result}</var>
 </assign>
-<msg timestamp="20200117 12:11:03.132" level="INFO">Starting process:
+<msg timestamp="20200117 12:27:51.391" level="INFO">Starting process:
 python lab6/Main.py --first 3.0 --second 3.0 --third 3.0 --fourth 3.0</msg>
-<msg timestamp="20200117 12:11:03.133" level="INFO">Waiting for process to complete.</msg>
-<msg timestamp="20200117 12:11:03.195" level="INFO">Process completed.</msg>
-<msg timestamp="20200117 12:11:03.196" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
-<status status="PASS" starttime="20200117 12:11:03.131" endtime="20200117 12:11:03.196"></status>
+<msg timestamp="20200117 12:27:51.392" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20200117 12:27:51.453" level="INFO">Process completed.</msg>
+<msg timestamp="20200117 12:27:51.453" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
+<status status="PASS" starttime="20200117 12:27:51.390" endtime="20200117 12:27:51.453"></status>
 </kw>
 <kw name="Log Many" library="BuiltIn">
 <doc>Logs the given messages as separate entries using the INFO level.</doc>
@@ -464,10 +492,10 @@ python lab6/Main.py --first 3.0 --second 3.0 --third 3.0 --fourth 3.0</msg>
 <arg>stdout: ${result.stdout}</arg>
 <arg>stderr: ${result.stderr}</arg>
 </arguments>
-<msg timestamp="20200117 12:11:03.197" level="INFO">stdout: Podano boki:  [3.0, 3.0, 3.0, 3.0]
+<msg timestamp="20200117 12:27:51.453" level="INFO">stdout: Podano boki:  [3.0, 3.0, 3.0, 3.0]
 Możliwa figura:  kwadrat</msg>
-<msg timestamp="20200117 12:11:03.197" level="INFO">stderr: </msg>
-<status status="PASS" starttime="20200117 12:11:03.196" endtime="20200117 12:11:03.197"></status>
+<msg timestamp="20200117 12:27:51.453" level="INFO">stderr: </msg>
+<status status="PASS" starttime="20200117 12:27:51.453" endtime="20200117 12:27:51.453"></status>
 </kw>
 <kw name="Should Contain" library="BuiltIn">
 <doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
@@ -475,11 +503,14 @@ Możliwa figura:  kwadrat</msg>
 <arg>${result.stdout}</arg>
 <arg>kwadrat</arg>
 </arguments>
-<status status="PASS" starttime="20200117 12:11:03.197" endtime="20200117 12:11:03.197"></status>
+<status status="PASS" starttime="20200117 12:27:51.453" endtime="20200117 12:27:51.455"></status>
 </kw>
-<status status="PASS" starttime="20200117 12:11:03.130" endtime="20200117 12:11:03.198" critical="yes"></status>
+<status status="PASS" starttime="20200117 12:27:51.389" endtime="20200117 12:27:51.455"></status>
+</kw>
+<status status="PASS" starttime="20200117 12:27:51.389" endtime="20200117 12:27:51.455" critical="yes"></status>
 </test>
 <test id="s1-t11" name="TEST11) CZWOROBOK CZWOROBOK a,b,c,d">
+<kw name="Sprawdzenie czy rozpoznał czworobok a,b,c,d">
 <kw name="Run Process" library="Process">
 <doc>Runs a process and waits for it to complete.</doc>
 <arguments>
@@ -500,12 +531,12 @@ Możliwa figura:  kwadrat</msg>
 <assign>
 <var>${result}</var>
 </assign>
-<msg timestamp="20200117 12:11:03.199" level="INFO">Starting process:
+<msg timestamp="20200117 12:27:51.458" level="INFO">Starting process:
 python lab6/Main.py --first 1.0 --second 2.0 --third 3.0 --fourth 4.0</msg>
-<msg timestamp="20200117 12:11:03.201" level="INFO">Waiting for process to complete.</msg>
-<msg timestamp="20200117 12:11:03.264" level="INFO">Process completed.</msg>
-<msg timestamp="20200117 12:11:03.264" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
-<status status="PASS" starttime="20200117 12:11:03.199" endtime="20200117 12:11:03.264"></status>
+<msg timestamp="20200117 12:27:51.459" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20200117 12:27:51.521" level="INFO">Process completed.</msg>
+<msg timestamp="20200117 12:27:51.521" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
+<status status="PASS" starttime="20200117 12:27:51.457" endtime="20200117 12:27:51.521"></status>
 </kw>
 <kw name="Log Many" library="BuiltIn">
 <doc>Logs the given messages as separate entries using the INFO level.</doc>
@@ -513,10 +544,10 @@ python lab6/Main.py --first 1.0 --second 2.0 --third 3.0 --fourth 4.0</msg>
 <arg>stdout: ${result.stdout}</arg>
 <arg>stderr: ${result.stderr}</arg>
 </arguments>
-<msg timestamp="20200117 12:11:03.265" level="INFO">stdout: Podano boki:  [1.0, 2.0, 3.0, 4.0]
+<msg timestamp="20200117 12:27:51.522" level="INFO">stdout: Podano boki:  [1.0, 2.0, 3.0, 4.0]
 Możliwa figura:  czworobok</msg>
-<msg timestamp="20200117 12:11:03.266" level="INFO">stderr: </msg>
-<status status="PASS" starttime="20200117 12:11:03.265" endtime="20200117 12:11:03.266"></status>
+<msg timestamp="20200117 12:27:51.522" level="INFO">stderr: </msg>
+<status status="PASS" starttime="20200117 12:27:51.521" endtime="20200117 12:27:51.522"></status>
 </kw>
 <kw name="Should Contain" library="BuiltIn">
 <doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
@@ -524,11 +555,14 @@ Możliwa figura:  czworobok</msg>
 <arg>${result.stdout}</arg>
 <arg>czworobok</arg>
 </arguments>
-<status status="PASS" starttime="20200117 12:11:03.266" endtime="20200117 12:11:03.266"></status>
+<status status="PASS" starttime="20200117 12:27:51.522" endtime="20200117 12:27:51.522"></status>
 </kw>
-<status status="PASS" starttime="20200117 12:11:03.198" endtime="20200117 12:11:03.267" critical="yes"></status>
+<status status="PASS" starttime="20200117 12:27:51.457" endtime="20200117 12:27:51.522"></status>
+</kw>
+<status status="PASS" starttime="20200117 12:27:51.456" endtime="20200117 12:27:51.523" critical="yes"></status>
 </test>
 <test id="s1-t12" name="TEST12) CZWOROBOK CZWOROBOK c,b,a,a">
+<kw name="Sprawdzenie czy rozpoznał czworobok c,b,a,a">
 <kw name="Run Process" library="Process">
 <doc>Runs a process and waits for it to complete.</doc>
 <arguments>
@@ -549,12 +583,12 @@ Możliwa figura:  czworobok</msg>
 <assign>
 <var>${result}</var>
 </assign>
-<msg timestamp="20200117 12:11:03.269" level="INFO">Starting process:
+<msg timestamp="20200117 12:27:51.525" level="INFO">Starting process:
 python lab6/Main.py --first 3.0 --second 4.0 --third 2.0 --fourth 2.0</msg>
-<msg timestamp="20200117 12:11:03.271" level="INFO">Waiting for process to complete.</msg>
-<msg timestamp="20200117 12:11:03.332" level="INFO">Process completed.</msg>
-<msg timestamp="20200117 12:11:03.332" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
-<status status="PASS" starttime="20200117 12:11:03.268" endtime="20200117 12:11:03.332"></status>
+<msg timestamp="20200117 12:27:51.528" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20200117 12:27:51.591" level="INFO">Process completed.</msg>
+<msg timestamp="20200117 12:27:51.591" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
+<status status="PASS" starttime="20200117 12:27:51.524" endtime="20200117 12:27:51.591"></status>
 </kw>
 <kw name="Log Many" library="BuiltIn">
 <doc>Logs the given messages as separate entries using the INFO level.</doc>
@@ -562,10 +596,10 @@ python lab6/Main.py --first 3.0 --second 4.0 --third 2.0 --fourth 2.0</msg>
 <arg>stdout: ${result.stdout}</arg>
 <arg>stderr: ${result.stderr}</arg>
 </arguments>
-<msg timestamp="20200117 12:11:03.333" level="INFO">stdout: Podano boki:  [3.0, 4.0, 2.0, 2.0]
+<msg timestamp="20200117 12:27:51.592" level="INFO">stdout: Podano boki:  [3.0, 4.0, 2.0, 2.0]
 Możliwa figura:  czworobok</msg>
-<msg timestamp="20200117 12:11:03.333" level="INFO">stderr: </msg>
-<status status="PASS" starttime="20200117 12:11:03.332" endtime="20200117 12:11:03.333"></status>
+<msg timestamp="20200117 12:27:51.592" level="INFO">stderr: </msg>
+<status status="PASS" starttime="20200117 12:27:51.591" endtime="20200117 12:27:51.592"></status>
 </kw>
 <kw name="Should Contain" library="BuiltIn">
 <doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
@@ -573,11 +607,14 @@ Możliwa figura:  czworobok</msg>
 <arg>${result.stdout}</arg>
 <arg>czworobok</arg>
 </arguments>
-<status status="PASS" starttime="20200117 12:11:03.333" endtime="20200117 12:11:03.334"></status>
+<status status="PASS" starttime="20200117 12:27:51.592" endtime="20200117 12:27:51.592"></status>
 </kw>
-<status status="PASS" starttime="20200117 12:11:03.267" endtime="20200117 12:11:03.334" critical="yes"></status>
+<status status="PASS" starttime="20200117 12:27:51.524" endtime="20200117 12:27:51.592"></status>
+</kw>
+<status status="PASS" starttime="20200117 12:27:51.524" endtime="20200117 12:27:51.593" critical="yes"></status>
 </test>
 <test id="s1-t13" name="TEST13) CZWOROBOK CZWOROBOK a,a,b,c">
+<kw name="Sprawdzenie czy rozpoznał czworobok a,a,b,c">
 <kw name="Run Process" library="Process">
 <doc>Runs a process and waits for it to complete.</doc>
 <arguments>
@@ -598,12 +635,12 @@ Możliwa figura:  czworobok</msg>
 <assign>
 <var>${result}</var>
 </assign>
-<msg timestamp="20200117 12:11:03.337" level="INFO">Starting process:
+<msg timestamp="20200117 12:27:51.595" level="INFO">Starting process:
 python lab6/Main.py --first 2.0 --second 2.0 --third 3.0 --fourth 4.0</msg>
-<msg timestamp="20200117 12:11:03.338" level="INFO">Waiting for process to complete.</msg>
-<msg timestamp="20200117 12:11:03.398" level="INFO">Process completed.</msg>
-<msg timestamp="20200117 12:11:03.398" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
-<status status="PASS" starttime="20200117 12:11:03.336" endtime="20200117 12:11:03.398"></status>
+<msg timestamp="20200117 12:27:51.597" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20200117 12:27:51.658" level="INFO">Process completed.</msg>
+<msg timestamp="20200117 12:27:51.658" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
+<status status="PASS" starttime="20200117 12:27:51.595" endtime="20200117 12:27:51.658"></status>
 </kw>
 <kw name="Log Many" library="BuiltIn">
 <doc>Logs the given messages as separate entries using the INFO level.</doc>
@@ -611,10 +648,10 @@ python lab6/Main.py --first 2.0 --second 2.0 --third 3.0 --fourth 4.0</msg>
 <arg>stdout: ${result.stdout}</arg>
 <arg>stderr: ${result.stderr}</arg>
 </arguments>
-<msg timestamp="20200117 12:11:03.399" level="INFO">stdout: Podano boki:  [2.0, 2.0, 3.0, 4.0]
+<msg timestamp="20200117 12:27:51.658" level="INFO">stdout: Podano boki:  [2.0, 2.0, 3.0, 4.0]
 Możliwa figura:  czworobok</msg>
-<msg timestamp="20200117 12:11:03.400" level="INFO">stderr: </msg>
-<status status="PASS" starttime="20200117 12:11:03.399" endtime="20200117 12:11:03.400"></status>
+<msg timestamp="20200117 12:27:51.659" level="INFO">stderr: </msg>
+<status status="PASS" starttime="20200117 12:27:51.658" endtime="20200117 12:27:51.659"></status>
 </kw>
 <kw name="Should Contain" library="BuiltIn">
 <doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
@@ -622,11 +659,14 @@ Możliwa figura:  czworobok</msg>
 <arg>${result.stdout}</arg>
 <arg>czworobok</arg>
 </arguments>
-<status status="PASS" starttime="20200117 12:11:03.400" endtime="20200117 12:11:03.400"></status>
+<status status="PASS" starttime="20200117 12:27:51.659" endtime="20200117 12:27:51.659"></status>
 </kw>
-<status status="PASS" starttime="20200117 12:11:03.335" endtime="20200117 12:11:03.400" critical="yes"></status>
+<status status="PASS" starttime="20200117 12:27:51.594" endtime="20200117 12:27:51.659"></status>
+</kw>
+<status status="PASS" starttime="20200117 12:27:51.594" endtime="20200117 12:27:51.660" critical="yes"></status>
 </test>
 <test id="s1-t14" name="TEST14) CZWOROBOK PROSTOKĄT a,b,a,b">
+<kw name="Sprawdzenie czy rozpoznał prostokąt a,b,a,b">
 <kw name="Run Process" library="Process">
 <doc>Runs a process and waits for it to complete.</doc>
 <arguments>
@@ -647,12 +687,12 @@ Możliwa figura:  czworobok</msg>
 <assign>
 <var>${result}</var>
 </assign>
-<msg timestamp="20200117 12:11:03.404" level="INFO">Starting process:
+<msg timestamp="20200117 12:27:51.662" level="INFO">Starting process:
 python lab6/Main.py --first 1.0 --second 2.0 --third 1.0 --fourth 2.0</msg>
-<msg timestamp="20200117 12:11:03.406" level="INFO">Waiting for process to complete.</msg>
-<msg timestamp="20200117 12:11:03.471" level="INFO">Process completed.</msg>
-<msg timestamp="20200117 12:11:03.471" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
-<status status="PASS" starttime="20200117 12:11:03.403" endtime="20200117 12:11:03.471"></status>
+<msg timestamp="20200117 12:27:51.664" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20200117 12:27:51.728" level="INFO">Process completed.</msg>
+<msg timestamp="20200117 12:27:51.728" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
+<status status="PASS" starttime="20200117 12:27:51.661" endtime="20200117 12:27:51.728"></status>
 </kw>
 <kw name="Log Many" library="BuiltIn">
 <doc>Logs the given messages as separate entries using the INFO level.</doc>
@@ -660,10 +700,10 @@ python lab6/Main.py --first 1.0 --second 2.0 --third 1.0 --fourth 2.0</msg>
 <arg>stdout: ${result.stdout}</arg>
 <arg>stderr: ${result.stderr}</arg>
 </arguments>
-<msg timestamp="20200117 12:11:03.472" level="INFO">stdout: Podano boki:  [1.0, 2.0, 1.0, 2.0]
+<msg timestamp="20200117 12:27:51.729" level="INFO">stdout: Podano boki:  [1.0, 2.0, 1.0, 2.0]
 Możliwa figura:  prostokąt</msg>
-<msg timestamp="20200117 12:11:03.472" level="INFO">stderr: </msg>
-<status status="PASS" starttime="20200117 12:11:03.471" endtime="20200117 12:11:03.472"></status>
+<msg timestamp="20200117 12:27:51.729" level="INFO">stderr: </msg>
+<status status="PASS" starttime="20200117 12:27:51.728" endtime="20200117 12:27:51.729"></status>
 </kw>
 <kw name="Should Contain" library="BuiltIn">
 <doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
@@ -671,11 +711,14 @@ Możliwa figura:  prostokąt</msg>
 <arg>${result.stdout}</arg>
 <arg>prostokąt</arg>
 </arguments>
-<status status="PASS" starttime="20200117 12:11:03.473" endtime="20200117 12:11:03.473"></status>
+<status status="PASS" starttime="20200117 12:27:51.729" endtime="20200117 12:27:51.729"></status>
 </kw>
-<status status="PASS" starttime="20200117 12:11:03.402" endtime="20200117 12:11:03.474" critical="yes"></status>
+<status status="PASS" starttime="20200117 12:27:51.661" endtime="20200117 12:27:51.729"></status>
+</kw>
+<status status="PASS" starttime="20200117 12:27:51.661" endtime="20200117 12:27:51.730" critical="yes"></status>
 </test>
 <test id="s1-t15" name="TEST15) CZWOROBOK PROSTOKĄT a,b,b,a">
+<kw name="Sprawdzenie czy rozpoznał prostokąt a,b,b,a">
 <kw name="Run Process" library="Process">
 <doc>Runs a process and waits for it to complete.</doc>
 <arguments>
@@ -696,12 +739,12 @@ Możliwa figura:  prostokąt</msg>
 <assign>
 <var>${result}</var>
 </assign>
-<msg timestamp="20200117 12:11:03.476" level="INFO">Starting process:
+<msg timestamp="20200117 12:27:51.733" level="INFO">Starting process:
 python lab6/Main.py --first 1.0 --second 3.0 --third 3.0 --fourth 1.0</msg>
-<msg timestamp="20200117 12:11:03.480" level="INFO">Waiting for process to complete.</msg>
-<msg timestamp="20200117 12:11:03.543" level="INFO">Process completed.</msg>
-<msg timestamp="20200117 12:11:03.543" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
-<status status="PASS" starttime="20200117 12:11:03.475" endtime="20200117 12:11:03.543"></status>
+<msg timestamp="20200117 12:27:51.735" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20200117 12:27:51.798" level="INFO">Process completed.</msg>
+<msg timestamp="20200117 12:27:51.798" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
+<status status="PASS" starttime="20200117 12:27:51.731" endtime="20200117 12:27:51.798"></status>
 </kw>
 <kw name="Log Many" library="BuiltIn">
 <doc>Logs the given messages as separate entries using the INFO level.</doc>
@@ -709,10 +752,10 @@ python lab6/Main.py --first 1.0 --second 3.0 --third 3.0 --fourth 1.0</msg>
 <arg>stdout: ${result.stdout}</arg>
 <arg>stderr: ${result.stderr}</arg>
 </arguments>
-<msg timestamp="20200117 12:11:03.544" level="INFO">stdout: Podano boki:  [1.0, 3.0, 3.0, 1.0]
+<msg timestamp="20200117 12:27:51.799" level="INFO">stdout: Podano boki:  [1.0, 3.0, 3.0, 1.0]
 Możliwa figura:  prostokąt</msg>
-<msg timestamp="20200117 12:11:03.544" level="INFO">stderr: </msg>
-<status status="PASS" starttime="20200117 12:11:03.543" endtime="20200117 12:11:03.544"></status>
+<msg timestamp="20200117 12:27:51.799" level="INFO">stderr: </msg>
+<status status="PASS" starttime="20200117 12:27:51.798" endtime="20200117 12:27:51.799"></status>
 </kw>
 <kw name="Should Contain" library="BuiltIn">
 <doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
@@ -720,11 +763,14 @@ Możliwa figura:  prostokąt</msg>
 <arg>${result.stdout}</arg>
 <arg>prostokąt</arg>
 </arguments>
-<status status="PASS" starttime="20200117 12:11:03.545" endtime="20200117 12:11:03.545"></status>
+<status status="PASS" starttime="20200117 12:27:51.799" endtime="20200117 12:27:51.800"></status>
 </kw>
-<status status="PASS" starttime="20200117 12:11:03.475" endtime="20200117 12:11:03.545" critical="yes"></status>
+<status status="PASS" starttime="20200117 12:27:51.731" endtime="20200117 12:27:51.800"></status>
+</kw>
+<status status="PASS" starttime="20200117 12:27:51.731" endtime="20200117 12:27:51.800" critical="yes"></status>
 </test>
 <test id="s1-t16" name="TEST16) CZWOROBOK PROSTOKĄT a,a,b,b">
+<kw name="Sprawdzenie czy rozpoznał prostokąt a,a,b,b">
 <kw name="Run Process" library="Process">
 <doc>Runs a process and waits for it to complete.</doc>
 <arguments>
@@ -745,12 +791,12 @@ Możliwa figura:  prostokąt</msg>
 <assign>
 <var>${result}</var>
 </assign>
-<msg timestamp="20200117 12:11:03.547" level="INFO">Starting process:
+<msg timestamp="20200117 12:27:51.802" level="INFO">Starting process:
 python lab6/Main.py --first 1.0 --second 1.0 --third 3.0 --fourth 3.0</msg>
-<msg timestamp="20200117 12:11:03.549" level="INFO">Waiting for process to complete.</msg>
-<msg timestamp="20200117 12:11:03.609" level="INFO">Process completed.</msg>
-<msg timestamp="20200117 12:11:03.610" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
-<status status="PASS" starttime="20200117 12:11:03.547" endtime="20200117 12:11:03.610"></status>
+<msg timestamp="20200117 12:27:51.805" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20200117 12:27:51.868" level="INFO">Process completed.</msg>
+<msg timestamp="20200117 12:27:51.868" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
+<status status="PASS" starttime="20200117 12:27:51.801" endtime="20200117 12:27:51.868"></status>
 </kw>
 <kw name="Log Many" library="BuiltIn">
 <doc>Logs the given messages as separate entries using the INFO level.</doc>
@@ -758,10 +804,10 @@ python lab6/Main.py --first 1.0 --second 1.0 --third 3.0 --fourth 3.0</msg>
 <arg>stdout: ${result.stdout}</arg>
 <arg>stderr: ${result.stderr}</arg>
 </arguments>
-<msg timestamp="20200117 12:11:03.611" level="INFO">stdout: Podano boki:  [1.0, 1.0, 3.0, 3.0]
+<msg timestamp="20200117 12:27:51.869" level="INFO">stdout: Podano boki:  [1.0, 1.0, 3.0, 3.0]
 Możliwa figura:  prostokąt</msg>
-<msg timestamp="20200117 12:11:03.611" level="INFO">stderr: </msg>
-<status status="PASS" starttime="20200117 12:11:03.610" endtime="20200117 12:11:03.611"></status>
+<msg timestamp="20200117 12:27:51.869" level="INFO">stderr: </msg>
+<status status="PASS" starttime="20200117 12:27:51.868" endtime="20200117 12:27:51.869"></status>
 </kw>
 <kw name="Should Contain" library="BuiltIn">
 <doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
@@ -769,11 +815,14 @@ Możliwa figura:  prostokąt</msg>
 <arg>${result.stdout}</arg>
 <arg>prostokąt</arg>
 </arguments>
-<status status="PASS" starttime="20200117 12:11:03.611" endtime="20200117 12:11:03.611"></status>
+<status status="PASS" starttime="20200117 12:27:51.869" endtime="20200117 12:27:51.870"></status>
 </kw>
-<status status="PASS" starttime="20200117 12:11:03.546" endtime="20200117 12:11:03.612" critical="yes"></status>
+<status status="PASS" starttime="20200117 12:27:51.801" endtime="20200117 12:27:51.870"></status>
+</kw>
+<status status="PASS" starttime="20200117 12:27:51.801" endtime="20200117 12:27:51.870" critical="yes"></status>
 </test>
-<test id="s1-t17" name="TEST7) CZWOROBOK NIEMOŻLIWY (pierwsze trzy boki są krótsze niż czwarty bok)">
+<test id="s1-t17" name="TEST17) CZWOROBOK NIEMOŻLIWY (pierwsze trzy boki są krótsze niż czwarty bok)">
+<kw name="Czy wyświetli nierozpoznano dla (pierwsze trzy boki są krótsze niż czwarty bok)">
 <kw name="Run Process" library="Process">
 <doc>Runs a process and waits for it to complete.</doc>
 <arguments>
@@ -794,12 +843,12 @@ Możliwa figura:  prostokąt</msg>
 <assign>
 <var>${result}</var>
 </assign>
-<msg timestamp="20200117 12:11:03.614" level="INFO">Starting process:
+<msg timestamp="20200117 12:27:51.872" level="INFO">Starting process:
 python lab6/Main.py --first 1.0 --second 2.0 --third 3.0 --fourth 10.0</msg>
-<msg timestamp="20200117 12:11:03.615" level="INFO">Waiting for process to complete.</msg>
-<msg timestamp="20200117 12:11:03.676" level="INFO">Process completed.</msg>
-<msg timestamp="20200117 12:11:03.676" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
-<status status="PASS" starttime="20200117 12:11:03.613" endtime="20200117 12:11:03.676"></status>
+<msg timestamp="20200117 12:27:51.875" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20200117 12:27:51.940" level="INFO">Process completed.</msg>
+<msg timestamp="20200117 12:27:51.940" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
+<status status="PASS" starttime="20200117 12:27:51.871" endtime="20200117 12:27:51.940"></status>
 </kw>
 <kw name="Log Many" library="BuiltIn">
 <doc>Logs the given messages as separate entries using the INFO level.</doc>
@@ -807,10 +856,10 @@ python lab6/Main.py --first 1.0 --second 2.0 --third 3.0 --fourth 10.0</msg>
 <arg>stdout: ${result.stdout}</arg>
 <arg>stderr: ${result.stderr}</arg>
 </arguments>
-<msg timestamp="20200117 12:11:03.678" level="INFO">stdout: Podano boki:  [1.0, 2.0, 3.0, 10.0]
+<msg timestamp="20200117 12:27:51.941" level="INFO">stdout: Podano boki:  [1.0, 2.0, 3.0, 10.0]
 Możliwa figura:  nierozpoznano</msg>
-<msg timestamp="20200117 12:11:03.678" level="INFO">stderr: </msg>
-<status status="PASS" starttime="20200117 12:11:03.677" endtime="20200117 12:11:03.678"></status>
+<msg timestamp="20200117 12:27:51.941" level="INFO">stderr: </msg>
+<status status="PASS" starttime="20200117 12:27:51.940" endtime="20200117 12:27:51.941"></status>
 </kw>
 <kw name="Should Contain" library="BuiltIn">
 <doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
@@ -818,11 +867,14 @@ Możliwa figura:  nierozpoznano</msg>
 <arg>${result.stdout}</arg>
 <arg>nierozpoznano</arg>
 </arguments>
-<status status="PASS" starttime="20200117 12:11:03.678" endtime="20200117 12:11:03.678"></status>
+<status status="PASS" starttime="20200117 12:27:51.941" endtime="20200117 12:27:51.941"></status>
 </kw>
-<status status="PASS" starttime="20200117 12:11:03.612" endtime="20200117 12:11:03.678" critical="yes"></status>
+<status status="PASS" starttime="20200117 12:27:51.871" endtime="20200117 12:27:51.941"></status>
+</kw>
+<status status="PASS" starttime="20200117 12:27:51.870" endtime="20200117 12:27:51.942" critical="yes"></status>
 </test>
-<test id="s1-t18" name="TEST8) CZWOROBOK NIEMOŻLIWY (podano długości boków 0.0)">
+<test id="s1-t18" name="TEST18) CZWOROBOK NIEMOŻLIWY (podano długości boków 0.0)">
+<kw name="Czy wyświetli nierozpoznano dla (podano długości boków 0.0)">
 <kw name="Run Process" library="Process">
 <doc>Runs a process and waits for it to complete.</doc>
 <arguments>
@@ -843,12 +895,12 @@ Możliwa figura:  nierozpoznano</msg>
 <assign>
 <var>${result}</var>
 </assign>
-<msg timestamp="20200117 12:11:03.681" level="INFO">Starting process:
+<msg timestamp="20200117 12:27:51.944" level="INFO">Starting process:
 python lab6/Main.py --first 0.0 --second 0.0 --third 0.0 --fourth 0.0</msg>
-<msg timestamp="20200117 12:11:03.682" level="INFO">Waiting for process to complete.</msg>
-<msg timestamp="20200117 12:11:03.743" level="INFO">Process completed.</msg>
-<msg timestamp="20200117 12:11:03.743" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
-<status status="PASS" starttime="20200117 12:11:03.680" endtime="20200117 12:11:03.743"></status>
+<msg timestamp="20200117 12:27:51.946" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20200117 12:27:52.007" level="INFO">Process completed.</msg>
+<msg timestamp="20200117 12:27:52.008" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
+<status status="PASS" starttime="20200117 12:27:51.943" endtime="20200117 12:27:52.008"></status>
 </kw>
 <kw name="Log Many" library="BuiltIn">
 <doc>Logs the given messages as separate entries using the INFO level.</doc>
@@ -856,10 +908,10 @@ python lab6/Main.py --first 0.0 --second 0.0 --third 0.0 --fourth 0.0</msg>
 <arg>stdout: ${result.stdout}</arg>
 <arg>stderr: ${result.stderr}</arg>
 </arguments>
-<msg timestamp="20200117 12:11:03.744" level="INFO">stdout: Podano boki:  [0.0, 0.0, 0.0, 0.0]
+<msg timestamp="20200117 12:27:52.008" level="INFO">stdout: Podano boki:  [0.0, 0.0, 0.0, 0.0]
 Możliwa figura:  nierozpoznano</msg>
-<msg timestamp="20200117 12:11:03.745" level="INFO">stderr: </msg>
-<status status="PASS" starttime="20200117 12:11:03.744" endtime="20200117 12:11:03.745"></status>
+<msg timestamp="20200117 12:27:52.009" level="INFO">stderr: </msg>
+<status status="PASS" starttime="20200117 12:27:52.008" endtime="20200117 12:27:52.009"></status>
 </kw>
 <kw name="Should Contain" library="BuiltIn">
 <doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
@@ -867,11 +919,14 @@ Możliwa figura:  nierozpoznano</msg>
 <arg>${result.stdout}</arg>
 <arg>nierozpoznano</arg>
 </arguments>
-<status status="PASS" starttime="20200117 12:11:03.745" endtime="20200117 12:11:03.745"></status>
+<status status="PASS" starttime="20200117 12:27:52.009" endtime="20200117 12:27:52.009"></status>
 </kw>
-<status status="PASS" starttime="20200117 12:11:03.679" endtime="20200117 12:11:03.746" critical="yes"></status>
+<status status="PASS" starttime="20200117 12:27:51.943" endtime="20200117 12:27:52.009"></status>
+</kw>
+<status status="PASS" starttime="20200117 12:27:51.943" endtime="20200117 12:27:52.010" critical="yes"></status>
 </test>
-<test id="s1-t19" name="TEST9) CZWOROBOK NIEMOŻLIWY (podano któryś bok 0.0)">
+<test id="s1-t19" name="TEST19) CZWOROBOK NIEMOŻLIWY (podano któryś bok 0.0)">
+<kw name="Czy wyświetli nierozpoznano dla (podano któryś bok 0.0)">
 <kw name="Run Process" library="Process">
 <doc>Runs a process and waits for it to complete.</doc>
 <arguments>
@@ -892,12 +947,12 @@ Możliwa figura:  nierozpoznano</msg>
 <assign>
 <var>${result}</var>
 </assign>
-<msg timestamp="20200117 12:11:03.748" level="INFO">Starting process:
+<msg timestamp="20200117 12:27:52.012" level="INFO">Starting process:
 python lab6/Main.py --first 1.0 --second 3.0 --third 2.0 --fourth 0.0</msg>
-<msg timestamp="20200117 12:11:03.749" level="INFO">Waiting for process to complete.</msg>
-<msg timestamp="20200117 12:11:03.814" level="INFO">Process completed.</msg>
-<msg timestamp="20200117 12:11:03.814" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
-<status status="PASS" starttime="20200117 12:11:03.747" endtime="20200117 12:11:03.814"></status>
+<msg timestamp="20200117 12:27:52.014" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20200117 12:27:52.074" level="INFO">Process completed.</msg>
+<msg timestamp="20200117 12:27:52.074" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
+<status status="PASS" starttime="20200117 12:27:52.011" endtime="20200117 12:27:52.074"></status>
 </kw>
 <kw name="Log Many" library="BuiltIn">
 <doc>Logs the given messages as separate entries using the INFO level.</doc>
@@ -905,10 +960,10 @@ python lab6/Main.py --first 1.0 --second 3.0 --third 2.0 --fourth 0.0</msg>
 <arg>stdout: ${result.stdout}</arg>
 <arg>stderr: ${result.stderr}</arg>
 </arguments>
-<msg timestamp="20200117 12:11:03.816" level="INFO">stdout: Podano boki:  [1.0, 3.0, 2.0, 0.0]
+<msg timestamp="20200117 12:27:52.075" level="INFO">stdout: Podano boki:  [1.0, 3.0, 2.0, 0.0]
 Możliwa figura:  nierozpoznano</msg>
-<msg timestamp="20200117 12:11:03.816" level="INFO">stderr: </msg>
-<status status="PASS" starttime="20200117 12:11:03.815" endtime="20200117 12:11:03.816"></status>
+<msg timestamp="20200117 12:27:52.076" level="INFO">stderr: </msg>
+<status status="PASS" starttime="20200117 12:27:52.075" endtime="20200117 12:27:52.076"></status>
 </kw>
 <kw name="Should Contain" library="BuiltIn">
 <doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
@@ -916,11 +971,14 @@ Możliwa figura:  nierozpoznano</msg>
 <arg>${result.stdout}</arg>
 <arg>nierozpoznano</arg>
 </arguments>
-<status status="PASS" starttime="20200117 12:11:03.816" endtime="20200117 12:11:03.816"></status>
+<status status="PASS" starttime="20200117 12:27:52.076" endtime="20200117 12:27:52.076"></status>
 </kw>
-<status status="PASS" starttime="20200117 12:11:03.746" endtime="20200117 12:11:03.817" critical="yes"></status>
+<status status="PASS" starttime="20200117 12:27:52.011" endtime="20200117 12:27:52.076"></status>
+</kw>
+<status status="PASS" starttime="20200117 12:27:52.011" endtime="20200117 12:27:52.076" critical="yes"></status>
 </test>
-<test id="s1-t20" name="TEST7) CZWOROBOK NIEMOŻLIWY (pierwsze trzy boki są dłuższe niż czwarty bok)">
+<test id="s1-t20" name="TEST20) CZWOROBOK NIEMOŻLIWY (pierwsze trzy boki są dłuższe niż czwarty bok)">
+<kw name="Czy wyświetli nierozpoznano dla (pierwsze trzy boki są dłuższe niż czwarty bok)">
 <kw name="Run Process" library="Process">
 <doc>Runs a process and waits for it to complete.</doc>
 <arguments>
@@ -941,12 +999,12 @@ Możliwa figura:  nierozpoznano</msg>
 <assign>
 <var>${result}</var>
 </assign>
-<msg timestamp="20200117 12:11:03.819" level="INFO">Starting process:
+<msg timestamp="20200117 12:27:52.079" level="INFO">Starting process:
 python lab6/Main.py --first 10.0 --second 3.0 --third 1.0 --fourth 1.0</msg>
-<msg timestamp="20200117 12:11:03.821" level="INFO">Waiting for process to complete.</msg>
-<msg timestamp="20200117 12:11:03.883" level="INFO">Process completed.</msg>
-<msg timestamp="20200117 12:11:03.883" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
-<status status="PASS" starttime="20200117 12:11:03.818" endtime="20200117 12:11:03.883"></status>
+<msg timestamp="20200117 12:27:52.081" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20200117 12:27:52.142" level="INFO">Process completed.</msg>
+<msg timestamp="20200117 12:27:52.142" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
+<status status="PASS" starttime="20200117 12:27:52.078" endtime="20200117 12:27:52.142"></status>
 </kw>
 <kw name="Log Many" library="BuiltIn">
 <doc>Logs the given messages as separate entries using the INFO level.</doc>
@@ -954,10 +1012,10 @@ python lab6/Main.py --first 10.0 --second 3.0 --third 1.0 --fourth 1.0</msg>
 <arg>stdout: ${result.stdout}</arg>
 <arg>stderr: ${result.stderr}</arg>
 </arguments>
-<msg timestamp="20200117 12:11:03.884" level="INFO">stdout: Podano boki:  [10.0, 3.0, 1.0, 1.0]
+<msg timestamp="20200117 12:27:52.143" level="INFO">stdout: Podano boki:  [10.0, 3.0, 1.0, 1.0]
 Możliwa figura:  nierozpoznano</msg>
-<msg timestamp="20200117 12:11:03.884" level="INFO">stderr: </msg>
-<status status="PASS" starttime="20200117 12:11:03.884" endtime="20200117 12:11:03.884"></status>
+<msg timestamp="20200117 12:27:52.143" level="INFO">stderr: </msg>
+<status status="PASS" starttime="20200117 12:27:52.142" endtime="20200117 12:27:52.143"></status>
 </kw>
 <kw name="Should Contain" library="BuiltIn">
 <doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
@@ -965,18 +1023,20 @@ Możliwa figura:  nierozpoznano</msg>
 <arg>${result.stdout}</arg>
 <arg>nierozpoznano</arg>
 </arguments>
-<status status="PASS" starttime="20200117 12:11:03.884" endtime="20200117 12:11:03.886"></status>
+<status status="PASS" starttime="20200117 12:27:52.144" endtime="20200117 12:27:52.144"></status>
 </kw>
-<status status="PASS" starttime="20200117 12:11:03.818" endtime="20200117 12:11:03.886" critical="yes"></status>
+<status status="PASS" starttime="20200117 12:27:52.078" endtime="20200117 12:27:52.144"></status>
+</kw>
+<status status="PASS" starttime="20200117 12:27:52.078" endtime="20200117 12:27:52.144" critical="yes"></status>
 </test>
 <kw name="Terminate All Processes" library="Process" type="teardown">
 <doc>Terminates all still running processes started by this library.</doc>
 <arguments>
 <arg>kill=True</arg>
 </arguments>
-<status status="PASS" starttime="20200117 12:11:03.887" endtime="20200117 12:11:03.889"></status>
+<status status="PASS" starttime="20200117 12:27:52.145" endtime="20200117 12:27:52.147"></status>
 </kw>
-<status status="PASS" starttime="20200117 12:11:02.466" endtime="20200117 12:11:03.889"></status>
+<status status="PASS" starttime="20200117 12:27:50.745" endtime="20200117 12:27:52.147"></status>
 </suite>
 <statistics>
 <total>
