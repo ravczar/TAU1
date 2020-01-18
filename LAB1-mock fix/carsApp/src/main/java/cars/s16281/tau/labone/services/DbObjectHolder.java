@@ -13,6 +13,7 @@ public class DbObjectHolder {
 
     // ctor
     public DbObjectHolder(DateTimeProvider provider, CarImpl car){
+        updateCreationDate();
         this.timeProvider = provider;
         this.car = car;
     }
@@ -25,6 +26,12 @@ public class DbObjectHolder {
     private void updateAccessDate(){
         if(DbObjectProperties.isTrackAccessDate()) {
             this.accessDate = Optional.of(timeProvider.get());
+        }
+    }
+
+    private void updateCreationDate() {
+        if(DbObjectProperties.isTrackCreationDate()) {
+            this.creationDate = Optional.of(timeProvider.get());
         }
     }
 
