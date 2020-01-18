@@ -6,24 +6,14 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 import cars.s16281.tau.labone.services.CarImpl;
-import cars.s16281.tau.labone.services.DbImpl;
 import cars.s16281.tau.labone.services.DbObjectHolder;
 import cars.s16281.tau.labone.services.DbObjectProperties;
 import cars.s16281.tau.labone.services.EngineImpl;
