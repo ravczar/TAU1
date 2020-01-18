@@ -13,6 +13,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
 
@@ -30,6 +31,16 @@ public class DateMockTest {
 
     @Mock
     private DateTimeProvider provider;
+
+    @Rule
+    public MockitoRule mockitoRule = MockitoJUnit.rule();
+
+    private LocalDateTime newMockTimestamp() {
+        LocalDateTime timestamp = LocalDateTime.now();
+        when(provider.get()).thenReturn(timestamp);
+        this.timestamp = timestamp;
+        return timestamp;
+    }
 
     @Test
     public void testPass(){
