@@ -46,6 +46,18 @@ public class DbObjectHolder {
         updateModificationDate();
     }
 
+    public Optional<LocalDateTime> getCreationDate() {
+        return creationDate;
+    }
+
+    public Optional<LocalDateTime> getModificationDate() {
+        return modificationDate;
+    }
+
+    public Optional<LocalDateTime> getAccessDate() {
+        return accessDate;
+    }
+
 
     
 
