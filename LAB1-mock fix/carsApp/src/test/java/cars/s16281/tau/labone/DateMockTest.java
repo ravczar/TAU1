@@ -25,6 +25,7 @@ import java.util.Optional;
 import cars.s16281.tau.labone.services.CarImpl;
 import cars.s16281.tau.labone.services.DbImpl;
 import cars.s16281.tau.labone.services.DbObjectHolder;
+import cars.s16281.tau.labone.services.DbObjectProperties;
 import cars.s16281.tau.labone.services.EngineImpl;
 import cars.s16281.tau.labone.services.GearboxImpl;
 import cars.s16281.tau.labone.services.DateTimeProvider;;
@@ -121,7 +122,13 @@ public class DateMockTest {
         assertEquals(accessDate, currentTimeStamp);
     }
 
-    
+    @Test
+    public void dbObjectHolder_does_not_track_CreateDateTime_when_method_setTrackCreationDate_get_param_false(){
+        // Database will not record createDateTime when we pass 'false' parameter to method setTrackCreationDate(false)
+        DbObjectProperties.setTrackCreationDate(false);
+        DbObjectHolder myHolder = createHolder();
+        assertEquals(myHolder.getCreationDate(), Optional.empty());
+    }
     
 
 }
