@@ -153,7 +153,7 @@ public class DateMockTest {
 
     @Test
     public void dbObjectHolder_will_start_track_AccessDateTime_when_method_setTrackAccessDate_get_param_true(){
-        // Database will regain possibility to record AccessDateTime once we pass 'true' parameter to method setTrackAccessDate(false)
+        // Database will regain possibility to record AccessDateTime once we pass 'true' parameter to method setTrackAccessDate(true)
         DbObjectProperties.setTrackAccessDate(false);
         DbObjectHolder myHolder = createHolder();
         myHolder.getCar();
@@ -167,6 +167,7 @@ public class DateMockTest {
 
     @Test
     public void dbObjectHolder_will_start_track_ModifyDateTime_when_method_setTrackModificationDate_get_param_true(){
+        // Database will regain possibility to record ModifyDateTime once we pass 'true' parameter to method setTrackModificationDate(true)
         DbObjectProperties.setTrackModificationDate(false);
         DbObjectHolder myHolder = createHolder();
         CarImpl modifiedCar = new CarImpl(0, "pink", "Audi", "A2", "Sedan", true, new EngineImpl(), new GearboxImpl());
@@ -181,4 +182,18 @@ public class DateMockTest {
         assertEquals("Obiekt @ PleaseTrackModification date jest różny od porównywanego", modificationDate, currentTimeStamp);
     }
 
+    @Test
+    public void dbObjectHolder_will_start_track_CreateDateTime_when_method_setTrackCreationnDate_get_param_true(){
+        // Database will regain possibility to record CreateDateTime once we pass 'true' parameter to method  setCreationDate(true)
+        DbObjectProperties.setTrackCreationDate(false);
+        DbObjectHolder myHolder = createHolder();
+        assertEquals(myHolder.getCreationDate(), Optional.empty());
+        assertEquals(false, DbObjectProperties.isTrackCreationDate());
+
+        DbObjectProperties.setTrackCreationDate(true);
+        DbObjectHolder myHolder2 = createHolder();
+        assertEquals(myHolder2.getCreationDate().get(), timestamp);
+        assertEquals(true, DbObjectProperties.isTrackCreationDate());
+
+    }
 }
