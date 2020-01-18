@@ -129,6 +129,16 @@ public class DateMockTest {
         DbObjectHolder myHolder = createHolder();
         assertEquals(myHolder.getCreationDate(), Optional.empty());
     }
+
+    @Test
+    public void dbObjectHolder_does_not_track_ModifyDateTime_when_method_setTrackModificationDate_get_param_false(){
+        // Database will not record modificationDateTime when we pass 'false' parameter to method setTrackModificationDate(false)
+        DbObjectProperties.setTrackModificationDate(false);
+        DbObjectHolder myHolder = createHolder();
+        CarImpl modifiedCar = new CarImpl(0, "pink", "Audi", "A2", "Sedan", true, new EngineImpl(), new GearboxImpl());
+        myHolder.setCar(modifiedCar);
+        assertEquals(myHolder.getModificationDate(), Optional.empty());
+    }
     
 
 }
