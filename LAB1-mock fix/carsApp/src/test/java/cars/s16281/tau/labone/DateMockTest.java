@@ -95,9 +95,10 @@ public class DateMockTest {
     @Test
     public void dbObjectHolder_getCreationDate_method_should_return_creationDateTime(){
         // Database records creation date at init
+        DbObjectProperties.setTrackCreationDate(true);
         DbObjectHolder myHolder = createHolder();
         LocalDateTime creationDate = myHolder.getCreationDate().get(); // z get() zwróci typ: LocalDateTime
-        System.out.println("Creationd date time: "+creationDate + "   " +timestamp);
+        //System.out.println("Creationd date time: "+creationDate + "   " +timestamp);
         assertEquals(creationDate, timestamp);
     }
 
@@ -115,6 +116,7 @@ public class DateMockTest {
     @Test
     public void dbObjectHolder_getAccesDate_method_should_return_recordAccesDateTime(){
         // Database records read record date time on access (as LocalDateTime)
+        DbObjectProperties.setTrackAccessDate(true);
         DbObjectHolder myHolder = createHolder();
         LocalDateTime currentTimeStamp = newMockTimestamp();
         myHolder.getCar();
@@ -151,17 +153,32 @@ public class DateMockTest {
 
     @Test
     public void dbObjectHolder_will_start_track_AccessDateTime_when_method_setTrackAccessDate_get_param_true(){
-    // Database will regain possibility to record AccessDateTime once we pass 'true' parameter to method setTrackAccessDate(false)
-    DbObjectProperties.setTrackAccessDate(false);
-    DbObjectHolder myHolder = createHolder();
-    myHolder.getCar();
-    assertEquals(myHolder.getAccessDate(), Optional.empty());
+        // Database will regain possibility to record AccessDateTime once we pass 'true' parameter to method setTrackAccessDate(false)
+        DbObjectProperties.setTrackAccessDate(false);
+        DbObjectHolder myHolder = createHolder();
+        myHolder.getCar();
+        assertEquals(myHolder.getAccessDate(), Optional.empty());
 
-    DbObjectProperties.setTrackAccessDate(true);
-    myHolder.getCar();
-    LocalDateTime accessDateRegained = myHolder.getAccessDate().get();
-    assertEquals(accessDateRegained, timestamp);
+        DbObjectProperties.setTrackAccessDate(true);
+        myHolder.getCar();
+        LocalDateTime accessDateRegained = myHolder.getAccessDate().get();
+        assertEquals(accessDateRegained, timestamp);
     }
-    
+
+    @Test
+    public void dbObjectHolder_will_start_track_ModifyDateTime_when_method_setTrackModificationDate_get_param_true(){
+        DbObjectProperties.setTrackModificationDate(false);
+        DbObjectHolder myHolder = createHolder();
+        CarImpl modifiedCar = new CarImpl(0, "pink", "Audi", "A2", "Sedan", true, new EngineImpl(), new GearboxImpl());
+        myHolder.setCar(modifiedCar);
+        assertEquals("Obiekt @DoNotTrack nie jest pusty!", myHolder.getModificationDate(), Optional.empty());
+
+        DbObjectProperties.setTrackModificationDate(true);
+        LocalDateTime currentTimeStamp = newMockTimestamp();
+        CarImpl modifiedCarPrim = new CarImpl(0, "green", "Audi", "A3", "hathback", true, new EngineImpl(), new GearboxImpl());
+        myHolder.setCar(modifiedCarPrim);
+        LocalDateTime modificationDate = myHolder.getModificationDate().get();
+        assertEquals("Obiekt @ PleaseTrackModification date jest różny od porównywanego", modificationDate, currentTimeStamp);
+    }
 
 }
