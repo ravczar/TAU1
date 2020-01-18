@@ -35,6 +35,17 @@ public class DbObjectHolder {
         }
     }
 
+    private void updateModificationDate() {
+        if(DbObjectProperties.isTrackModificationDate()) {
+            this.modificationDate = Optional.of(timeProvider.get());
+        }
+    }
+
+    public void setCar(CarImpl car){
+        this.car = car;
+        updateModificationDate();
+    }
+
 
     
 
