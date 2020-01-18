@@ -18,12 +18,17 @@ public class DbObjectHolder {
     }
 
     public CarImpl getCar(){
+        updateAccessDate();
         return this.car;
     }
 
     private void updateAccessDate(){
-        
+        if(DbObjectProperties.isTrackAccessDate()) {
+            this.accessDate = Optional.of(timeProvider.get());
+        }
     }
+
+
     
 
 }
