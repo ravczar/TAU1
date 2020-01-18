@@ -4,9 +4,26 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 public class DbObjectHolder {
+    private CarImpl car;
+    private DateTimeProvider timeProvider;
+
     private Optional<LocalDateTime> creationDate = Optional.empty();
     private Optional<LocalDateTime> modificationDate = Optional.empty();
     private Optional<LocalDateTime> accessDate = Optional.empty();
 
+    // ctor
+    public DbObjectHolder(DateTimeProvider provider, CarImpl car){
+        this.timeProvider = provider;
+        this.car = car;
+    }
+
+    public CarImpl getCar(){
+        return this.car;
+    }
+
+    private void updateAccessDate(){
+        
+    }
     
+
 }
