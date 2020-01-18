@@ -13,9 +13,9 @@ public class DbObjectHolder {
 
     // ctor
     public DbObjectHolder(DateTimeProvider provider, CarImpl car){
-        updateCreationDate();
         this.timeProvider = provider;
         this.car = car;
+        updateCreationDate();
     }
 
     public CarImpl getCar(){
