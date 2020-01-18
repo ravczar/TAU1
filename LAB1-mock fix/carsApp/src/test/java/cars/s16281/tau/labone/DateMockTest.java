@@ -139,6 +139,17 @@ public class DateMockTest {
         myHolder.setCar(modifiedCar);
         assertEquals(myHolder.getModificationDate(), Optional.empty());
     }
+
+    @Test
+    public void dbObjectHolder_does_not_track_AccessDateTime_when_method_setTrackAccessDate_get_param_false(){
+        // Database will not record carAccessDateTime when we pass 'false' parameter to method setTrackAccessDate(false)
+        DbObjectProperties.setTrackAccessDate(false);
+        DbObjectHolder myHolder = createHolder();
+        myHolder.getCar();
+        assertEquals(myHolder.getAccessDate(), Optional.empty());
+    }
+
+
     
 
 }
