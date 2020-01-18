@@ -1,6 +1,5 @@
 package cars.s16281.tau.labone.services;
 
-import java.time.Clock;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
@@ -8,11 +7,7 @@ public class DbImpl
 {
     private Integer numberOfEntries;
     public ArrayList<CarImpl> carList;
-    private Clock currentClock = Clock.systemUTC();
-    private Boolean createDateTime = true;
-    private Boolean modifyDateTime = true;
-    private Boolean readDateTime = true;
-
+    
     public DbImpl(){
         this.numberOfEntries = 0;
         this.carList = new ArrayList<CarImpl>(); 
@@ -25,17 +20,12 @@ public class DbImpl
                 }       
         }
         this.carList.add( new CarImpl(this.numberOfEntries, color, brand, model, type, hasAlloyRims, engineImpl, gearboxImpl ) );
-        // adding date of creation basing on true/false argument (turned on mode or off mode)
-        this.carList.get(this.numberOfEntries).setCreationDateTime(this.createDateTime, this.currentClock);
         this.numberOfEntries++;         
         return true;      
         
     }
 
     public ArrayList<CarImpl> readAllRecords() {
-        for (CarImpl _car : this.carList){
-            _car.setLastReadDateTime(this.readDateTime,this.currentClock);
-        }
         return this.carList;
     }
     
@@ -44,8 +34,6 @@ public class DbImpl
         for (CarImpl _car : this.carList){
             if  ( _car.getId().equals(Id) ){
                 System.out.println("Znaleziono rekord w readSpecificRecords!: " + _car.getBrand());
-                // adds new date of reading of given record.
-                _car.setLastReadDateTime(this.readDateTime,this.currentClock);
                 return _car;               
             }       
         }
@@ -64,8 +52,6 @@ public class DbImpl
                 _car.setEngine(newEngine);
                 _car.setGearbox(newGearbox);
                 System.out.println("Car succesfully updated : " + _car.getModel() + "id remains same: " +  _car.getId() );
-                // once we modify details we set modification time in Car class
-                _car.setModificationDateTime(this.modifyDateTime, this.currentClock);
                 return _car;               
             }       
         }
@@ -90,10 +76,6 @@ public class DbImpl
         return this.numberOfEntries;
     }
 
-    public Clock getClock(){
-        return this.currentClock;
-    }
-
     public ArrayList<CarImpl> getCarList(){
         return this.carList;
     }
@@ -104,17 +86,5 @@ public class DbImpl
     public void setNumberOfEntries(Integer number){
         this.numberOfEntries = number;
     }
-
-    public void setWhatDatesDatabaseRecord(Boolean createDate, Boolean modifyDate, Boolean readDate){
-        this.createDateTime = createDate;
-        this.modifyDateTime = modifyDate;
-        this.readDateTime = readDate;
-    }
-
-    public void setClockForMock( Clock fixedClock ){
-        this.currentClock = fixedClock;
-    }
-
-
 
 }

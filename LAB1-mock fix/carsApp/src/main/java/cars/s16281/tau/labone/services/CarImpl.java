@@ -1,8 +1,5 @@
 package cars.s16281.tau.labone.services;
 
-import java.time.Clock;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 public class CarImpl 
 {
@@ -14,11 +11,6 @@ public class CarImpl
     private Boolean hasAlloyRims;
     private EngineImpl engine;
     private GearboxImpl gearbox;
-
-    private LocalDateTime creationDateTime;
-    private LocalDateTime modificationDateTime;
-    public LocalDateTime lastReadDateTime;
-
 
     /*public CarImpl(){}*/
 
@@ -73,25 +65,6 @@ public class CarImpl
         return this.gearbox;
     }
 
-    public LocalDateTime getCreationDateTime(){
-        return this.creationDateTime;
-    }
-
-    public LocalDateTime getModificationDateTime(){
-        return this.modificationDateTime;
-    }
-
-    public LocalDateTime getLastReadDateTime(){
-        return this.lastReadDateTime;
-    }
-    public ArrayList<LocalDateTime> getAllDateTimeFields(){
-        ArrayList<LocalDateTime> list = new ArrayList<LocalDateTime>();
-        list.add(this.creationDateTime);
-        list.add(this.lastReadDateTime);
-        list.add(this.modificationDateTime);
-        return list;
-    }
-
     /* 
         SETTERS 
     */
@@ -127,24 +100,4 @@ public class CarImpl
         this.gearbox = Gearbox;
     }
 
-    public void setCreationDateTime(Boolean turnedOnOrOff, Clock databaseClock){
-        if (turnedOnOrOff)
-            this.creationDateTime = LocalDateTime.now(databaseClock);
-        else
-            this.creationDateTime = null;
-    }
-
-    public void setModificationDateTime(Boolean turnedOnOrOff, Clock databaseClock){
-        if (turnedOnOrOff)
-            this.modificationDateTime = LocalDateTime.now(databaseClock);
-        else
-            this.modificationDateTime = null;
-    }
-
-    public void setLastReadDateTime(Boolean turnedOnOrOff, Clock databaseClock){
-        if (turnedOnOrOff)
-            this.lastReadDateTime = LocalDateTime.now(databaseClock);
-        else
-            this.lastReadDateTime = null;
-    }
 }
