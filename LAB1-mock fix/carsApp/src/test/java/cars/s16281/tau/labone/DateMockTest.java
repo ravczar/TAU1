@@ -25,16 +25,17 @@ import cars.s16281.tau.labone.services.DateTimeProvider;;
 public class DateMockTest {
 
     private LocalDateTime timestamp;
-
-    @Mock
-    private DateTimeProvider provider;
-
+    
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
+    
+    @Mock
+    private DateTimeProvider provider;
 
     @Before
     public void setup() {
         newMockTimestamp();
+        DbObjectProperties.setAllParamsToTrue();
     }
 
     // Tworzy znacznik czasowy teraz (przed rozpoczęciem testów)
@@ -52,33 +53,25 @@ public class DateMockTest {
     }
 
     @Test
-    public void testPass(){
-        assertEquals("matching 2 with 2", 2,2);
-        System.out.println("SIEMANKO");
-    }
-
-    @Test
     public void dateTimeProviderObjectCanBeCreated(){
         // Object on creation memorizes it's creation date time.
         DateTimeProvider provider = new DateTimeProvider();
         LocalDateTime creationDate =  provider.getObjectCreationTime();
         //System.out.println(creationDate + "   " + LocalDateTime.now());
-        assertTrue("Coś poszło nie tak, to te same obiekty", creationDate != LocalDateTime.now()); // dwa różne obiekty, zbliżone czasy
+        assertTrue("Coś poszło nie tak, to te same obiekty", creationDate != LocalDateTime.now());
     }
 
     @Test
     public void dateTimeProvider_returns_NOW_when_asked(){
         // Object when asked returns a LocalDateTime.now()
         DateTimeProvider provider = new DateTimeProvider();
-        //System.out.println(provider.get()+ "   " +LocalDateTime.now());
-        assertTrue("To te same obiekty, coś poczło nie tak", provider.get() != LocalDateTime.now()); // dwa różne obiekty, zbliżone czasy
+        assertTrue("To te same obiekty, coś poczło nie tak", provider.get() != LocalDateTime.now()); 
     }
 
     @Test
     public void dbObjectHolder_getCar_method_should_return_a_car(){
         DbObjectHolder myHolder = createHolder();
         CarImpl car = myHolder.getCar();
-        //System.out.println("DANE AUTA Z HOLDERA:"+ car.getBrand() +"   "+ car.getColor());
         assertEquals("Powinien zwrócić brand: Audi ", car.getBrand(), "Audi");
     }
 
@@ -184,6 +177,7 @@ public class DateMockTest {
         DbObjectHolder myHolder2 = createHolder();
         assertEquals(myHolder2.getCreationDate().get(), timestamp);
         assertEquals(true, DbObjectProperties.isTrackCreationDate());
-
     }
+
+
 }

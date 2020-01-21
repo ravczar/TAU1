@@ -21,6 +21,12 @@ public class DbObjectProperties {
         DbObjectProperties.trackAccessDate = trackAccessDate;
     }
 
+    public static void setAllParamsToTrue() {
+        DbObjectProperties.trackAccessDate = true;
+        DbObjectProperties.trackModificationDate = true;
+        DbObjectProperties.trackCreationDate = true;
+    }
+
     // Getters
     public static boolean isTrackCreationDate() {
         return trackCreationDate;

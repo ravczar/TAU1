@@ -1,9 +1,9 @@
 package cars.s16281.tau.labone;
 
-import cars.s16281.tau.labone.services.CarImpl;
+//import cars.s16281.tau.labone.services.CarImpl;
 import cars.s16281.tau.labone.services.DbImpl;
-import cars.s16281.tau.labone.services.EngineImpl;
-import cars.s16281.tau.labone.services.GearboxImpl;
+//import cars.s16281.tau.labone.services.EngineImpl;
+//import cars.s16281.tau.labone.services.GearboxImpl;
 
 /**
  * Hello world!
@@ -17,7 +17,7 @@ public class App
         DbImpl MYdatabase = new DbImpl();
         System.out.println("NUMBER OF ENTRIES: " + MYdatabase.getNumberOfEntries());
         System.out.println(MYdatabase.carList.size());
-
+        /*
         CarImpl nowy = new CarImpl(0 ,"Gray", "Volkswagen", "Patheon", "Sedan",
          true, new EngineImpl(), new GearboxImpl() );
         MYdatabase.carList.add(nowy);
@@ -55,7 +55,7 @@ public class App
         System.out.println("NUMOFENTR: " + MYdatabase.getNumberOfEntries());
         System.out.println("ID SAMOCHODU W KLASIE CAR: " + MYdatabase.readSpecificRecord(1).getId() + " KOLOR: " + MYdatabase.readSpecificRecord(0).getColor());
 
-        
+        */
 
     }
 }

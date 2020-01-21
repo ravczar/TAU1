@@ -23,19 +23,19 @@ public class DbObjectHolder {
         return this.car;
     }
 
-    private void updateAccessDate(){
+    public void updateAccessDate(){
         if(DbObjectProperties.isTrackAccessDate()) {
             this.accessDate = Optional.of(timeProvider.get());
         }
     }
 
-    private void updateCreationDate() {
+    public void updateCreationDate() {
         if(DbObjectProperties.isTrackCreationDate()) {
             this.creationDate = Optional.of(timeProvider.get());
         }
     }
 
-    private void updateModificationDate() {
+    public void updateModificationDate() {
         if(DbObjectProperties.isTrackModificationDate()) {
             this.modificationDate = Optional.of(timeProvider.get());
         }
