@@ -21,7 +21,6 @@ import cars.s16281.tau.labone.services.GearboxImpl;
 import cars.s16281.tau.labone.services.DateTimeProvider;;
 
 
-
 public class DateMockTest {
 
     private LocalDateTime timestamp;
